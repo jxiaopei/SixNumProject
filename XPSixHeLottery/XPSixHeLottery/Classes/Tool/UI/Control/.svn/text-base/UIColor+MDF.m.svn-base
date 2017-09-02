@@ -1,0 +1,32 @@
+//
+//  UIColor+MDP.m
+//  MDPFramework
+//
+//  Created by 谢进展 on 14-6-6.
+//  Copyright (c) 2014年 谢进展. All rights reserved.
+//
+
+#import "UIColor+MDF.h"
+
+@implementation UIColor (MDF)
+
+- (UIColor *)mdf_inverseColor
+{
+    const CGFloat *componentColors = CGColorGetComponents(self.CGColor);
+    
+    UIColor *inversedColor = [[UIColor alloc] initWithRed:(1.0 - componentColors[0])
+                                                    green:(1.0 - componentColors[1])
+                                                     blue:(1.0 - componentColors[2])
+                                                    alpha:componentColors[3]];
+    return inversedColor;
+}
+
+- (UIColor *)mdf_saturateColor
+{
+    CGFloat hue, saturation, brightness, alpha;
+    [self getHue:&hue saturation:&saturation brightness:&brightness alpha:&alpha];
+    saturation += 0.1;
+    return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:alpha];
+}
+
+@end

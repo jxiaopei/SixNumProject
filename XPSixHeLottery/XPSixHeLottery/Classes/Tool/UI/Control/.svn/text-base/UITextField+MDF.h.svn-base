@@ -1,0 +1,22 @@
+//
+//  UITextField+MDF.h
+//  JDBClient
+//
+//  Created by You Tu on 15/1/28.
+//  Copyright (c) 2015年 JDB. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface UITextField (MDF)
+
+// 返回对应alignment的textfield 默认textfield使用autoLayout
++ (instancetype)mdf_textFieldWithTextAlignment:(NSTextAlignment)alignment;
+
+// 返回对应alignment的textfield autolayout 属性标记是否使用autoLayout
++ (instancetype)mdf_textFieldWithTextAlignment:(NSTextAlignment)alignment autoLayout:(BOOL)autoLayout;
+
+// 返回与textfield各主要属性一致的UITextField
++ (instancetype)mdf_clone:(UITextField *)textField;
+
+@end

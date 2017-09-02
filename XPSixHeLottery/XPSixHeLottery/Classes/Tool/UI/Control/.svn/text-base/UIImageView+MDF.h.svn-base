@@ -1,0 +1,16 @@
+//
+//  UIImageView+MDF.h
+//  JDBClient
+//
+//  Created by xiejinzhan on 14-8-6.
+//  Copyright (c) 2014年 JDB. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface UIImageView (MDF)
+
+// Frame适应图片尺寸
+- (void)mdf_setImageAndResizeFrame:(UIImage *)image;
+
+@end

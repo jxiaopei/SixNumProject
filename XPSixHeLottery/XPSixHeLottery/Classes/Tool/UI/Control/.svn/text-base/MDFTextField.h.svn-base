@@ -1,0 +1,25 @@
+//
+//  MDFTextField.h
+//  JDBClient
+//
+//  Created by You Tu on 15/1/20.
+//  Copyright (c) 2015年 JDB. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface MDFTextField : UITextField
+
+// 是否不允许弹出 pop menu
+@property (nonatomic, assign) BOOL disableAction;
+
+// 占位符显示的字体颜色
+@property (nonatomic, retain) UIColor *placeholderTextColor;
+// 占位符显示的字体大小
+@property (nonatomic, retain) UIFont *placeholderFont;
+// 显示内容的padding
+@property (nonatomic, assign) UIEdgeInsets textInsets;
+
++ (MDFTextField *)clone:(MDFTextField *)textField;
+
+@end

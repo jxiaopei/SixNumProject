@@ -1,0 +1,45 @@
+//
+//  UITextField+MDF.m
+//  JDBClient
+//
+//  Created by You Tu on 15/1/28.
+//  Copyright (c) 2015年 JDB. All rights reserved.
+//
+
+#import "UITextField+MDF.h"
+
+@implementation UITextField (MDF)
+
+// 返回对应alignment的label 默认label使用autoLayout
++ (instancetype)mdf_textFieldWithTextAlignment:(NSTextAlignment)alignment
+{
+    return [self mdf_textFieldWithTextAlignment:alignment autoLayout:YES];
+}
+
+// 返回对应alignment的label autolayout 属性标记是否使用autoLayout
++ (instancetype)mdf_textFieldWithTextAlignment:(NSTextAlignment)alignment autoLayout:(BOOL)autoLayout
+{
+    UITextField *textField = nil;
+    if (autoLayout) {
+        textField = [[self alloc] initForAutoLayout];
+    } else {
+        textField = [[self alloc] init];
+    }
+    textField.backgroundColor = [UIColor clearColor];
+    textField.textAlignment = alignment;
+    return textField;
+}
+
+// 返回与label各主要属性一致的UILabel
++ (instancetype)mdf_clone:(UITextField *)textField
+{
+    UITextField *cloned = [[self alloc] init];
+    cloned.backgroundColor = textField.backgroundColor;
+    cloned.textColor = textField.textColor;
+    cloned.font = textField.font;
+    cloned.textAlignment = textField.textAlignment;
+    cloned.translatesAutoresizingMaskIntoConstraints = textField.translatesAutoresizingMaskIntoConstraints;
+    return cloned;
+}
+
+@end

@@ -1,0 +1,35 @@
+//
+//  IDPProgressView.h
+//  IDP
+//
+//  Created by zhoubing on 14-2-13.
+//
+//
+
+#import <UIKit/UIKit.h>
+
+@interface MDFProgressView : UIView
+{
+    CGFloat _progress;
+    CGFloat _indentation;
+}
+
+@property (nonatomic, strong) UIColor *backColor;//背景颜色
+@property (nonatomic, strong) UIColor *progressColor;//进度条颜色
+@property (nonatomic, strong) UIImage *backImage;//背景图片
+@property (nonatomic, strong) UIImage *progressImage;//进度条图片
+@property (nonatomic, strong) UIImageView *backImageView;
+@property (nonatomic, strong) UIImageView *progressImageView;
+@property (nonatomic, assign) CGFloat progress;
+@property (nonatomic, assign) CGFloat indentation;//progressView左右缩进，以避免背景图有边框而进度条从0开始走
+
+/**
+ *  初始化生成progressView
+ *
+ *  @param frame progressView的frame
+ */
+- (id)initWithFrame:(CGRect)frame;
+
+- (void)setProgress:(CGFloat)progress animated:(BOOL)animated;
+
+@end

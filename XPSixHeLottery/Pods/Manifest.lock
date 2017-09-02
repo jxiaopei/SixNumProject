@@ -1,0 +1,55 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - Masonry (1.0.2)
+  - MBProgressHUD (1.0.0)
+  - MJExtension (3.0.13)
+  - MJRefresh (3.1.12)
+  - PNChart (0.8.9):
+    - UICountingLabel (~> 1.2.0)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
+  - SVProgressHUD (2.1.2)
+  - UICountingLabel (1.2.0)
+  - YYCache (1.0.4)
+
+DEPENDENCIES:
+  - AFNetworking
+  - Masonry
+  - MBProgressHUD
+  - MJExtension
+  - MJRefresh
+  - PNChart
+  - SDWebImage
+  - SVProgressHUD
+  - YYCache
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJExtension: 5932755f451458eefa24239358817f8d291240c7
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  PNChart: 84774d225c2126ded6c93d4dbe6ae98c3a73c2d2
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+
+PODFILE CHECKSUM: c1e7d93882d26d76ce91bc6851fbf03a3d8cc31d
+
+COCOAPODS: 1.2.1

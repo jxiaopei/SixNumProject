@@ -1,0 +1,22 @@
+//
+//  UIWebView+MDF.h
+//  JDBClient
+//
+//  Created by You Tu on 15/3/3.
+//  Copyright (c) 2015年 JDB. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface UIWebView (MDF)
+
+// 加载 bundle 中 name.html
+- (void)loadLocalHtmlWithName:(NSString *)name;
+
+- (void)clearCache;
+- (void)cleanForDealloc;
+
+// 释放 webview 所需操作
+- (void)clear;
+
+@end

@@ -1,0 +1,15 @@
+//
+//  UINavigationController+MDF.h
+//  JDBClient
+//
+//  Created by You Tu on 15/2/4.
+//  Copyright (c) 2015年 JDB. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface UINavigationController (MDF)
+
+- (NSArray *)mdf_popToLastViewController:(Class)viewControllerClass;
+
+@end

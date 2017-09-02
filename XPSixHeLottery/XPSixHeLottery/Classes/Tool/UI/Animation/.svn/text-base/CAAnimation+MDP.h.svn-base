@@ -1,0 +1,17 @@
+//
+//  CAAnimation+MDP.h
+//  MDPFramework
+//
+//  Created by xiejinzhan on 14-8-6.
+//  Copyright (c) 2014年 jz. All rights reserved.
+//
+
+#import <QuartzCore/QuartzCore.h>
+
+@interface CAAnimation (MDP)
+
+//如果需要设置CompletionBlock与delegate同时进行，delegate应该要在设置completion之前设置
+@property (nonatomic, copy) void (^completionBlock)(BOOL finished);
+@property (nonatomic, copy) void (^startBlock)(void);
+
+@end

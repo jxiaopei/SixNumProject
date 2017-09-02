@@ -1,0 +1,86 @@
+//
+//  UIScrollView+MDF.m
+//  JDBClient
+//
+//  Created by You Tu on 15/1/26.
+//  Copyright (c) 2015年 JDB. All rights reserved.
+//
+
+#import "UIScrollView+MDF.h"
+
+@implementation UIScrollView (MDF)
+
+- (void)setContentOffsetX:(CGFloat)contentOffsetX
+{
+    CGPoint contentOffset = self.contentOffset;
+    contentOffset.x = contentOffsetX;
+    self.contentOffset = contentOffset;
+}
+
+- (CGFloat)contentOffsetX
+{
+    return self.contentOffset.x;
+}
+
+- (void)setContentOffsetY:(CGFloat)contentOffsetY
+{
+    CGPoint contentOffset = self.contentOffset;
+    contentOffset.y = contentOffsetY;
+    self.contentOffset = contentOffset;
+}
+
+- (CGFloat)contentOffsetY
+{
+    return self.contentOffset.y;
+}
+
+- (void)setContentInsetTop:(CGFloat)contentInsetTop
+{
+    UIEdgeInsets edgeInsets = self.contentInset;
+    edgeInsets.top = contentInsetTop;
+    self.contentInset = edgeInsets;
+}
+
+- (CGFloat)contentInsetTop
+{
+    return self.contentInset.top;
+}
+
+- (void)setContentInsetLeft:(CGFloat)contentInsetLeft
+{
+    UIEdgeInsets edgeInsets = self.contentInset;
+    edgeInsets.left = contentInsetLeft;
+    self.contentInset = edgeInsets;
+}
+
+- (CGFloat)contentInsetLeft
+{
+    return self.contentInset.left;
+}
+
+- (void)setContentInsetBottom:(CGFloat)contentInsetBottom
+{
+    UIEdgeInsets edgeInsets = self.contentInset;
+    edgeInsets.bottom = contentInsetBottom;
+    self.contentInset = edgeInsets;
+
+}
+
+- (CGFloat)contentInsetBottom
+{
+    return self.contentInset.bottom;
+}
+
+- (void)setContentInsetRight:(CGFloat)contentInsetRight
+{
+    UIEdgeInsets edgeInsets = self.contentInset;
+    edgeInsets.right = contentInsetRight;
+    self.contentInset = edgeInsets;
+}
+
+- (CGFloat)contentInsetRight
+{
+    return self.contentInset.right;
+}
+
+@end
