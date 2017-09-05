@@ -68,8 +68,9 @@
 -(void)setDataModel:(XPBIntegralDataModel *)dataModel
 {
     _dataModel = dataModel;
-    
-    
+    _dateLabel.text = [dataModel.create_time substringToIndex:dataModel.create_time.length - 3];
+    _sorceLabel.text = dataModel.mission_point;
+    _detailLabel.text = dataModel.mission_name;
 }
 
 @end

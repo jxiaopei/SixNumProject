@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XPBSignInMissionModel.h"
 
 @interface XPBSignInTableViewCell : UITableViewCell
+
+@property(nonatomic,strong)XPBSignInMissionModel *dataModel;
 
 @end

@@ -23,12 +23,16 @@
 #define StringFormat(string, args...)       [NSString stringWithFormat:string, args]
 
 
-#define BaseHttpUrl   NETWORK_STATE ? @"http://169.56.130.24:8088" : @"http://172.16.3.200:8080"//@"http://172.16.5.237:8088"//@"http://172.16.3.200:8080"
+#define BaseHttpUrl   NETWORK_STATE ? @"http://169.56.130.24:8088" : @"http://172.16.5.237:8088"//@"http://172.16.5.237:8088"//@"http://172.16.3.200:8080"
 #define BaseUrl(url)  [NSString stringWithFormat:@"%@%@",BaseHttpUrl,url]
 
 #define HomepageUrl      @"/user/homepage/getIndex"                            //首页
 #define LotteryHistory   @"/user/lottery/getAppLotteryHistoryList"             //开奖历史
 #define OpenAPPAdvList   @"/user/homepage/queryAdvertisementList"              //引导页
+//签到
+#define SignInDetail     @"/user/integral/queryIntegralTasklList"              //签到任务
+#define SignInList       @"/user/integral/querySignInlList"                    //签到列表
+#define SignInAction     @"/user/integral/insertSignIn"                        //签到
 //新闻
 #define NewsListPage     @"/user/news/getNewsListPage"                         //新闻
 #define NewsDetail       @"/user/news/getNewsDetail"                           //新闻详情
@@ -43,6 +47,7 @@
 #define ImageDetail      @"/user/image/selectImgerDetails"                     //图片详情
 //个人页面
 #define UserPartnerList  @"/user/mobile/userPartner"                           //合作伙伴列表
+#define IntegralDetail   @"/user/integral/queryIntegralList"                   //积分详情
 #define UserRegist       @"/user/mobile/registerApp"                           //注册
 #define UserLogin        @"/user/mobile/loginApp"                              //登录
 //论坛

@@ -69,26 +69,28 @@
     header.frame = CGRectMake(0, 0, SCREENWIDTH, 250);
     header.backgroundColor = [UIColor grayColor];
     
-    UIView *personalView = [UIView new];
+    UIImageView *personalView = [UIImageView new];
     [header addSubview:personalView];
     [personalView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.mas_equalTo(2);
-        make.right.mas_equalTo(-2);
-        make.height.mas_equalTo(146);
+        make.top.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.height.mas_equalTo(150);
     }];
-    personalView.layer.masksToBounds = YES;
-    personalView.layer.cornerRadius = 5;
-    personalView.backgroundColor = GlobalPersonalRedColor;
+    personalView.image = [UIImage imageNamed:@"个人中心背景"];
     
     UIImageView *iconView = [UIImageView new];
     [personalView addSubview:iconView];
-    iconView.frame = CGRectMake(30, 10 , 76, 76);
-    iconView.image = [UIImage imageNamed:@"personal"];
+    [iconView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(40);
+        make.centerY.mas_equalTo(0);
+        make.height.width.mas_equalTo(60);
+    }];
+    iconView.image = [UIImage imageNamed:@"默认头像 (1)"];
     
     UILabel *statusLabel = [UILabel new];
     [personalView addSubview:statusLabel];
     [statusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(iconView.mas_right).mas_offset(20);
+        make.left.mas_equalTo(iconView.mas_right).mas_offset(30);
         make.centerY.mas_equalTo(iconView.mas_centerY);
     }];
     statusLabel.font = [UIFont systemFontOfSize:18];
@@ -96,37 +98,17 @@
     if([BPUserModel shareModel].isLoginOtherView)
     {
         statusLabel.text = [BPUserModel shareModel].userName;
-//        [BPUserModel shareModel].isLoginOtherView = NO;
     }else{
-       statusLabel.text =  @"登录/注册";
+        statusLabel.text =  @"登录/注册";
     }
-    
     _statusLabel = statusLabel;
     
-    UIView *massageView = [UIView new];
-    [personalView addSubview:massageView];
-    [massageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.mas_equalTo(0);
-        make.height.mas_equalTo(50);
-    }];
-    massageView.backgroundColor = [UIColor whiteColor];
-    
-    UILabel *msgLabel = [UILabel new];
-    [massageView addSubview:msgLabel];
-    [msgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(0);
-        make.centerX.mas_equalTo(0);
-        make.width.mas_equalTo(massageView.mas_width);
-    }];
-    msgLabel.font = [UIFont systemFontOfSize:18];
-    msgLabel.textColor = [UIColor blackColor];
-    msgLabel.text = @"随时随地,随心所欲,手机购彩!";
-    msgLabel.textAlignment = NSTextAlignmentCenter;
-    
     UIButton *loginBtn = [UIButton new];
-    [personalView addSubview:loginBtn];
+    [header addSubview:loginBtn];
     [loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.top.mas_equalTo(0);
+        make.top.left.mas_equalTo(0);
+        make.right.mas_equalTo(0);
+        make.height.mas_equalTo(150);
     }];
     [loginBtn addTarget:self action:@selector(didClickLoginBtn:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -148,7 +130,7 @@
     collectionView.delegate = self;
     collectionView.dataSource = self;
     [collectionView registerClass:[XPBMainPageCollectionViewCell class] forCellWithReuseIdentifier:@"personalCollectionCViewell"];
-    
+
     return header;
 }
 
@@ -274,7 +256,7 @@
         return cell;
     }else{
         XPBNewsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"personalCell" forIndexPath:indexPath];
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"personal"]];
+        cell.imageView.image = [UIImage imageNamed:self.titleArr[indexPath.row]];
         cell.textLabel.text = self.titleArr[indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;

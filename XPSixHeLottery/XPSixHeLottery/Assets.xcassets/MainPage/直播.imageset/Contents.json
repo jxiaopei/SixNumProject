@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "直播.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "zhibo.png",
       "scale" : "2x"
     },
     {

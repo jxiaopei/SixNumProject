@@ -11,6 +11,8 @@
 @interface XPBSignInTableViewCell()
 
 @property(nonatomic,strong)UIButton *completeBtn;
+@property(nonatomic,strong)UILabel *missionLabel;
+@property(nonatomic,strong)UIButton *scoreBtn;
 
 @end
 
@@ -36,6 +38,7 @@
         
         UILabel *missionLabel = [UILabel new];
         [self addSubview:missionLabel];
+        _missionLabel = missionLabel;
         [missionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(0);
             make.left.mas_equalTo(completeBtn.mas_right).mas_offset(10);
@@ -48,6 +51,7 @@
         
         UIButton *scoreBtn = [UIButton new];
         [self addSubview:scoreBtn];
+        _scoreBtn =scoreBtn;
         [scoreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(0);
             make.right.mas_equalTo(-30);
@@ -73,6 +77,15 @@
 
     }
     return self;
+}
+
+-(void)setDataModel:(XPBSignInMissionModel *)dataModel
+{
+    _dataModel = dataModel;
+    _completeBtn.selected = dataModel.mission_stat ;
+    _scoreBtn.backgroundColor = dataModel.mission_stat ? [UIColor blackColor] : [UIColor grayColor];
+    [_scoreBtn setTitle:dataModel.mission_point forState:UIControlStateNormal];
+    _missionLabel.text = dataModel.mission_name;
 }
 
 

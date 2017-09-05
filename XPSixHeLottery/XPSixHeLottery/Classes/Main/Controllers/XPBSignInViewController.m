@@ -9,12 +9,17 @@
 #import "XPBSignInViewController.h"
 #import "XPBSignInTableViewCell.h"
 #import "XPBSignInCollectionViewCell.h"
+#import "XPBSignInMissionModel.h"
+#import "XPBIntegralDataModel.h"
 
 @interface XPBSignInViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UICollectionView *dateCollectionView;
-@property(nonatomic,strong)NSMutableArray *dataArr;
+@property(nonatomic,strong)NSMutableArray <XPBSignInMissionModel *>*dataArr;
+@property(nonatomic,strong)NSMutableArray <XPBIntegralDataModel *>*signInDataArr;
+@property(nonatomic,assign)NSInteger daysOfMonth;
+@property(nonatomic,strong)UILabel *tipLabel;
 
 @end
 
@@ -24,21 +29,41 @@
     [super viewDidLoad];
     self.title = @"签到";
     [self setupTableView];
+    [self getData];
 }
 
 -(void)getData{
-    NSLog(@"%@",BaseUrl(StatisSpeHis));
+    NSLog(@"%@",BaseUrl(SignInList));
     NSDictionary *dict = @{
                            @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef",
-                           @"uri":StatisSpeHis,
-                           @"paramData":@{}
+                           @"uri":SignInList,
+                           @"paramData":@{@"user_account" : [BPUserModel shareModel].userAccount}
                            };
-    [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(StatisSpeHis) parameters:dict success:^(id responseObject) {
+    [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(SignInList) parameters:dict success:^(id responseObject) {
+        NSLog(@"%@",[responseObject mj_JSONString]);
+        if([responseObject[@"code"] isEqualToString:@"0000"]){
+            _signInDataArr = [XPBIntegralDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            _tipLabel.text = [NSString stringWithFormat:@"您本月已连续签到%zd天",_signInDataArr.count];
+            [_dateCollectionView reloadData];
+        }else{
+            
+        }
+    } fail:^(NSError *error) {
+        
+    }];
+    NSLog(@"%@",BaseUrl(SignInDetail));
+    NSDictionary *signDict = @{
+                           @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef",
+                           @"uri":SignInDetail,
+                           @"paramData":@{@"user_account" : [BPUserModel shareModel].userAccount,
+                                          @"operation_type" : @"1"}
+                           };
+    [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(SignInDetail) parameters:signDict success:^(id responseObject) {
         NSLog(@"%@",[responseObject mj_JSONString]);
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
-            
-            
+            self.dataArr = [XPBSignInMissionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
+            [self.tableView reloadData];
         }else{
             
         }
@@ -96,15 +121,54 @@
         make.top.mas_equalTo(5);
     }];
     titleLabel.font = [UIFont fontWithName:@"ArialMT"size:18];
-    titleLabel.text = @"签到表 xxxx年xx月";
+    NSDate *date = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"yyyy年MM月"];
+    NSString *dateStr = [formatter stringFromDate:date];
+    titleLabel.text = [NSString stringWithFormat:@"签到表 %@",dateStr];
     titleLabel.textColor = [UIColor blackColor];
     
+    [formatter setDateFormat:@"MM"];
+    NSString *monthStr = [formatter stringFromDate:date];
+    NSInteger month = monthStr.integerValue;
+    
+    dateStr = [dateStr  substringToIndex:3];
+    NSInteger year = dateStr.integerValue;
+    
+    NSInteger daysOfMonth = 0;
+    
+    switch (month) {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            daysOfMonth = 31;
+            break;
+        case 2:
+            if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+                daysOfMonth = 29;
+            }else{
+                daysOfMonth = 28;
+            }
+            break;
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            daysOfMonth = 30;
+            break;
+    }
+    _daysOfMonth = daysOfMonth;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.itemSize = CGSizeMake(SCREENWIDTH/11, SCREENWIDTH/11 + 5);
+    layout.itemSize = CGSizeMake((SCREENWIDTH- 4)/11, SCREENWIDTH/11 + 5);
     UICollectionView *dateCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 70 , SCREENWIDTH, (SCREENWIDTH/11 + 5)*3) collectionViewLayout:layout];
     [header addSubview:dateCollectionView];
     dateCollectionView.backgroundColor = [UIColor whiteColor];
+    [dateCollectionView setContentInset:UIEdgeInsetsMake(2, 2, 0,2)];
     _dateCollectionView = dateCollectionView;
     dateCollectionView.pagingEnabled = YES;
     dateCollectionView.delegate = self;
@@ -130,6 +194,7 @@
     tipLabel.text = @"您本月已连续签到xx天";
     tipLabel.font = [UIFont systemFontOfSize:14];
     tipLabel.textColor = [UIColor blackColor];
+    _tipLabel = tipLabel;
     
     UIButton *signInBtn = [UIButton new];
     [header addSubview:signInBtn];
@@ -144,19 +209,63 @@
     signInBtn.backgroundColor = GlobalOrangeColor;
     signInBtn.layer.masksToBounds = YES;
     signInBtn.layer.cornerRadius = 10;
+    [signInBtn addTarget:self action:@selector(didClickSignInBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     return header;
+}
+
+-(void)didClickSignInBtn:(UIButton *)sender{
+    NSLog(@"%@",BaseUrl(SignInAction));
+    NSString *missionId = nil;
+    for(XPBSignInMissionModel *model in  _dataArr)
+    {
+        if([model.mission_name isEqualToString:@"签到"]){
+            missionId = model.Id;
+        }
+    }
+    if([missionId isNotNil]){
+        NSDictionary *dict = @{
+                               @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef",
+                               @"uri":SignInAction,
+                               @"paramData":@{@"user_account" : [BPUserModel shareModel].userAccount,
+                                              @"mission_id" : missionId,
+                                              }
+                               };
+        [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(SignInAction) parameters:dict success:^(id responseObject) {
+            NSLog(@"%@",[responseObject mj_JSONString]);
+            if([responseObject[@"code"] isEqualToString:@"0000"])
+            {
+                
+                
+            }else{
+                
+            }
+        } fail:^(NSError *error) {
+            NSLog(@"%@",error.description);
+        }];
+    }
+    
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     XPBSignInCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"signInDateCell" forIndexPath:indexPath];
+    NSString *dateStr = [NSString stringWithFormat:@"%zd",indexPath.row + 1];
+    [cell.btn setTitle:dateStr forState:UIControlStateNormal];
+    for(XPBIntegralDataModel *model in _signInDataArr)
+    {
+        NSString *signInStr = [model.create_time substringWithRange:NSMakeRange(8, 2)];
+        if(dateStr.integerValue == signInStr.integerValue)
+        {
+            cell.btn.selected = YES;
+        }
+    }
     return cell;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 31;
+    return _daysOfMonth;
 }
 
 -(CGFloat )collectionView:(UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
@@ -172,17 +281,19 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView  layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    return CGSizeMake(SCREENWIDTH/11, SCREENWIDTH/11 + 5);
+    return CGSizeMake((SCREENWIDTH- 4)/11, SCREENWIDTH/11 + 5);
 }
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return self.dataArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XPBSignInTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"signInMissionCell" forIndexPath:indexPath];
+    cell.dataModel = _dataArr[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -191,5 +302,12 @@
     return 50;
 }
 
+-(NSMutableArray <XPBSignInMissionModel *>*)dataArr{
+    if(_dataArr == nil)
+    {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
+}
 
 @end

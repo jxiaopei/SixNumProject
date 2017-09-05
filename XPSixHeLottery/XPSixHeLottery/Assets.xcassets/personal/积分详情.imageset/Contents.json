@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "jifen.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "jifen-1.png",
       "scale" : "2x"
     },
     {

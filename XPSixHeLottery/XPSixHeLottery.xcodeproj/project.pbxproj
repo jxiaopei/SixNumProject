@@ -34,6 +34,7 @@
 		882CC2A21F5A69A6001D2876 /* XPBIntegralTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A11F5A69A6001D2876 /* XPBIntegralTableViewCell.m */; };
 		882CC2A51F5A69EA001D2876 /* XPBIntegralDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A41F5A69EA001D2876 /* XPBIntegralDataModel.m */; };
 		882CC2A81F5A8675001D2876 /* XPBHumorPicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A71F5A8675001D2876 /* XPBHumorPicDetailViewController.m */; };
+		8872AA761F5D3C2C0032D912 /* XPBSignInMissionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8872AA751F5D3C2C0032D912 /* XPBSignInMissionModel.m */; };
 		8898A7751F3AC9930062473C /* XPBMantissaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8898A7741F3AC9930062473C /* XPBMantissaTableViewCell.m */; };
 		8898A7781F3ACDB70062473C /* XPBMantissaDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8898A7771F3ACDB70062473C /* XPBMantissaDataModel.m */; };
 		8898A77B1F3AD0FD0062473C /* XPBMantissaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8898A77A1F3AD0FD0062473C /* XPBMantissaViewController.m */; };
@@ -206,6 +207,8 @@
 		882CC2A41F5A69EA001D2876 /* XPBIntegralDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBIntegralDataModel.m; sourceTree = "<group>"; };
 		882CC2A61F5A8675001D2876 /* XPBHumorPicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBHumorPicDetailViewController.h; sourceTree = "<group>"; };
 		882CC2A71F5A8675001D2876 /* XPBHumorPicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBHumorPicDetailViewController.m; sourceTree = "<group>"; };
+		8872AA741F5D3C2C0032D912 /* XPBSignInMissionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBSignInMissionModel.h; sourceTree = "<group>"; };
+		8872AA751F5D3C2C0032D912 /* XPBSignInMissionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBSignInMissionModel.m; sourceTree = "<group>"; };
 		8898A7731F3AC9930062473C /* XPBMantissaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBMantissaTableViewCell.h; sourceTree = "<group>"; };
 		8898A7741F3AC9930062473C /* XPBMantissaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBMantissaTableViewCell.m; sourceTree = "<group>"; };
 		8898A7761F3ACDB70062473C /* XPBMantissaDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBMantissaDataModel.h; sourceTree = "<group>"; };
@@ -846,6 +849,8 @@
 				8898A7B01F45C1730062473C /* XPBMarkSixLotteryModel.m */,
 				8898A7B21F45C85E0062473C /* XPBCooperationPartnerModel.h */,
 				8898A7B31F45C85E0062473C /* XPBCooperationPartnerModel.m */,
+				8872AA741F5D3C2C0032D912 /* XPBSignInMissionModel.h */,
+				8872AA751F5D3C2C0032D912 /* XPBSignInMissionModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1379,6 +1384,7 @@
 				88BC75951F346B4200726D56 /* BPBaseWebViewController.m in Sources */,
 				8898A81B1F4DA3910062473C /* DTextField.m in Sources */,
 				8898A77B1F3AD0FD0062473C /* XPBMantissaViewController.m in Sources */,
+				8872AA761F5D3C2C0032D912 /* XPBSignInMissionModel.m in Sources */,
 				8898A7AA1F45A6080062473C /* XPBNewsDataModel.m in Sources */,
 				8898A7DD1F4869D80062473C /* XPBLotteryHistroyViewController.m in Sources */,
 				882CC2991F56C93F001D2876 /* XPBSignInCollectionViewCell.m in Sources */,

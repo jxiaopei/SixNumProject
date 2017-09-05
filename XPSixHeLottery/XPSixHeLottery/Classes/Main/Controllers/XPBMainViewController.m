@@ -73,7 +73,7 @@
     UIScrollView *scrollView = [UIScrollView new];
     scrollView.backgroundColor = [UIColor whiteColor];
     _scrollview = scrollView;
-    scrollView.contentSize = CGSizeMake(SCREENWIDTH, 1000);
+    scrollView.contentSize = CGSizeMake(SCREENWIDTH, 1015);
     [self.view addSubview:scrollView];
     [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.left.right.mas_equalTo(0);
@@ -184,12 +184,12 @@
             if(self.newsArr.count == 0)
             {
                 _newsView.hidden = YES;
-                _bottomView.frame = CGRectMake(0, 180, SCREENWIDTH, 720);
-                _scrollview.contentSize = CGSizeMake(SCREENWIDTH, 880);
+                _bottomView.frame = CGRectMake(0, 180, SCREENWIDTH, 735);
+                _scrollview.contentSize = CGSizeMake(SCREENWIDTH, 895);
             }else{
                 _newsView.hidden = NO;
-                _bottomView.frame = CGRectMake(0, 300, SCREENWIDTH, 720);
-                _scrollview.contentSize = CGSizeMake(SCREENWIDTH, 1000);
+                _bottomView.frame = CGRectMake(0, 300, SCREENWIDTH, 735);
+                _scrollview.contentSize = CGSizeMake(SCREENWIDTH, 1015);
                 [_newsTableView reloadData];
             }
             
@@ -329,21 +329,27 @@
     UIView *bottomView = [UIView new];
     [self.scrollview addSubview:bottomView];
     bottomView.backgroundColor = [UIColor whiteColor];
-    bottomView.frame = CGRectMake(0, 300, SCREENWIDTH, 720);
+    bottomView.frame = CGRectMake(0, 300, SCREENWIDTH, 735);
     _bottomView = bottomView;
     
     UIView *lotteryView = [UIView new];
     [_bottomView addSubview:lotteryView];
     lotteryView.backgroundColor = GlobalLightGreyColor;
-    lotteryView.frame = CGRectMake(0, 0, SCREENWIDTH, 160);
+    lotteryView.frame = CGRectMake(0, 0, SCREENWIDTH, 175);
     UIImageView *backgroundImage = [UIImageView new];
     [lotteryView addSubview:backgroundImage];
+    [backgroundImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(5);
+        make.height.mas_equalTo(125);
+    }];
+    backgroundImage.image = [UIImage imageNamed:@"彩票背景图"];
     
     UILabel *peroidLabel = [UILabel new];
     [lotteryView addSubview:peroidLabel];
     [peroidLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(lotteryView.mas_centerX);
-        make.top.mas_equalTo(15);
+        make.top.mas_equalTo(20);
     }];
     peroidLabel.font = [UIFont systemFontOfSize:18];
     peroidLabel.textColor = [UIColor blackColor];
@@ -352,7 +358,7 @@
     UIButton *historyBtn = [UIButton new];
     [lotteryView addSubview:historyBtn];
     [historyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-10);
+        make.right.mas_equalTo(-20);
         make.centerY.mas_equalTo(peroidLabel.mas_centerY);
         make.height.mas_equalTo(30);
         make.width.mas_equalTo(60);
@@ -375,7 +381,7 @@
         UIButton *btn = [UIButton new];
         [lotteryView addSubview:btn];
         
-        btn.frame = CGRectMake(10 + (margant + btnW) * i, 45, btnW, btnW);
+        btn.frame = CGRectMake(10 + (margant + btnW) * i, 50, btnW, btnW);
         [btn setBackgroundImage:[UIImage imageNamed:@"红波"] forState:UIControlStateNormal];
         [btn setTitle:@"13" forState:UIControlStateNormal];
         [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 5, 5)];
@@ -383,7 +389,7 @@
         btn.tag = i;
         UILabel *zodiaLabel = [UILabel new];
         [lotteryView addSubview:zodiaLabel];
-        zodiaLabel.frame = CGRectMake(10 + (margant + btnW) * i,45 + btnW, btnW, 30);
+        zodiaLabel.frame = CGRectMake(10 + (margant + btnW) * i,50 + btnW, btnW, 30);
         zodiaLabel.textColor = [UIColor blackColor];
         zodiaLabel.textAlignment = NSTextAlignmentCenter;
         zodiaLabel.font = [UIFont systemFontOfSize:18];
@@ -394,7 +400,7 @@
     
     UIButton *plusBtn = [UIButton new];
     [lotteryView addSubview:plusBtn];
-    plusBtn.frame = CGRectMake(10 + (margant + btnW) * 6,45, 25, btnW);
+    plusBtn.frame = CGRectMake(10 + (margant + btnW) * 6,50, 25, btnW);
     [plusBtn setTitle:@"+" forState:UIControlStateNormal];
     [plusBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 10, 0)];
     [plusBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
@@ -403,14 +409,14 @@
     
     UIButton *spcNumBtn = [UIButton new];
     [lotteryView addSubview:spcNumBtn];
-    spcNumBtn.frame = CGRectMake(10 + (margant + btnW) * 6 + margant +25, 45, btnW, btnW);
+    spcNumBtn.frame = CGRectMake(10 + (margant + btnW) * 6 + margant +25, 50, btnW, btnW);
     [spcNumBtn setBackgroundImage:[UIImage imageNamed:@"绿波"] forState:UIControlStateNormal];
     [spcNumBtn setTitle:@"45" forState:UIControlStateNormal];
     [spcNumBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 5, 5)];
     [spcNumBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     UILabel *spcZodiaLabel = [UILabel new];
     [lotteryView addSubview:spcZodiaLabel];
-    spcZodiaLabel.frame = CGRectMake(10 + (margant + btnW) * 6 + margant +25, 45 + btnW, btnW, 30);
+    spcZodiaLabel.frame = CGRectMake(10 + (margant + btnW) * 6 + margant +25, 50 + btnW, btnW, 30);
     spcZodiaLabel.textColor = [UIColor blackColor];
     spcZodiaLabel.font = [UIFont systemFontOfSize:18];
     spcZodiaLabel.textAlignment = NSTextAlignmentCenter;
@@ -421,7 +427,7 @@
     
     UIView *nextView = [UIView new];
     [lotteryView addSubview:nextView];
-    nextView.frame = CGRectMake(10, 55 + 30 +  btnW, SCREENWIDTH - 20, 30);
+    nextView.frame = CGRectMake(10, 70 + 30 +  btnW, SCREENWIDTH - 20, 30);
     nextView.layer.masksToBounds = YES;
     nextView.layer.cornerRadius = 15;
     nextView.layer.borderWidth = 0.5;
@@ -485,7 +491,7 @@
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake((SCREENWIDTH -2*2)/3, 85);
-    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 160, SCREENWIDTH, 180) collectionViewLayout:layout];
+    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 175, SCREENWIDTH, 180) collectionViewLayout:layout];
     [_bottomView addSubview:collectionView];
     collectionView.tag = 200;
     collectionView.backgroundColor = GlobalLightGreyColor;
@@ -502,7 +508,7 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake(SCREENWIDTH, 80);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    UICollectionView *advertimentsView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 340, SCREENWIDTH, 80) collectionViewLayout:layout];
+    UICollectionView *advertimentsView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 355, SCREENWIDTH, 80) collectionViewLayout:layout];
     [self.bottomView addSubview:advertimentsView];
     advertimentsView.tag = 300;
     advertimentsView.backgroundColor = [UIColor redColor];
@@ -517,7 +523,7 @@
 {
     UIView *inforView = [UIView new];
     [self.bottomView addSubview:inforView];
-    inforView.frame = CGRectMake(0, 420, SCREENWIDTH, 160);
+    inforView.frame = CGRectMake(0, 435, SCREENWIDTH, 160);
     UIView *freeView = [UIView new];
     [inforView addSubview:freeView];
     [freeView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -650,7 +656,7 @@
     
     UIView *cooperationView = [UIView new];
     [self.bottomView addSubview:cooperationView];
-    cooperationView.frame = CGRectMake(0, 580, SCREENWIDTH, 100);
+    cooperationView.frame = CGRectMake(0, 595, SCREENWIDTH, 100);
     UIView *titleView = [UIView new];
     [cooperationView addSubview:titleView];
     [titleView mas_makeConstraints:^(MASConstraintMaker *make) {

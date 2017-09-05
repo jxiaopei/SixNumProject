@@ -62,6 +62,18 @@ typedef void (^NetRequestFailedBlock)(NSError *error);//失败Block
                 success:(NetRequestSuccessBlock)success
                    fail:(NetRequestFailedBlock)fail;
 
+/**
+ *  Post形式提交数据
+ *
+ *  @param urlString  Url
+ *  @param parameters 参数
+ *  @param success    成功Block
+ *  @param fail       失败Block
+ */
+- (void)postJsonDataWithUrl:(NSString *)urlString
+                 parameters:(id)parameters
+                    success:(NetRequestSuccessBlock)success
+                       fail:(NetRequestFailedBlock)fail;
 
 /**
  *  Post形式提交数据(拦截接口数据用)

@@ -117,6 +117,39 @@
     }];
 }
 
+/**
+ *  Post形式提交数据
+ *
+ *  @param urlString  Url
+ *  @param parameters 参数
+ *  @param success    成功Block
+ *  @param fail       失败Block
+ */
+- (void)postJsonDataWithUrl:(NSString *)urlString
+             parameters:(id)parameters
+                success:(NetRequestSuccessBlock)success
+                   fail:(NetRequestFailedBlock)fail
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html",@"text/javascript",nil];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.requestSerializer  = [AFHTTPRequestSerializer serializer];
+    manager.requestSerializer.timeoutInterval = 20;
+    
+    [manager POST:urlString parameters:[LCNetDataParsing inputParsing:parameters] progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    }  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (success) {
+            success(responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        if (fail) {
+            fail(error);
+        }
+    }];
+}
+
 -(void)postDataWithUrl:(NSString *)urlString parameters:(id)parameters success:(NetRequestSuccessBlock)success fail:(NetRequestFailedBlock)fail
 {
     

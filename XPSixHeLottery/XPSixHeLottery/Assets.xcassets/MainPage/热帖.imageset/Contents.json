@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "热帖.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "gsrt.png",
       "scale" : "2x"
     },
     {

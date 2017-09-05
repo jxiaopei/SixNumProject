@@ -137,7 +137,7 @@
     }else if(indexPath.item == 13){
         XPBStatSingleBarChartViewController *singleBarChartVC = [XPBStatSingleBarChartViewController new];
         singleBarChartVC.statSingleBarType = StatisSpeNumHisType;
-        singleBarChartVC.title = @"特码历史";
+        singleBarChartVC.title = @"特码记录";
         [self.navigationController pushViewController:singleBarChartVC animated:YES];
     }else{
         XPBMantissaViewController *mantissaVC = [XPBMantissaViewController new];
@@ -152,7 +152,7 @@
 {
     XPBStatisticsCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"statisticsCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
-    [cell.iconView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"占位图"]];
+    cell.iconView.image = [UIImage imageNamed:self.titleArr[indexPath.row]];
     cell.titleLabel.text = self.titleArr[indexPath.row];
     return cell;
 }
@@ -174,7 +174,7 @@
 -(NSMutableArray *)titleArr
 {
     if(_titleArr == nil){
-      _titleArr = [NSMutableArray arrayWithObjects:@"六合统计",@"属性参考",@"特码历史",@"正码历史",@"尾数大小",@"生肖特码",@"生肖正码",@"波色特码",@"波色正码",@"特码两面",@"特码尾数",@"正码尾数",@"正码总分",@"特码历史",@"家禽野兽" ,nil];
+      _titleArr = [NSMutableArray arrayWithObjects:@"六合统计",@"属性参考",@"特码历史",@"正码历史",@"尾数大小",@"生肖特码",@"生肖正码",@"波色特码",@"波色正码",@"特码两面",@"特码尾数",@"正码尾数",@"正码总分",@"特码记录",@"家禽野兽" ,nil];
     }
     return _titleArr;
 }

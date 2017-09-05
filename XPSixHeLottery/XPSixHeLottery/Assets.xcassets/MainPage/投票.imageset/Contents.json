@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "投票.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "toupiao.png",
       "scale" : "2x"
     },
     {

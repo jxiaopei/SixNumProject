@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "积分icon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "jf.png",
       "scale" : "2x"
     },
     {
