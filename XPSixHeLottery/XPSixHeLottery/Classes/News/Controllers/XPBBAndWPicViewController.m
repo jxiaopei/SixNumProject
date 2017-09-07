@@ -159,7 +159,7 @@
             self.attentionTableView = tableView;
         }
         tableView.frame = CGRectMake(SCREENWIDTH *i, 0, SCREENWIDTH, SCREENHEIGHT - 64 - 40);
-        tableView.backgroundColor = [UIColor whiteColor]; //[UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1.0];
+        tableView.backgroundColor = [UIColor whiteColor]; 
         tableView.delegate = self;
         tableView.dataSource = self;
         [tableView registerClass:[XPBBAndWPicTableViewCell class] forCellReuseIdentifier:@"picNewsCell"];

@@ -11,7 +11,7 @@
 @interface XPBMainpageNewsTableViewCell()
 
 @property(nonatomic,strong)UILabel *newsTitle;
-@property(nonatomic,strong)UILabel *newsDetail;
+@property(nonatomic,strong)UITextView *newsDetail;
 @property(nonatomic,strong)UIImageView *newsImage;
 
 @end
@@ -35,18 +35,20 @@
         newsTitle.textColor = [UIColor blackColor];
         newsTitle.text = @"菲律宾新闻";
         
-        UILabel *newsDetail = [UILabel new];
+        UITextView  *newsDetail = [UITextView  new];
         [self addSubview:newsDetail];
         _newsDetail = newsDetail;
         [newsDetail mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(newsTitle);
             make.right.mas_equalTo(-10);
+            make.bottom.mas_equalTo(-5);
             make.top.mas_equalTo(newsTitle.mas_bottom).mas_offset(5);
         }];
         newsDetail.font = [UIFont systemFontOfSize:13];
         newsDetail.textColor = [UIColor grayColor];
-        newsDetail.numberOfLines = 3;
-        newsDetail.text = @"如下图所示，在安全与隐私窗口中，可以先在左下角解锁，再选择【任何来源】这个选项，就可以成功打开了";
+        newsDetail.text = @"新闻内容";
+        newsDetail.editable = NO;
+        newsDetail.userInteractionEnabled = NO;
         
         UIImageView *newsImage = [UIImageView new];
         [self addSubview:newsImage];
@@ -66,7 +68,8 @@
 {
     _model = model;
     _newsTitle.text = model.news_title;
-    _newsDetail.text = model.news_content;
+    NSAttributedString *attributeStr = [[NSAttributedString alloc]initWithData:[model.news_content dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute :NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+    _newsDetail.attributedText = attributeStr;
     
 }
 

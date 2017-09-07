@@ -60,7 +60,7 @@
                            @"paramData":@{@"main_id" :_mianId,@"user_id":uid}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(BBSDetail) parameters:dict success:^(id responseObject) {
-        NSLog(@"%@",[responseObject mj_JSONString]);
+//        NSLog(@"%@",[responseObject mj_JSONString]);
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             [_scrollView.mj_header endRefreshing];
@@ -123,6 +123,34 @@
     }];
     titleLabel.text = @"标题";
     titleLabel.font = [UIFont systemFontOfSize:18];
+    
+    UIButton *fristBtn = [UIButton new];
+    [titleView addSubview:fristBtn];
+    [fristBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.height.mas_equalTo(25);
+        make.width.mas_equalTo(40);
+        make.centerY.mas_equalTo(titleLabel.mas_centerY);
+    }];
+    [fristBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    fristBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    fristBtn.hidden  = YES;
+    fristBtn.layer.masksToBounds = YES;
+    fristBtn.layer.cornerRadius = 5;
+    
+    UIButton *secondBtn = [UIButton new];
+    [titleView addSubview:secondBtn];
+    [secondBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(fristBtn.mas_right).mas_offset(5);
+        make.height.mas_equalTo(25);
+        make.width.mas_equalTo(40);
+        make.centerY.mas_equalTo(titleLabel.mas_centerY);
+    }];
+    [secondBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    secondBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    secondBtn.hidden  = YES;
+    secondBtn.layer.masksToBounds = YES;
+    secondBtn.layer.cornerRadius = 5;
     
     UIButton *appreciatesBtn = [UIButton new];
     [titleView addSubview:appreciatesBtn];
@@ -210,6 +238,24 @@
         anthorLabel.text = [NSString stringWithFormat:@"楼主:%@", dataModel.main_user_name];
         dateLabel.text = dataModel.main_time;
         textView.text = dataModel.post_content;
+        
+        if(dataModel.is_top && dataModel.is_essene){
+            fristBtn.hidden = NO;
+            secondBtn.hidden = NO;
+            fristBtn.backgroundColor = [UIColor redColor];
+            secondBtn.backgroundColor = [UIColor blueColor];
+            [fristBtn setTitle:@"精华" forState:UIControlStateNormal];
+            [secondBtn setTitle:@"置顶" forState:UIControlStateNormal];
+        }else if (dataModel.is_top && !dataModel.is_essene){
+            fristBtn.hidden = NO;
+            fristBtn.backgroundColor = [UIColor blueColor];
+            [fristBtn setTitle:@"置顶" forState:UIControlStateNormal];
+        }else if(!dataModel.is_top && dataModel.is_essene){
+            fristBtn.hidden = NO;
+            fristBtn.backgroundColor = [UIColor redColor];
+            [fristBtn setTitle:@"精华" forState:UIControlStateNormal];
+        }
+        
         [weakSelf.appreciatesBtn setTitle:[NSString stringWithFormat:@"%zd",dataModel.like_count] forState:UIControlStateNormal];
        
         weakSelf.appreciatesBtn.selected = [dataModel.like_user_id isNotNil];
@@ -252,7 +298,7 @@
                                
                                };
         [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(BBSAppreciates) parameters:dict success:^(id responseObject) {
-            NSLog(@"%@",[responseObject mj_JSONString]);
+//            NSLog(@"%@",[responseObject mj_JSONString]);
             if([responseObject[@"code"] isEqualToString:@"0000"])
             {
                 [MBProgressHUD showSuccess:@"点赞成功"];

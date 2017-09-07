@@ -175,7 +175,6 @@
     
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
     _imageView = imageView;
-//    _imageView.userInteractionEnabled = YES;
     [scrollView addSubview:imageView];
     [imageView sizeToFit];
     UIImage *image = nil;

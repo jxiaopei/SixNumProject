@@ -57,7 +57,7 @@
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(VoteList) parameters:dict success:^(id responseObject) {
         [_scrollView.mj_header endRefreshing];
-        NSLog(@"%@",[responseObject mj_JSONString]);
+//        NSLog(@"%@",[responseObject mj_JSONString]);
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             self.didVoteGetData(responseObject);
@@ -139,7 +139,6 @@
     UIView *colorView = [UIView new];
     [self.scrollView addSubview:colorView];
     colorView.frame = CGRectMake(-10, 5, SCREENWIDTH/3 + 20, 30);
-//    colorView.backgroundColor = [UIColor blueColor];
     colorView.layer.masksToBounds = YES;
     colorView.layer.cornerRadius = 5;
     

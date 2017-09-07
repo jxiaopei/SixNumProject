@@ -35,6 +35,7 @@
 		882CC2A51F5A69EA001D2876 /* XPBIntegralDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A41F5A69EA001D2876 /* XPBIntegralDataModel.m */; };
 		882CC2A81F5A8675001D2876 /* XPBHumorPicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A71F5A8675001D2876 /* XPBHumorPicDetailViewController.m */; };
 		8872AA761F5D3C2C0032D912 /* XPBSignInMissionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8872AA751F5D3C2C0032D912 /* XPBSignInMissionModel.m */; };
+		8881FAB01F5E8770006EA4D6 /* XPBActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8881FAAF1F5E8770006EA4D6 /* XPBActionViewController.m */; };
 		8898A7751F3AC9930062473C /* XPBMantissaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8898A7741F3AC9930062473C /* XPBMantissaTableViewCell.m */; };
 		8898A7781F3ACDB70062473C /* XPBMantissaDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8898A7771F3ACDB70062473C /* XPBMantissaDataModel.m */; };
 		8898A77B1F3AD0FD0062473C /* XPBMantissaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8898A77A1F3AD0FD0062473C /* XPBMantissaViewController.m */; };
@@ -123,6 +124,8 @@
 		88BC75D71F34A19D00726D56 /* XPBNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88BC75D61F34A19D00726D56 /* XPBNewsViewController.m */; };
 		88BC75DA1F34A1C300726D56 /* XPBPersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88BC75D91F34A1C300726D56 /* XPBPersonalViewController.m */; };
 		88BC75DD1F34A1FC00726D56 /* XPBStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88BC75DC1F34A1FC00726D56 /* XPBStatisticsViewController.m */; };
+		88E7070B1F5E92AE00A7D6A1 /* XPBActionDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E7070A1F5E92AE00A7D6A1 /* XPBActionDataModel.m */; };
+		88E7070E1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E7070D1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m */; };
 		88F923E81F35878F00D44EDF /* XPBStatisticsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F923E71F35878F00D44EDF /* XPBStatisticsCell.m */; };
 		88F923EB1F358ADA00D44EDF /* XPBStatisticModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F923EA1F358ADA00D44EDF /* XPBStatisticModel.m */; };
 		88F923F31F35F3C000D44EDF /* XPBSixHeStatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F923F21F35F3C000D44EDF /* XPBSixHeStatViewController.m */; };
@@ -209,6 +212,8 @@
 		882CC2A71F5A8675001D2876 /* XPBHumorPicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBHumorPicDetailViewController.m; sourceTree = "<group>"; };
 		8872AA741F5D3C2C0032D912 /* XPBSignInMissionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBSignInMissionModel.h; sourceTree = "<group>"; };
 		8872AA751F5D3C2C0032D912 /* XPBSignInMissionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBSignInMissionModel.m; sourceTree = "<group>"; };
+		8881FAAE1F5E8770006EA4D6 /* XPBActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBActionViewController.h; sourceTree = "<group>"; };
+		8881FAAF1F5E8770006EA4D6 /* XPBActionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBActionViewController.m; sourceTree = "<group>"; };
 		8898A7731F3AC9930062473C /* XPBMantissaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBMantissaTableViewCell.h; sourceTree = "<group>"; };
 		8898A7741F3AC9930062473C /* XPBMantissaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBMantissaTableViewCell.m; sourceTree = "<group>"; };
 		8898A7761F3ACDB70062473C /* XPBMantissaDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBMantissaDataModel.h; sourceTree = "<group>"; };
@@ -381,6 +386,10 @@
 		88BC75D91F34A1C300726D56 /* XPBPersonalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBPersonalViewController.m; sourceTree = "<group>"; };
 		88BC75DB1F34A1FC00726D56 /* XPBStatisticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBStatisticsViewController.h; sourceTree = "<group>"; };
 		88BC75DC1F34A1FC00726D56 /* XPBStatisticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBStatisticsViewController.m; sourceTree = "<group>"; };
+		88E707091F5E92AE00A7D6A1 /* XPBActionDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBActionDataModel.h; sourceTree = "<group>"; };
+		88E7070A1F5E92AE00A7D6A1 /* XPBActionDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBActionDataModel.m; sourceTree = "<group>"; };
+		88E7070C1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBActionCollectionViewCell.h; sourceTree = "<group>"; };
+		88E7070D1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBActionCollectionViewCell.m; sourceTree = "<group>"; };
 		88F923E61F35878F00D44EDF /* XPBStatisticsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBStatisticsCell.h; sourceTree = "<group>"; };
 		88F923E71F35878F00D44EDF /* XPBStatisticsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBStatisticsCell.m; sourceTree = "<group>"; };
 		88F923E91F358ADA00D44EDF /* XPBStatisticModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBStatisticModel.h; sourceTree = "<group>"; };
@@ -834,6 +843,8 @@
 				88BC75D31F34A17400726D56 /* XPBMainViewController.m */,
 				882CC27B1F568A7D001D2876 /* XPBSignInViewController.h */,
 				882CC27C1F568A7D001D2876 /* XPBSignInViewController.m */,
+				8881FAAE1F5E8770006EA4D6 /* XPBActionViewController.h */,
+				8881FAAF1F5E8770006EA4D6 /* XPBActionViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -851,6 +862,8 @@
 				8898A7B31F45C85E0062473C /* XPBCooperationPartnerModel.m */,
 				8872AA741F5D3C2C0032D912 /* XPBSignInMissionModel.h */,
 				8872AA751F5D3C2C0032D912 /* XPBSignInMissionModel.m */,
+				88E707091F5E92AE00A7D6A1 /* XPBActionDataModel.h */,
+				88E7070A1F5E92AE00A7D6A1 /* XPBActionDataModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -869,6 +882,8 @@
 				882CC2951F56B510001D2876 /* XPBSignInTableViewCell.m */,
 				882CC2971F56C93F001D2876 /* XPBSignInCollectionViewCell.h */,
 				882CC2981F56C93F001D2876 /* XPBSignInCollectionViewCell.m */,
+				88E7070C1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.h */,
+				88E7070D1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1350,6 +1365,7 @@
 				882CC2901F569659001D2876 /* NSArray+MDF.m in Sources */,
 				882CC2651F53FCA3001D2876 /* XPBFreeInforListDataModel.m in Sources */,
 				88BC75AE1F346B5600726D56 /* ImageHelpers.m in Sources */,
+				8881FAB01F5E8770006EA4D6 /* XPBActionViewController.m in Sources */,
 				88F923F61F38249A00D44EDF /* XPBSixHeStatNumTableViewCell.m in Sources */,
 				8898A7A71F457F070062473C /* LCNetDataParsing.m in Sources */,
 				88BC75941F346B4200726D56 /* BPBaseViewController.m in Sources */,
@@ -1383,6 +1399,7 @@
 				88BC75D11F34A13D00726D56 /* XPBBBSViewController.m in Sources */,
 				88BC75951F346B4200726D56 /* BPBaseWebViewController.m in Sources */,
 				8898A81B1F4DA3910062473C /* DTextField.m in Sources */,
+				88E7070B1F5E92AE00A7D6A1 /* XPBActionDataModel.m in Sources */,
 				8898A77B1F3AD0FD0062473C /* XPBMantissaViewController.m in Sources */,
 				8872AA761F5D3C2C0032D912 /* XPBSignInMissionModel.m in Sources */,
 				8898A7AA1F45A6080062473C /* XPBNewsDataModel.m in Sources */,
@@ -1410,6 +1427,7 @@
 				8898A7D11F4812070062473C /* XPBMarkSixLotteryDataModel.m in Sources */,
 				88BC75441F34671900726D56 /* AppDelegate.m in Sources */,
 				882CC25F1F516F0F001D2876 /* XPBBBSCommentsModel.m in Sources */,
+				88E7070E1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m in Sources */,
 				88F923E81F35878F00D44EDF /* XPBStatisticsCell.m in Sources */,
 				882CC28D1F5695EB001D2876 /* MDFPageControl.m in Sources */,
 				8898A7D41F4812660062473C /* XPBLotteryModel.m in Sources */,

@@ -82,8 +82,8 @@
 -(void)setDataModel:(XPBSignInMissionModel *)dataModel
 {
     _dataModel = dataModel;
-    _completeBtn.selected = dataModel.mission_stat ;
-    _scoreBtn.backgroundColor = dataModel.mission_stat ? [UIColor blackColor] : [UIColor grayColor];
+    _completeBtn.selected = !dataModel.mission_stat ;
+    _scoreBtn.backgroundColor = !dataModel.mission_stat ? [UIColor blackColor] : [UIColor grayColor];
     [_scoreBtn setTitle:dataModel.mission_point forState:UIControlStateNormal];
     _missionLabel.text = dataModel.mission_name;
 }

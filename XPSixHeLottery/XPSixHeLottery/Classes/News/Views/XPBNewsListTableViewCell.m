@@ -11,7 +11,7 @@
 @interface XPBNewsListTableViewCell()
 
 @property(nonatomic,strong)UILabel *newsTitle;
-@property(nonatomic,strong)UILabel *newsDetail;
+@property(nonatomic,strong)UITextView *newsDetail;
 @property(nonatomic,strong)UIImageView *newsImage;
 @property(nonatomic,strong)UILabel *publishLabel;
 
@@ -37,18 +37,31 @@
         newsTitle.textColor = [UIColor blackColor];
         newsTitle.text = @"菲律宾新闻";
         
-        UILabel *newsDetail = [UILabel new];
+        UILabel *publishLabel = [UILabel new];
+        [self addSubview:publishLabel];
+        _publishLabel = publishLabel;
+        [publishLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(10);
+            make.bottom.mas_equalTo(-5);
+        }];
+        publishLabel.font = [UIFont systemFontOfSize:13];
+        publishLabel.textColor = [UIColor grayColor];
+        
+        
+       UITextView  *newsDetail = [UITextView  new];
         [self addSubview:newsDetail];
         _newsDetail = newsDetail;
         [newsDetail mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(newsTitle);
             make.right.mas_equalTo(-10);
+            make.bottom.mas_equalTo(publishLabel.mas_top).mas_offset(-5);
             make.top.mas_equalTo(newsTitle.mas_bottom).mas_offset(5);
         }];
         newsDetail.font = [UIFont systemFontOfSize:13];
         newsDetail.textColor = [UIColor grayColor];
-        newsDetail.numberOfLines = 2;
-        newsDetail.text = @"如下图所示，在安全与隐私窗口中，可以先在左下角解锁，再选择【任何来源】这个选项，就可以成功打开了";
+        newsDetail.text = @"新闻内容";
+        newsDetail.editable = NO;
+        newsDetail.userInteractionEnabled = NO;
         
         UIImageView *newsImage = [UIImageView new];
         [self addSubview:newsImage];
@@ -60,15 +73,6 @@
             make.top.mas_equalTo(2);
         }];
         
-        UILabel *publishLabel = [UILabel new];
-        [self addSubview:publishLabel];
-        _publishLabel = publishLabel;
-        [publishLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(10);
-            make.bottom.mas_equalTo(-5);
-        }];
-        publishLabel.font = [UIFont systemFontOfSize:13];
-        publishLabel.textColor = [UIColor grayColor];
         
     }
     return self;
@@ -78,7 +82,8 @@
 {
     _dataModel = dataModel;
     _newsTitle.text = dataModel.news_title;
-    _newsDetail.text = dataModel.data_content;
+    NSAttributedString *attributeStr = [[NSAttributedString alloc]initWithData:[dataModel.data_content dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute :NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+    _newsDetail.attributedText = attributeStr;
     _publishLabel.text = [dataModel.create_time insertStandardTimeFormat];
 }
 

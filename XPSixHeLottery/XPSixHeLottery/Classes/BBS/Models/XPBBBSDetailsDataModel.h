@@ -14,7 +14,7 @@
 @property(nonatomic,assign)NSInteger Id;
 @property(nonatomic,copy)NSString *reply_create_time;
 @property(nonatomic,copy)NSString *reply_content;
-@property(nonatomic,assign)NSInteger is_top;
+@property(nonatomic,assign)BOOL is_top;
 @property(nonatomic,copy)NSString *main_time;
 @property(nonatomic,assign)BOOL is_essene;
 @property(nonatomic,copy)NSString *lottery_result_num;

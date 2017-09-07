@@ -38,6 +38,7 @@
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(IntegralDetail) parameters:dict success:^(id responseObject) {
 //        NSLog(@"%@",[responseObject mj_JSONString]);
+        [self.tableView.mj_header endRefreshing];
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             self.dataSource = [XPBIntegralDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"sige_history"]];
@@ -46,7 +47,7 @@
         }
         
     } fail:^(NSError *error) {
-        
+        [self.tableView.mj_header endRefreshing];
     }];
 }
 
@@ -118,6 +119,12 @@
     tableView.separatorStyle =  UITableViewCellSeparatorStyleNone;
     [tableView registerClass:[XPBIntegralTableViewCell class] forCellReuseIdentifier:@"integralCell"];
     tableView.tableFooterView = [UIView new];
+    
+    MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
+        [self getData];
+    }];
+    tableView.mj_header = header;
+    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

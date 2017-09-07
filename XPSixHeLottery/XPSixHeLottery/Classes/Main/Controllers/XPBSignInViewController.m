@@ -20,6 +20,7 @@
 @property(nonatomic,strong)NSMutableArray <XPBIntegralDataModel *>*signInDataArr;
 @property(nonatomic,assign)NSInteger daysOfMonth;
 @property(nonatomic,strong)UILabel *tipLabel;
+@property(nonatomic,strong)NSString *currentDayStr;
 
 @end
 
@@ -37,11 +38,13 @@
     NSDictionary *dict = @{
                            @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef",
                            @"uri":SignInList,
-                           @"paramData":@{@"user_account" : [BPUserModel shareModel].userAccount}
+                           @"paramData":@{@"user_account" : [BPUserModel shareModel].userAccount,
+                                          @"operation_type" : @"1"}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(SignInList) parameters:dict success:^(id responseObject) {
         NSLog(@"%@",[responseObject mj_JSONString]);
         if([responseObject[@"code"] isEqualToString:@"0000"]){
+            [_signInDataArr removeAllObjects];
             _signInDataArr = [XPBIntegralDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
             _tipLabel.text = [NSString stringWithFormat:@"您本月已连续签到%zd天",_signInDataArr.count];
             [_dateCollectionView reloadData];
@@ -131,6 +134,10 @@
     [formatter setDateFormat:@"MM"];
     NSString *monthStr = [formatter stringFromDate:date];
     NSInteger month = monthStr.integerValue;
+    
+     [formatter setDateFormat:@"dd"];
+    _currentDayStr = [formatter stringFromDate:date];
+    
     
     dateStr = [dateStr  substringToIndex:3];
     NSInteger year = dateStr.integerValue;
@@ -223,6 +230,17 @@
             missionId = model.Id;
         }
     }
+    
+    for(XPBIntegralDataModel *model in _signInDataArr)
+    {
+        NSString *signInStr = [model.create_time substringWithRange:NSMakeRange(8, 2)];
+        if(_currentDayStr.integerValue == signInStr.integerValue)
+        {
+            [MBProgressHUD showError:@"您今天已经签到过了"];
+            return;
+        }
+    }
+    
     if([missionId isNotNil]){
         NSDictionary *dict = @{
                                @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef",
@@ -235,13 +253,15 @@
             NSLog(@"%@",[responseObject mj_JSONString]);
             if([responseObject[@"code"] isEqualToString:@"0000"])
             {
-                
-                
+                [MBProgressHUD showSuccess:@"签到成功"];
+                [self getData];
+
             }else{
-                
+                [MBProgressHUD showError:@"签到失败"];
             }
         } fail:^(NSError *error) {
             NSLog(@"%@",error.description);
+            [MBProgressHUD showError:@"网络错误"];
         }];
     }
     

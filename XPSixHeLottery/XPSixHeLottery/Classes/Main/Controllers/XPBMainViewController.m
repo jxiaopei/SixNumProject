@@ -21,6 +21,7 @@
 #import "XPBCooperationListViewController.h"
 #import "XPBLoginViewController.h"
 #import "XPBSignInViewController.h"
+#import "XPBActionViewController.h"
 #import "XPBNewsDataModel.h"
 #import "LCMarqueView.h"
 #import "XPBMarkSixLotteryModel.h"
@@ -220,10 +221,12 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake(SCREENWIDTH, 180);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 0;
     UICollectionView *bannerView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 180) collectionViewLayout:layout];
     [self.scrollview addSubview:bannerView];
     bannerView.tag = 100;
-    bannerView.backgroundColor = [UIColor redColor];
+    bannerView.backgroundColor = [UIColor whiteColor];
     _bannerView = bannerView;
     bannerView.pagingEnabled = YES;
     bannerView.delegate = self;
@@ -491,6 +494,8 @@
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake((SCREENWIDTH -2*2)/3, 85);
+    layout.minimumLineSpacing = 2;
+    layout.minimumInteritemSpacing = 2;
     UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 175, SCREENWIDTH, 180) collectionViewLayout:layout];
     [_bottomView addSubview:collectionView];
     collectionView.tag = 200;
@@ -507,11 +512,13 @@
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake(SCREENWIDTH, 80);
+    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 0;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     UICollectionView *advertimentsView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 355, SCREENWIDTH, 80) collectionViewLayout:layout];
     [self.bottomView addSubview:advertimentsView];
     advertimentsView.tag = 300;
-    advertimentsView.backgroundColor = [UIColor redColor];
+    advertimentsView.backgroundColor = [UIColor whiteColor];
     _advertimentsView = advertimentsView;
     advertimentsView.pagingEnabled = YES;
     advertimentsView.delegate = self;
@@ -692,7 +699,6 @@
         make.height.mas_equalTo(1);
     }];
     
-    
     UIImageView *rightImage = [UIImageView new];
     [titleView addSubview:rightImage];
     [rightImage mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -830,35 +836,13 @@
           playLotteryVC.title = @"万濠会";
           [self.navigationController pushViewController:playLotteryVC animated:YES];
       }else if (indexPath.item == 5){
-          BPBaseWebViewController *actionVC = [BPBaseWebViewController new];
+          XPBActionViewController *actionVC = [XPBActionViewController new];
           actionVC.title = @"活动";
           [self.navigationController pushViewController:actionVC animated:YES];
-
       }
         
     }
 }
-
--(CGFloat )collectionView:(UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    if(collectionView.tag == 100 || collectionView.tag == 300){
-        return 0;
-    }else{
-        
-        return 2;
-    }
-}
-
--(CGFloat )collectionView:(UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    if(collectionView.tag == 100 || collectionView.tag == 300){
-        return 0;
-    }else{
-        
-        return 2;
-    }
-}
-
 
 - (CGSize)collectionView:(UICollectionView *)collectionView  layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
@@ -898,7 +882,6 @@
         BPBannerModel *bannerModel = _bannerArr[indexPath.row];
         BPBannerViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"bannerViewCell" forIndexPath:indexPath];
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:bannerModel.banner_image_url] placeholderImage:[UIImage imageNamed:@"占位图"]];
-        //        cell.backgroundColor = [UIColor colorWithRed:arc4random()%256/255.0 green:arc4random()%256/255.0 blue:arc4random()%256/255.0 alpha:1.0];
         
         return cell;
         
@@ -961,8 +944,6 @@
     
 }
 
-
-
 -(void)dealloc
 {
     [self.timer invalidate];
@@ -1004,6 +985,5 @@
     }
     return _advArr;
 }
-
 
 @end

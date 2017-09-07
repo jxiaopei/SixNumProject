@@ -29,9 +29,10 @@
 #define HomepageUrl      @"/user/homepage/getIndex"                            //首页
 #define LotteryHistory   @"/user/lottery/getAppLotteryHistoryList"             //开奖历史
 #define OpenAPPAdvList   @"/user/homepage/queryAdvertisementList"              //引导页
+#define ActionsList      @"/app/activity/AppQueryActData"                      //活动列表
 //签到
 #define SignInDetail     @"/user/integral/queryIntegralTasklList"              //签到任务
-#define SignInList       @"/user/integral/querySignInlList"                    //签到列表
+#define SignInList       @"/user/integral/querySignInList"                    //签到列表
 #define SignInAction     @"/user/integral/insertSignIn"                        //签到
 //新闻
 #define NewsListPage     @"/user/news/getNewsListPage"                         //新闻

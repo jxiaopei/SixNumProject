@@ -135,7 +135,13 @@
     _dataModel = dataModel;
     _dateLabel.text = dataModel.main_time;
     _commentsLabel.text = [NSString stringWithFormat:@"%zd",dataModel.count];
-    _titleLabel.text = dataModel.post_title;
+    NSString *periodStr = [dataModel.lottery_result_num substringFromIndex:4];
+    _titleLabel.text = [NSString stringWithFormat:@"%@期:%@",periodStr, dataModel.post_title];
+    if(dataModel.is_top){
+        _titleLabel.textColor = [UIColor redColor];
+    }else{
+        _titleLabel.textColor = [UIColor blackColor];
+    }
     _contentLabel.text = dataModel.post_content;
     _anthorLabel.text =dataModel.main_user_name;
     NSString *countStr = [NSString stringWithFormat:@"%zd",dataModel.like_count];

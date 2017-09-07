@@ -130,7 +130,7 @@
                            @"paramData":@{@"periods":[NSNumber numberWithInteger:period.integerValue]},
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(_urlArr[_statSingleBarType]) parameters:dict success:^(id responseObject) {
-        NSLog(@"%@",[responseObject mj_JSONString]);
+//        NSLog(@"%@",[responseObject mj_JSONString]);
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             [self.titleArr removeAllObjects];

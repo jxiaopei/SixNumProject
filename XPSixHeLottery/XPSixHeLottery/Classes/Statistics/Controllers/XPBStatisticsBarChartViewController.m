@@ -149,7 +149,7 @@
                            @"paramData":paramData
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(_urlArr[_statisticsType]) parameters:dict success:^(id responseObject) {
-        NSLog(@"%@",[responseObject mj_JSONString]);
+//        NSLog(@"%@",[responseObject mj_JSONString]);
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             [self.hotTitleArr removeAllObjects];

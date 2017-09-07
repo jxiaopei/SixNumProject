@@ -50,7 +50,6 @@
     titleText.font = [UIFont systemFontOfSize:18];
     titleText.textAlignment = NSTextAlignmentLeft;
     titleText.delegate = self;
-//    titleText.backgroundColor = [UIColor redColor];
     
     UIView *lineView = [UIView new];
     [self.view addSubview:lineView];
