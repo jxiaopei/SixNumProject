@@ -36,6 +36,8 @@ typedef void (^NetRequestFailedBlock)(NSError *error);//失败Block
  */
 +(BPNetRequest *)getInstance;
 
+- (AFHTTPSessionManager *)sharedManager;
+
 /**
  *  Get形式提交数据
  *

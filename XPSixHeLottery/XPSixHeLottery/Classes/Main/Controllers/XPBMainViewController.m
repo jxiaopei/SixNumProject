@@ -65,9 +65,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"首页";
     [self setupRightBtn];
     [self setupLeftBtn];
+    [self setupNavigationTitleView];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLoginSuccessed) name:@"loginSuccessed" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLogoutSuccessed) name:@"logoutSuccessed" object:nil];
     _titleArr = [NSMutableArray arrayWithObjects:@"直播",@"图库",@"投票",@"论坛",@"竞彩",@"活动", nil];
@@ -105,6 +105,16 @@
 
 -(void)didLoginSuccessed{
     [_loginBtn setTitle:[BPUserModel shareModel].userName forState:UIControlStateNormal ];
+}
+
+-(void)setupNavigationTitleView{
+    UIView *view = [UIView new];
+    view.frame = CGRectMake(0 , 0, 96, 44);
+    UIImageView *imageview = [ UIImageView new];
+    imageview.frame = CGRectMake(0 , 0, 96, 44);
+    [view addSubview:imageview];
+    imageview.image = [UIImage imageNamed:@"titleViewLogo"];
+    self.navigationItem.titleView = view;
 }
 
 -(void)setupRightBtn{
@@ -174,7 +184,8 @@
         [_scrollview.mj_header endRefreshing];
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
-            
+            [self.bannerArr removeAllObjects];
+            [self.advArr removeAllObjects];
             self.bannerArr = [BPBannerModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"banner"]];
             self.advArr = [BPBannerModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"bannerCenter"]];
             _mar.runString = responseObject[@"data"][@"marque"];
@@ -925,7 +936,7 @@
 
 - (void)nextImage
 {
-    if (_page == self.bannerArr.count - 1) {
+    if (_page >= self.bannerArr.count - 1) {
         _page = 0;
     }else{
         _page++;
@@ -934,7 +945,7 @@
     
     [self.bannerView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
     
-    if (_advPage == self.advArr.count - 1) {
+    if (_advPage >= self.advArr.count - 1) {
         _advPage = 0;
     }else{
         _advPage++;
@@ -948,6 +959,8 @@
 {
     [self.timer invalidate];
     self.timer = nil;
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"loginSuccessed" object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"logoutSuccessed" object:nil];
 }
 
 -(NSMutableArray <XPBCooperationPartnerModel *> *)partnerArr

@@ -163,7 +163,7 @@
         make.centerX.mas_equalTo(nextView.mas_centerX);
     }];
     nextPeroidLabel.font = [UIFont systemFontOfSize:16];
-    nextPeroidLabel.text = @"下期开奖时间 2017年08月10日 21:30";
+    nextPeroidLabel.text = @"下期开奖时间 0000年00月00日 00:00";
     
     UILabel *dateLabel = [UILabel new];
     [nextView addSubview:dateLabel];
@@ -172,7 +172,7 @@
         make.centerX.mas_equalTo(nextView.mas_centerX);
     }];
     dateLabel.font = [UIFont fontWithName:@"DBLCDTempBlack" size: 26];
-    dateLabel.text = @"08:23:04";
+    dateLabel.text = @"XX:XX:XX";
     _timeLabel = dateLabel;
     
     __weak typeof(self)weakSelf = self;
@@ -187,8 +187,11 @@
         NSString *str_second = [NSString stringWithFormat:@"%02ld",_seconds%60];//秒
         NSString *format_time = [NSString stringWithFormat:@"%@:%@:%@",str_hour,str_minute,str_second];
         NSLog(@"time:%@",format_time);
-        dateLabel.text = format_time;
-        [weakSelf setupTimer];
+         dateLabel.text = format_time;
+        if(![format_time isEqualToString:@"00:00:00"]){
+            [weakSelf setupTimer];
+        }
+        
         NSString *publishStr = [dataModel.next_date insertStandardTimeFormatWithCN];
         nextPeroidLabel.text = [NSString stringWithFormat:@"下期开奖时间  %@",publishStr];
         
@@ -229,7 +232,7 @@
     //修改倒计时标签现实内容
     self.timeLabel.text= format_time;
     //当倒计时到0时，做需要的操作，比如验证码过期不能提交
-    if(_seconds==0){
+    if(_seconds==0 ){
         [_timer invalidate];
     }
 }

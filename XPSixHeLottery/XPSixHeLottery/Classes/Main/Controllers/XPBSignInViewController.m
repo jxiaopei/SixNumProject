@@ -11,6 +11,10 @@
 #import "XPBSignInCollectionViewCell.h"
 #import "XPBSignInMissionModel.h"
 #import "XPBIntegralDataModel.h"
+#import "XPBAddPhoneNumViewController.h"
+#import "XPBNewsListViewController.h"
+#import "XPBBBSPublishViewController.h"
+#import "XPBBBSViewController.h"
 
 @interface XPBSignInViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -30,6 +34,11 @@
     [super viewDidLoad];
     self.title = @"签到";
     [self setupTableView];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self getData];
 }
 
@@ -79,6 +88,7 @@
 {
     UITableView *tableView = [UITableView new];
     [self.view addSubview:tableView];
+    tableView.backgroundColor = GlobalLightGreyColor;
     tableView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT- 64);
     tableView.delegate = self;
     tableView.dataSource = self;
@@ -175,11 +185,12 @@
     UICollectionView *dateCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 70 , SCREENWIDTH, (SCREENWIDTH/11 + 5)*3) collectionViewLayout:layout];
     [header addSubview:dateCollectionView];
     dateCollectionView.backgroundColor = [UIColor whiteColor];
-    [dateCollectionView setContentInset:UIEdgeInsetsMake(2, 2, 0,2)];
+    [dateCollectionView setContentInset:UIEdgeInsetsMake(5, 2, 0,2)];
     _dateCollectionView = dateCollectionView;
     dateCollectionView.pagingEnabled = YES;
     dateCollectionView.delegate = self;
     dateCollectionView.dataSource = self;
+    dateCollectionView.scrollEnabled = NO;
     [dateCollectionView registerClass:[XPBSignInCollectionViewCell class] forCellWithReuseIdentifier:@"signInDateCell"];
     
     UIView *lineView = [UIView new];
@@ -272,6 +283,7 @@
     XPBSignInCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"signInDateCell" forIndexPath:indexPath];
     NSString *dateStr = [NSString stringWithFormat:@"%zd",indexPath.row + 1];
     [cell.btn setTitle:dateStr forState:UIControlStateNormal];
+    cell.btn.selected = NO;
     for(XPBIntegralDataModel *model in _signInDataArr)
     {
         NSString *signInStr = [model.create_time substringWithRange:NSMakeRange(8, 2)];
@@ -304,6 +316,24 @@
     return CGSizeMake((SCREENWIDTH- 4)/11, SCREENWIDTH/11 + 5);
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    XPBSignInMissionModel *missionModel = _dataArr[indexPath.row];
+    if([missionModel.Id isEqualToString:@"13"]){
+        XPBAddPhoneNumViewController *addPhoneNumVC = [XPBAddPhoneNumViewController new];
+        [self.navigationController pushViewController:addPhoneNumVC animated:YES];
+    }else if ([missionModel.Id isEqualToString:@"15"]){
+        XPBNewsListViewController *newListVC = [XPBNewsListViewController new];
+        [self.navigationController pushViewController:newListVC animated:YES];
+    }else if ([missionModel.Id isEqualToString:@"16"]){
+        XPBBBSPublishViewController *bbsPublishVC = [XPBBBSPublishViewController new];
+        [self.navigationController pushViewController:bbsPublishVC animated:YES];
+    }else if ([missionModel.Id isEqualToString:@"17"]){
+        XPBBBSViewController *bbsVC = [XPBBBSViewController new];
+        [self.navigationController pushViewController:bbsVC animated:YES];
+    }
+    
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataArr.count;

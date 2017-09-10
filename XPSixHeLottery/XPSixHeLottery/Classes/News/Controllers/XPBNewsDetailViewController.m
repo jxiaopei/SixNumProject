@@ -80,11 +80,23 @@
     _textView.textColor = [UIColor darkGrayColor];
     _textView.text= @"我在这里";
     
+    NSDictionary *parameters = nil;
+    
+    if([BPUserModel shareModel].isLogin){
+        parameters = @{ @"id": self.newsID,
+                        @"mission_id" : @"15",
+                        @"user_account" :[BPUserModel shareModel].userAccount,
+                        };
+    }else{
+        parameters = @{ @"id": self.newsID,
+                        };
+    }
+    
     NSLog(@"%@",BaseUrl(NewsDetail));
     NSDictionary *dict = @{
                            @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef",
                            @"uri":NewsDetail,
-                           @"paramData":@{ @"id": self.newsID }
+                           @"paramData":parameters
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(NewsDetail) parameters:dict success:^(id responseObject) {
 //        NSLog(@"%@",[responseObject mj_JSONString]);

@@ -37,12 +37,19 @@
                            @"paramData":@{@"user_account" : [BPUserModel shareModel].userAccount}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(IntegralDetail) parameters:dict success:^(id responseObject) {
-//        NSLog(@"%@",[responseObject mj_JSONString]);
+        NSLog(@"%@",[responseObject mj_JSONString]);
         [self.tableView.mj_header endRefreshing];
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             self.dataSource = [XPBIntegralDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"sige_history"]];
-            _integralLabel.text = responseObject[@"data"][@"user_amount"];
+            NSArray *strArr = responseObject[@"data"][@"integral_balance"];
+            if(strArr.count){
+                NSString *tempString = [NSString stringWithFormat:@"可用积分:%@",strArr[0][@"user_amount"]];
+                NSMutableAttributedString *colorString = [[NSMutableAttributedString alloc]initWithString:tempString];
+                [colorString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(5, tempString.length-5)];
+                _integralLabel.attributedText = colorString;
+            }
+            
             [self.tableView reloadData];
         }
         
@@ -109,7 +116,7 @@
     _tableView = tableView;
     [self.view addSubview:tableView];
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(SCREENWIDTH/3 + 84);
+        make.top.mas_equalTo(SCREENWIDTH/3 + 104);
         make.left.right.bottom.mas_equalTo(0);
     }];
     tableView.backgroundColor = GlobalLightGreyColor;

@@ -162,7 +162,7 @@
     [self.scrollView addSubview:peroidLabel];
     [peroidLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(singleDoubleView.mas_bottom).mas_offset(5);
-        make.right.mas_equalTo(-5);
+        make.left.mas_equalTo(SCREENWIDTH - 55);
         make.width.mas_equalTo(50);
         make.height.mas_equalTo(25);
     }];

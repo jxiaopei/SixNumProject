@@ -37,6 +37,10 @@
     
 }
 
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"loginSuccessed" object:nil];
+}
+
 -(void)didLoginSuccessed{
     [_loginBtn setTitle:@"退出登录" forState:UIControlStateNormal ];
     _statusLabel.text = [BPUserModel shareModel].userName;

@@ -42,6 +42,11 @@
    
 }
 
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
      [self getData];
@@ -424,7 +429,9 @@
                            @"uri":BBSComment,
                            @"paramData":@{ @"main_id":self.mianId,
                                            @"reply_content":_contentText.text,
-                                           @"user_id" :[BPUserModel shareModel].uid}
+                                           @"user_id" :[BPUserModel shareModel].uid,
+                                           @"mission_id" : @"17",
+                                           @"user_account" :[BPUserModel shareModel].userAccount,}
                           
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(BBSComment) parameters:dict success:^(id responseObject) {

@@ -30,6 +30,7 @@
         [newsTitle mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(10);
             make.top.mas_equalTo(8);
+            make.right.mas_equalTo(-10);
         }];
         newsTitle.font = [UIFont systemFontOfSize:15];
         newsTitle.textColor = [UIColor blackColor];
@@ -41,7 +42,7 @@
         [newsDetail mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(newsTitle);
             make.right.mas_equalTo(-10);
-            make.bottom.mas_equalTo(-5);
+            make.bottom.mas_equalTo(-13);
             make.top.mas_equalTo(newsTitle.mas_bottom).mas_offset(5);
         }];
         newsDetail.font = [UIFont systemFontOfSize:13];

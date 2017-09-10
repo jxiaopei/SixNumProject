@@ -27,7 +27,7 @@
         make.width.height.mas_equalTo(90);
         make.top.mas_equalTo(20);
     }];
-    iconView.image = [UIImage imageNamed:@"logo钱多"];
+    iconView.image = [UIImage imageNamed:@"AppLogo"];
     iconView.clipsToBounds = YES;
     iconView.layer.cornerRadius = 10;
     

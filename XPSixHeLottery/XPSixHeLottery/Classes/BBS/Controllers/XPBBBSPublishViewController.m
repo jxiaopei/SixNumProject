@@ -125,7 +125,9 @@
                            @"uri":BBSPublish,
                            @"paramData":@{ @"post_title":_titleText.text,
                                            @"post_content":_contentText.text,
-                                           @"user_id" :[BPUserModel shareModel].uid}
+                                           @"user_id" :[BPUserModel shareModel].uid,
+                                           @"mission_id" : @"16",
+                                           @"user_account" :[BPUserModel shareModel].userAccount,}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(BBSPublish) parameters:dict success:^(id responseObject) {
 //        NSLog(@"%@",[responseObject mj_JSONString]);

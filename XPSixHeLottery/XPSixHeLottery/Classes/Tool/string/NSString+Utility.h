@@ -16,4 +16,6 @@
 // mdf5
 - (NSString *)mdf_md5;
 
+-(NSString *) md5HexDigest;
+
 @end

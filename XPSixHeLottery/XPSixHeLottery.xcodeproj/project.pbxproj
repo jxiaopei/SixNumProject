@@ -126,6 +126,9 @@
 		88BC75DD1F34A1FC00726D56 /* XPBStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88BC75DC1F34A1FC00726D56 /* XPBStatisticsViewController.m */; };
 		88E7070B1F5E92AE00A7D6A1 /* XPBActionDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E7070A1F5E92AE00A7D6A1 /* XPBActionDataModel.m */; };
 		88E7070E1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E7070D1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m */; };
+		88E707B01F6172A100A7D6A1 /* XPBAddPhoneNumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E707AF1F6172A100A7D6A1 /* XPBAddPhoneNumViewController.m */; };
+		88E707B41F62792200A7D6A1 /* XPBaseInforsNetTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E707B31F62792200A7D6A1 /* XPBaseInforsNetTool.m */; };
+		88E707B71F6282B800A7D6A1 /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E707B61F6282B800A7D6A1 /* NSDictionary+Extension.m */; };
 		88F923E81F35878F00D44EDF /* XPBStatisticsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F923E71F35878F00D44EDF /* XPBStatisticsCell.m */; };
 		88F923EB1F358ADA00D44EDF /* XPBStatisticModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F923EA1F358ADA00D44EDF /* XPBStatisticModel.m */; };
 		88F923F31F35F3C000D44EDF /* XPBSixHeStatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F923F21F35F3C000D44EDF /* XPBSixHeStatViewController.m */; };
@@ -346,8 +349,8 @@
 		88BC75911F346B4200726D56 /* BPUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPUserModel.m; sourceTree = "<group>"; };
 		88BC75981F346B5600726D56 /* AnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationHelper.h; sourceTree = "<group>"; };
 		88BC75991F346B5600726D56 /* AnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationHelper.m; sourceTree = "<group>"; };
-		88BC759A1F346B5600726D56 /* BPNetRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPNetRequest.h; sourceTree = "<group>"; };
-		88BC759B1F346B5600726D56 /* BPNetRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPNetRequest.m; sourceTree = "<group>"; };
+		88BC759A1F346B5600726D56 /* BPNetRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPNetRequest.h; path = ../BPNetRequest.h; sourceTree = "<group>"; };
+		88BC759B1F346B5600726D56 /* BPNetRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPNetRequest.m; path = ../BPNetRequest.m; sourceTree = "<group>"; };
 		88BC759C1F346B5600726D56 /* CheckHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckHelper.h; sourceTree = "<group>"; };
 		88BC759D1F346B5600726D56 /* CheckHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckHelper.m; sourceTree = "<group>"; };
 		88BC759E1F346B5600726D56 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
@@ -390,6 +393,12 @@
 		88E7070A1F5E92AE00A7D6A1 /* XPBActionDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBActionDataModel.m; sourceTree = "<group>"; };
 		88E7070C1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBActionCollectionViewCell.h; sourceTree = "<group>"; };
 		88E7070D1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBActionCollectionViewCell.m; sourceTree = "<group>"; };
+		88E707AE1F6172A100A7D6A1 /* XPBAddPhoneNumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBAddPhoneNumViewController.h; sourceTree = "<group>"; };
+		88E707AF1F6172A100A7D6A1 /* XPBAddPhoneNumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBAddPhoneNumViewController.m; sourceTree = "<group>"; };
+		88E707B21F62792200A7D6A1 /* XPBaseInforsNetTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBaseInforsNetTool.h; sourceTree = "<group>"; };
+		88E707B31F62792200A7D6A1 /* XPBaseInforsNetTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBaseInforsNetTool.m; sourceTree = "<group>"; };
+		88E707B51F6282B800A7D6A1 /* NSDictionary+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extension.h"; sourceTree = "<group>"; };
+		88E707B61F6282B800A7D6A1 /* NSDictionary+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extension.m"; sourceTree = "<group>"; };
 		88F923E61F35878F00D44EDF /* XPBStatisticsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBStatisticsCell.h; sourceTree = "<group>"; };
 		88F923E71F35878F00D44EDF /* XPBStatisticsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBStatisticsCell.m; sourceTree = "<group>"; };
 		88F923E91F358ADA00D44EDF /* XPBStatisticModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBStatisticModel.h; sourceTree = "<group>"; };
@@ -653,6 +662,8 @@
 				8898A8141F4DA2BF0062473C /* XPBRegistViewController.m */,
 				8898A8161F4DA2EE0062473C /* XPBLoginViewController.h */,
 				8898A8171F4DA2EE0062473C /* XPBLoginViewController.m */,
+				88E707AE1F6172A100A7D6A1 /* XPBAddPhoneNumViewController.h */,
+				88E707AF1F6172A100A7D6A1 /* XPBAddPhoneNumViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1083,16 +1094,17 @@
 		88BC75971F346B5600726D56 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				88E707B11F6278CC00A7D6A1 /* NetWorkTool */,
 				882CC27E1F569497001D2876 /* IntroView */,
 				8898A87A1F4DAF090062473C /* Categories */,
 				8898A7C51F46D0000062473C /* string */,
 				8898A7A41F457F070062473C /* Parsing */,
 				88BC75981F346B5600726D56 /* AnimationHelper.h */,
 				88BC75991F346B5600726D56 /* AnimationHelper.m */,
-				88BC759A1F346B5600726D56 /* BPNetRequest.h */,
-				88BC759B1F346B5600726D56 /* BPNetRequest.m */,
 				88BC759C1F346B5600726D56 /* CheckHelper.h */,
 				88BC759D1F346B5600726D56 /* CheckHelper.m */,
+				88E707B51F6282B800A7D6A1 /* NSDictionary+Extension.h */,
+				88E707B61F6282B800A7D6A1 /* NSDictionary+Extension.m */,
 				88BC759E1F346B5600726D56 /* Helper.h */,
 				88BC759F1F346B5600726D56 /* Helper.m */,
 				88BC75A01F346B5600726D56 /* ImageHelpers.h */,
@@ -1150,6 +1162,17 @@
 				88BC75BD1F346B5D00726D56 /* UMessage.h */,
 			);
 			path = UMessage_Sdk_1.5.0a;
+			sourceTree = "<group>";
+		};
+		88E707B11F6278CC00A7D6A1 /* NetWorkTool */ = {
+			isa = PBXGroup;
+			children = (
+				88BC759A1F346B5600726D56 /* BPNetRequest.h */,
+				88BC759B1F346B5600726D56 /* BPNetRequest.m */,
+				88E707B21F62792200A7D6A1 /* XPBaseInforsNetTool.h */,
+				88E707B31F62792200A7D6A1 /* XPBaseInforsNetTool.m */,
+			);
+			path = NetWorkTool;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1365,6 +1388,7 @@
 				882CC2901F569659001D2876 /* NSArray+MDF.m in Sources */,
 				882CC2651F53FCA3001D2876 /* XPBFreeInforListDataModel.m in Sources */,
 				88BC75AE1F346B5600726D56 /* ImageHelpers.m in Sources */,
+				88E707B71F6282B800A7D6A1 /* NSDictionary+Extension.m in Sources */,
 				8881FAB01F5E8770006EA4D6 /* XPBActionViewController.m in Sources */,
 				88F923F61F38249A00D44EDF /* XPBSixHeStatNumTableViewCell.m in Sources */,
 				8898A7A71F457F070062473C /* LCNetDataParsing.m in Sources */,
@@ -1398,6 +1422,7 @@
 				8898A7F61F4C1C480062473C /* XPBSingleDoubleVoteViewController.m in Sources */,
 				88BC75D11F34A13D00726D56 /* XPBBBSViewController.m in Sources */,
 				88BC75951F346B4200726D56 /* BPBaseWebViewController.m in Sources */,
+				88E707B01F6172A100A7D6A1 /* XPBAddPhoneNumViewController.m in Sources */,
 				8898A81B1F4DA3910062473C /* DTextField.m in Sources */,
 				88E7070B1F5E92AE00A7D6A1 /* XPBActionDataModel.m in Sources */,
 				8898A77B1F3AD0FD0062473C /* XPBMantissaViewController.m in Sources */,
@@ -1416,6 +1441,7 @@
 				88BC75BF1F346B5D00726D56 /* MBProgressHUD+Add.m in Sources */,
 				8898A8151F4DA2BF0062473C /* XPBRegistViewController.m in Sources */,
 				8898A7FC1F4D53FA0062473C /* XPBFreeInforListViewController.m in Sources */,
+				88E707B41F62792200A7D6A1 /* XPBaseInforsNetTool.m in Sources */,
 				88F923EB1F358ADA00D44EDF /* XPBStatisticModel.m in Sources */,
 				8898A79E1F4430CD0062473C /* BPBannerModel.m in Sources */,
 				882CC2A21F5A69A6001D2876 /* XPBIntegralTableViewCell.m in Sources */,
@@ -1605,6 +1631,7 @@
 			baseConfigurationReference = 58654F0096CCF3BCE7BB339D /* Pods-XPSixHeLottery.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = B5RB4WNDEX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1619,8 +1646,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/XPSixHeLottery/Classes/Lib/UMeng/UMessage_Sdk_1.5.0a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.eric.XPSixHeLottery;
+				PRODUCT_BUNDLE_IDENTIFIER = sixNumberProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -1629,6 +1658,7 @@
 			baseConfigurationReference = 9512C576E181CD679E7989EA /* Pods-XPSixHeLottery.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = B5RB4WNDEX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1643,8 +1673,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/XPSixHeLottery/Classes/Lib/UMeng/UMessage_Sdk_1.5.0a",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.eric.XPSixHeLottery;
+				PRODUCT_BUNDLE_IDENTIFIER = sixNumberProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

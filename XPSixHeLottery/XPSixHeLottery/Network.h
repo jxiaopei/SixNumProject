@@ -11,13 +11,19 @@
 
 #define NETWORK_STATE 0  //1是正式环境 0是测试环境
 
-#define AppKey @"5981ba3cc62dca68bd0019b5" //友盟appKey
-#define AppSecret @" rqyibszrse2zevbi9erxwknhxztpdyx0"  //友盟app 秘钥
-#define COMPANYURL @"http://169.56.130.9/index/index/" //公司判断审核开关
-#define COMPANYPARA @{@"app_id":@"1258070698"}  //appID
-#define CacheKey  @"myCacheKey"
-#define LoginUserPassword @"userPassword"
-#define UserID        @"UserID"
+#define AppUpdateUrl            @"https://tpfw.083075.com:8080/tizi/system/getAppLastChange"
+#define AppUpdateCode           @"86b305ae91ac3da4c364e5d829c87f7"
+#define AppUpdatePeramters      @{@"code":AppUpdateCode}
+#define AppBeingIntercept       @"index.php?vcode/validate"
+#define APP_MD5PRIVATE_KEY      @"df9464c4975c427bbb51e7fbb3a2f629"
+
+#define AppKey                  @"5981ba3cc62dca68bd0019b5" //友盟appKey
+#define AppSecret               @" rqyibszrse2zevbi9erxwknhxztpdyx0"  //友盟app 秘钥
+#define COMPANYURLARR           @[@"http://www.026939.com",@"http://www.026950.com",@"http://www.026951.com",@"http://www.026953.com",@"http://www.026952.com"] //公司防拦截
+#define COMPANYPARA             @{@"app_id":@"1258070698"}  //appID
+#define CacheKey                @"myCacheKey"
+#define LoginUserPassword       @"userPassword"
+#define UserID                  @"UserID"
 #define SCREENHEIGHT  [UIScreen mainScreen].bounds.size.height
 #define SCREENWIDTH   [UIScreen mainScreen].bounds.size.width
 #define StringFormat(string, args...)       [NSString stringWithFormat:string, args]
@@ -32,8 +38,9 @@
 #define ActionsList      @"/app/activity/AppQueryActData"                      //活动列表
 //签到
 #define SignInDetail     @"/user/integral/queryIntegralTasklList"              //签到任务
-#define SignInList       @"/user/integral/querySignInList"                    //签到列表
+#define SignInList       @"/user/integral/querySignInList"                     //签到列表
 #define SignInAction     @"/user/integral/insertSignIn"                        //签到
+#define AddPhoneNum      @"/user/mobile/modifyUser"                            //绑定手机
 //新闻
 #define NewsListPage     @"/user/news/getNewsListPage"                         //新闻
 #define NewsDetail       @"/user/news/getNewsDetail"                           //新闻详情
@@ -56,7 +63,7 @@
 #define BBSDetail        @"/user/exchange/queryForumDetailList"                //帖子详情
 #define BBSComment       @"/user/exchange/insertReplyInfo"                     //评论帖子
 #define BBSPublish       @"/user/exchange/insertMainInfo"                      //发表新帖
-#define BBSAppreciates   @"/user/exchange/insertMainLikeInfo"                 //点赞帖子
+#define BBSAppreciates   @"/user/exchange/insertMainLikeInfo"                  //点赞帖子
 //免费资料
 #define FreeInforList    @"/user/datum/queryForumList"                         //免费资料
 #define FreeInforDetail  @"/user/datum/queryFreeDatumDetailList"               //免费资料详情

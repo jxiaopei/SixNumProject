@@ -32,18 +32,18 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
         [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Accept"];
         manager.requestSerializer.timeoutInterval = 10;
     });
     return manager;
 }
 
-- (void)resetURL:(NSMutableString *)url Parameters:(NSMutableDictionary *)parameters {
-
-    url.string = [StringFormat(@"%@%@",COMPANYURL, url) stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-   
-}
+//- (void)resetURL:(NSMutableString *)url Parameters:(NSMutableDictionary *)parameters {
+//
+//    url.string = [StringFormat(@"%@%@",COMPANYURL, url) stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//   
+//}
 
 
 /**
@@ -65,7 +65,7 @@
     
     NSMutableDictionary *baseParameters = [[NSMutableDictionary alloc] initWithDictionary:parameters];
     NSMutableString *url = [urlString mutableCopy];
-    [self resetURL:url Parameters:baseParameters];
+//    [self resetURL:url Parameters:baseParameters];
     [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
