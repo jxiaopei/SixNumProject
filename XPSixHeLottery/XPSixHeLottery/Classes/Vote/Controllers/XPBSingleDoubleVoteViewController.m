@@ -56,7 +56,7 @@
                            @"paramData":paramData
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(VoteList) parameters:dict success:^(id responseObject) {
-        //        NSLog(@"%@",[responseObject mj_JSONString]);
+      
         [_scrollView.mj_header endRefreshing];
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
@@ -245,7 +245,7 @@
                                           }
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(VoteAction) parameters:dict success:^(id responseObject) {
-//        NSLog(@"%@",[responseObject mj_JSONString]);
+
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             success();

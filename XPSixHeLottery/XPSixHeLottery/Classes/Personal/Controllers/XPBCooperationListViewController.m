@@ -21,23 +21,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"合作伙伴";
     [self.view addSubview:self.tableView];
     [self getData];
 }
 
 -(void)getData{
-    NSLog(@"%@",BaseUrl(UserPartnerList));
+    
+    NSString *url = nil;
+    if(_listType){
+        url = RecommendedList;
+    }else{
+        url = UserPartnerList;
+    }
+    NSLog(@"%@",BaseUrl(url));
     NSDictionary *dict = @{
                            @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef",
-                           @"uri":UserPartnerList,
+                           @"uri":url,
                            @"paramData":@{}
                            };
-    [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(UserPartnerList) parameters:dict success:^(id responseObject) {
-//        NSLog(@"%@",[responseObject mj_JSONString]);
+    [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(url) parameters:dict success:^(id responseObject) {
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
-            _dataArr = [LCRecommendItem mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"partner_list"]];
+            if(_listType){
+                _dataArr = [LCRecommendItem mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"recommend_list"]];
+            }else{
+                _dataArr = [LCRecommendItem mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"partner_list"]];
+            }
+            
             [self.tableView reloadData];
         }
         

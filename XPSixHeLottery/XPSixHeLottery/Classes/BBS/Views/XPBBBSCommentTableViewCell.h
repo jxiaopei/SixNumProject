@@ -12,6 +12,7 @@
 @interface XPBBBSCommentTableViewCell : UITableViewCell
 
 @property(nonatomic,strong)UILabel *dateLabel;
+@property(nonatomic,strong)UILabel *levelLabel;
 @property(nonatomic,strong)UILabel *titleLabel;
 @property(nonatomic,strong)UILabel *detailLabel;
 @property(nonatomic,strong)XPBBBSCommentsModel *dataModel;

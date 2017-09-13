@@ -9,7 +9,7 @@
 #ifndef Network_h
 #define Network_h
 
-#define NETWORK_STATE 0  //1是正式环境 0是测试环境
+#define NETWORK_STATE 1  //1是正式环境 0是测试环境
 
 #define AppUpdateUrl            @"https://tpfw.083075.com:8080/tizi/system/getAppLastChange"
 #define AppUpdateCode           @"86b305ae91ac3da4c364e5d829c87f7"
@@ -27,9 +27,10 @@
 #define SCREENHEIGHT  [UIScreen mainScreen].bounds.size.height
 #define SCREENWIDTH   [UIScreen mainScreen].bounds.size.width
 #define StringFormat(string, args...)       [NSString stringWithFormat:string, args]
+#define Log_ResponseObject      NSLog(@"%@",[responseObject mj_JSONString])
 
 
-#define BaseHttpUrl   NETWORK_STATE ? @"http://169.56.130.24:8088" : @"http://172.16.5.237:8088"//@"http://172.16.5.237:8088"//@"http://172.16.3.200:8080"
+#define BaseHttpUrl   NETWORK_STATE ? @"http://096859.com" : @"http://172.16.5.237:8088"//@"http://172.16.5.237:8088"//@"http://172.16.3.200:8080"
 #define BaseUrl(url)  [NSString stringWithFormat:@"%@%@",BaseHttpUrl,url]
 
 #define HomepageUrl      @"/user/homepage/getIndex"                            //首页
@@ -55,6 +56,7 @@
 #define ImageDetail      @"/user/image/selectImgerDetails"                     //图片详情
 //个人页面
 #define UserPartnerList  @"/user/mobile/userPartner"                           //合作伙伴列表
+#define RecommendedList  @"/user/mobile/userToDayRecommend"                    //推荐列表
 #define IntegralDetail   @"/user/integral/queryIntegralList"                   //积分详情
 #define UserRegist       @"/user/mobile/registerApp"                           //注册
 #define UserLogin        @"/user/mobile/loginApp"                              //登录

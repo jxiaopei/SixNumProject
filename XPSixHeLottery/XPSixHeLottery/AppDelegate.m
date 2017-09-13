@@ -10,12 +10,14 @@
 #import "BPBaseTabBarController.h"
 #import "LCIntroView.h"
 #import "LCCOllectionInfo.h"
+#import "XPBLotteryViewController.h"
 
 @interface AppDelegate ()
 
 @property(nonatomic,copy)void (^callBack)();
 
 @property(nonatomic,copy)NSString *updateUrl;
+@property(nonatomic,strong)BPBaseTabBarController *tabBarVC;
 
 @end
 
@@ -26,7 +28,9 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    [self.window setRootViewController:[BPBaseTabBarController new]];
+    BPBaseTabBarController *tabBarVC = [BPBaseTabBarController new];
+    _tabBarVC = tabBarVC;
+    [self.window setRootViewController:tabBarVC];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:) name:@"UIApplicationDidEnterBackgroundNotification" object:nil];
     
     //友盟统计
@@ -37,6 +41,7 @@
     
     [self setupAnimationImage];
     [LCCOllectionInfo getInfo];
+//    [self init3DTouchShortcutItems];//3D touch
     return YES;
 }
 
@@ -154,7 +159,6 @@
                                @"paramData":@{}
                                };
         [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(OpenAPPAdvList) parameters:dict success:^(id responseObject) {
-//            NSLog(@"%@",[responseObject mj_JSONString]);
             if([responseObject[@"code"] isEqualToString:@"0000"])
             {
                 if ([responseObject[@"data"] count] < 1) {
@@ -347,11 +351,11 @@
                 &&responseObject[@"data"]&&[responseObject[@"data"] isKindOfClass:[NSDictionary class]]) {
                 [self checAppBeingIntercept:responseObject[@"data"][@"url"]];
             }else {
-                [MBProgressHUD showError:@"服务配置出错！"];
+//                [MBProgressHUD showError:@"服务配置出错！"];
             }
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [MBProgressHUD showError:@"域名初始化请求失败"];
+//            [MBProgressHUD showError:@"域名初始化请求失败"];
         }];
     }
     
@@ -403,6 +407,53 @@
     }];
     [dataTask resume];
 }
+
+//- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+//    
+//    //这里可以获的shortcutItem对象的唯一标识符
+//    //不管APP在后台还是进程被杀死，只要通过主屏快捷操作进来的，都会调用这个方法
+//    NSLog(@"name:%@\ntype:%@", shortcutItem.localizedTitle, shortcutItem.type);
+//    NSString *shortcutType = shortcutItem.type;
+//    if([shortcutType isEqualToString:@"Search"]){
+//        [_tabBarVC setSelectedIndex:1];
+//        [UIApplication sharedApplication].keyWindow.rootViewController = [XPBLotteryViewController new];
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"没错!这就是3D Touch" message:@"惊不惊喜,意不意外?" preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"惊喜" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:self.updateUrl]];
+//            
+//        }];
+//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"意外" style:UIAlertActionStyleCancel handler:nil];
+//        
+//        [alert addAction:confirmAction];
+//        [alert addAction:cancelAction];
+//        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+//    }
+//    
+//    
+//}
+
+//- (void)init3DTouchShortcutItems {
+//    
+////    if ([UIApplication sharedApplication].shortcutItems.count >= 4)
+////    {
+////       return;
+////    }
+//    
+//    
+//    NSMutableArray *arrShortcutItem = (NSMutableArray *)[UIApplication sharedApplication].shortcutItems;
+//    
+//    
+//    UIApplicationShortcutItem *shoreItem1 = [[UIApplicationShortcutItem alloc] initWithType:@"Search" localizedTitle:@"被" localizedSubtitle:nil icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeMessage] userInfo:nil];
+//    [arrShortcutItem addObject:shoreItem1];
+//    
+//    
+//    
+//
+//    
+//    [UIApplication sharedApplication].shortcutItems = arrShortcutItem;
+//    
+//    NSLog(@"%lu", [UIApplication sharedApplication].shortcutItems.count);
+//}
 
 
 - (UIViewController *)getCurrentVC

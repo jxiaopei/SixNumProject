@@ -45,7 +45,7 @@
                            @"paramData":paramData
                            };
     [[BPNetRequest getInstance] postDataWithUrl:BaseUrl(ImageDetail) parameters:dict success:^(id responseObject) {
-//        NSLog(@"%@",[responseObject mj_JSONString]);
+
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
           
@@ -115,7 +115,7 @@
                                               }
                                };
         [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(ImageCancelAtt) parameters:dict success:^(id responseObject) {
-//            NSLog(@"%@",[responseObject mj_JSONString]);
+
             if([responseObject[@"code"] isEqualToString:@"0000"])
             {
                 [MBProgressHUD showSuccess:@"取消收藏成功"];
@@ -137,7 +137,7 @@
                                               }
                                };
         [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(ImageAttention) parameters:dict success:^(id responseObject) {
-//            NSLog(@"%@",[responseObject mj_JSONString]);
+
             if([responseObject[@"code"] isEqualToString:@"0000"])
             {
                 [MBProgressHUD showSuccess:@"收藏成功"];

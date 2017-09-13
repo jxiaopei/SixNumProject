@@ -68,7 +68,7 @@
                            @"paramData":paramData
                            };
     [[BPNetRequest getInstance] postDataWithUrl:BaseUrl(ImagesList) parameters:dict success:^(id responseObject) {
-//        NSLog(@"%@",[responseObject mj_JSONString]);
+
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             if(_pageNum == 1)
@@ -117,7 +117,7 @@
                            @"paramData":paramData
                            };
     [[BPNetRequest getInstance] postDataWithUrl:BaseUrl(ImageAttenList) parameters:dict success:^(id responseObject) {
-//                NSLog(@"%@",[responseObject mj_JSONString]);
+
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             if(_attenPageNum == 1)

@@ -56,13 +56,12 @@
     NSDictionary *dict = @{
                            @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef",
                            @"uri":AddPhoneNum,
-                           @"paramData":@{@"main_id" :@"13",
+                           @"paramData":@{@"mission_id" :@"13",
                                           @"user_account" : [BPUserModel shareModel].userAccount,
                                           @"user_phone" : phoneText.text,
                                           @"user_id" : [BPUserModel shareModel].uid}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(AddPhoneNum) parameters:dict success:^(id responseObject) {
-        NSLog(@"%@",[responseObject mj_JSONString]);
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             [MBProgressHUD showSuccess:@"绑定成功"];

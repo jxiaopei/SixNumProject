@@ -90,8 +90,7 @@
                            };
 
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(UserRegist) parameters:dict success:^(id responseObject) {
-//        [MBProgressHUD hideHUDForView:self.view];
-//        NSLog(@"%@",[responseObject mj_JSONString]);
+
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             [MBProgressHUD showSuccess:@"注册成功"];
@@ -106,7 +105,6 @@
                                         };
             
             [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(UserLogin) parameters:loginDict success:^(id responseObject) {
-//                NSLog(@"%@",[responseObject mj_JSONString]);
             
                 if([responseObject[@"code"] isEqualToString:@"0000"])
                 {
@@ -139,6 +137,8 @@
             } fail:^(NSError *error) {
               [self.navigationController popViewControllerAnimated:YES];
             }];
+        }else if([responseObject[@"code"] isEqualToString:@"230002"]){
+            [MBProgressHUD showError:@"该用户已经存在,请直接登录"];
         }else{
             [MBProgressHUD showError:@"注册失败"];
         }

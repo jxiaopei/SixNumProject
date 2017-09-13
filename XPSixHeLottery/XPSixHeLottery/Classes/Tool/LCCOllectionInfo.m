@@ -30,8 +30,8 @@ static NSString * const LCLoginUserAccount  = @"LCLoginUserName";
 @implementation LCCOllectionInfo
 
 + (void)getInfo {
-    //    NSString *identifierStr = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    //    NSLog(@"设备唯一标识符:%@",identifierStr);
+//        NSString *identifierStr = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+//        NSLog(@"设备唯一标识符:%@",identifierStr);
     //手机别名： 用户定义的名称
     NSString* userPhoneName = [[UIDevice currentDevice] name];
     //    NSLog(@"手机别名: %@", userPhoneName);

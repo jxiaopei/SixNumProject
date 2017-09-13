@@ -56,7 +56,7 @@
                            @"paramData":@{}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(StatisReference) parameters:dict success:^(id responseObject) {
-//        NSLog(@"%@",[responseObject mj_JSONString]);
+
         [self.colorTableView.mj_header endRefreshing];
         [self.zodiaTableView.mj_header endRefreshing];
         [self.animalTableView.mj_header endRefreshing];

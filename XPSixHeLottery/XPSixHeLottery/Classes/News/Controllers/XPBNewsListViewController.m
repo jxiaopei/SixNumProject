@@ -39,7 +39,7 @@
                                            @"pageSize":@5 }
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(NewsListPage) parameters:dict success:^(id responseObject) {
-//        NSLog(@"%@",[responseObject mj_JSONString]);
+
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             if(_pageNum == 1)

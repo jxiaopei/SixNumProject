@@ -65,7 +65,7 @@
                            @"paramData":@{@"main_id" :_mianId,@"user_id":uid}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(BBSDetail) parameters:dict success:^(id responseObject) {
-//        NSLog(@"%@",[responseObject mj_JSONString]);
+
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             [_scrollView.mj_header endRefreshing];
@@ -303,7 +303,7 @@
                                
                                };
         [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(BBSAppreciates) parameters:dict success:^(id responseObject) {
-//            NSLog(@"%@",[responseObject mj_JSONString]);
+
             if([responseObject[@"code"] isEqualToString:@"0000"])
             {
                 [MBProgressHUD showSuccess:@"点赞成功"];
@@ -435,7 +435,7 @@
                           
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(BBSComment) parameters:dict success:^(id responseObject) {
-        //        NSLog(@"%@",[responseObject mj_JSONString]);
+   
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             [MBProgressHUD showSuccess:@"评论成功"];
@@ -491,6 +491,7 @@
     cell.imageView.image = [UIImage imageNamed:@"personal"];
     cell.textLabel.text = commentModel.reply_user_name;
     cell.detailTextLabel.text = commentModel.reply_content;
+    cell.levelLabel.text = [NSString stringWithFormat:@"%zd楼",indexPath.row+2];
     cell.dateLabel.text = commentModel.reply_time;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

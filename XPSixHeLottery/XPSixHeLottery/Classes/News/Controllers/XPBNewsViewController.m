@@ -58,11 +58,11 @@
         bAndWPicVC.title = @"彩色图库";
         bAndWPicVC.picType = @"2";
         [self.navigationController pushViewController:bAndWPicVC animated:YES];
-    }else if(indexPath.row == 2){
-        XPBBAndWPicViewController *bAndWPicVC = [XPBBAndWPicViewController new];
-        bAndWPicVC.title = @"幽默图库";
-        bAndWPicVC.picType = @"3";
-        [self.navigationController pushViewController:bAndWPicVC animated:YES];
+//    }else if(indexPath.row == 2){
+//        XPBBAndWPicViewController *bAndWPicVC = [XPBBAndWPicViewController new];
+//        bAndWPicVC.title = @"幽默图库";
+//        bAndWPicVC.picType = @"3";
+//        [self.navigationController pushViewController:bAndWPicVC animated:YES];
     }else{
         XPBNewsListViewController *newsListVC = [XPBNewsListViewController new];
         [self.navigationController pushViewController:newsListVC animated:YES];
@@ -92,7 +92,7 @@
 {
     if(_titleArr == nil)
     {
-        _titleArr = @[@"黑白图库",@"彩色图库",@"幽默图库",@"新闻资讯"];
+        _titleArr = @[@"黑白图库",@"彩色图库",@"新闻资讯"];//,@"幽默图库"
     }
     return _titleArr;
 }

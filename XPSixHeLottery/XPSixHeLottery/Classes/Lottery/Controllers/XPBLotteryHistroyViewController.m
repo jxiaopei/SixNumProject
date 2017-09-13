@@ -146,7 +146,7 @@
                  };
     }
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(LotteryHistory) parameters:dict success:^(id responseObject) {
-        //        NSLog(@"%@",[responseObject mj_JSONString]);
+        
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             self.dataModel = [XPBMarkSixLotteryListModel mj_objectWithKeyValues:responseObject[@"data"]];

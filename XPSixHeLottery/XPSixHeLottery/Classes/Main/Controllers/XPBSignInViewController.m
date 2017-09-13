@@ -51,7 +51,7 @@
                                           @"operation_type" : @"1"}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(SignInList) parameters:dict success:^(id responseObject) {
-        NSLog(@"%@",[responseObject mj_JSONString]);
+
         if([responseObject[@"code"] isEqualToString:@"0000"]){
             [_signInDataArr removeAllObjects];
             _signInDataArr = [XPBIntegralDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
@@ -71,7 +71,7 @@
                                           @"operation_type" : @"1"}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(SignInDetail) parameters:signDict success:^(id responseObject) {
-        NSLog(@"%@",[responseObject mj_JSONString]);
+   
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             self.dataArr = [XPBSignInMissionModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
@@ -261,7 +261,7 @@
                                               }
                                };
         [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(SignInAction) parameters:dict success:^(id responseObject) {
-            NSLog(@"%@",[responseObject mj_JSONString]);
+            
             if([responseObject[@"code"] isEqualToString:@"0000"])
             {
                 [MBProgressHUD showSuccess:@"签到成功"];

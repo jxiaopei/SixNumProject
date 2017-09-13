@@ -27,8 +27,16 @@
 
 -(void)setupUI{
     
+    UIScrollView *scrollView = [UIScrollView new];
+    [self.view addSubview:scrollView];
+    [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.bottom.mas_equalTo(0);
+    }];
+    scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    [scrollView setContentSize:CGSizeMake(SCREENWIDTH, SCREENHEIGHT - 64 + 10)];
+    
     UILabel *titleLabel = [UILabel new];
-    [self.view addSubview:titleLabel];
+    [scrollView addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
         make.top.mas_equalTo(10);
@@ -39,12 +47,12 @@
     titleLabel.text = @"标题:";
     
     DTextField *titleText = [DTextField new];
-    [self.view addSubview:titleText];
+    [scrollView addSubview:titleText];
     _titleText = titleText;
     [titleText mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(titleLabel.mas_centerY);
         make.left.mas_equalTo(titleLabel.mas_right).mas_offset(3);
-        make.right.mas_equalTo(-10);
+        make.width.mas_equalTo(SCREENWIDTH-20);
     }];
     titleText.placeholder = @"(必填,最多30字)";
     titleText.font = [UIFont systemFontOfSize:18];
@@ -52,17 +60,17 @@
     titleText.delegate = self;
     
     UIView *lineView = [UIView new];
-    [self.view addSubview:lineView];
+    [scrollView addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
-        make.right.mas_equalTo(-10);
+        make.width.mas_equalTo(SCREENWIDTH-20);
         make.height.mas_equalTo(0.5);
         make.top.mas_equalTo(titleLabel.mas_bottom).mas_offset(5);
     }];
     lineView.backgroundColor = [UIColor grayColor];
     
     UILabel *contextTitle = [UILabel new];
-    [self.view addSubview:contextTitle];
+    [scrollView addSubview:contextTitle];
     [contextTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
         make.top.mas_equalTo(lineView.mas_bottom).mas_offset(5);
@@ -72,12 +80,12 @@
     contextTitle.text = @"内容:";
     
     UIButton *publishBtn = [UIButton new];
-    [self.view addSubview:publishBtn];
+    [scrollView addSubview:publishBtn];
     [publishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
-        make.right.mas_equalTo(-10);
+        make.width.mas_equalTo(SCREENWIDTH-20);
         make.height.mas_equalTo(40);
-        make.bottom.mas_equalTo(-10);
+        make.bottom.mas_equalTo(SCREENHEIGHT - 74);
     }];
     publishBtn.backgroundColor = GlobalOrangeColor;
     publishBtn.layer.masksToBounds = YES;
@@ -88,12 +96,12 @@
     [publishBtn addTarget:self action:@selector(didClickPublishBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     UITextView *textView = [UITextView new];
-    [self.view addSubview:textView];
+    [scrollView addSubview:textView];
     _contentText = textView;
     [textView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(contextTitle.mas_bottom).mas_offset(5);
         make.left.mas_equalTo(10);
-        make.right.mas_equalTo(-10);
+        make.width.mas_equalTo(SCREENWIDTH-20);
         make.bottom.mas_equalTo(publishBtn.mas_top).mas_offset(-5);
     }];
     textView.delegate =self;
@@ -111,6 +119,7 @@
     [textView addSubview:_placeholder];
     
 }
+
 
 -(void)didClickPublishBtn:(UIButton *)sender
 {
@@ -130,7 +139,7 @@
                                            @"user_account" :[BPUserModel shareModel].userAccount,}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(BBSPublish) parameters:dict success:^(id responseObject) {
-//        NSLog(@"%@",[responseObject mj_JSONString]);
+
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             [MBProgressHUD showSuccess:@"发布成功"];

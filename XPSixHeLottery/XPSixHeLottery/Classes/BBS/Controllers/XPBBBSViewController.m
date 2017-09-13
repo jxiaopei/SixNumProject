@@ -38,7 +38,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self getDataWithRankType:1];
+    [self getDataWithRankType:_currentRankType];
 }
 
 -(void)setupRightBtn{
@@ -83,7 +83,7 @@
                                            @"user_id" :uid}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(BBSList) parameters:dict success:^(id responseObject) {
-//        NSLog(@"%@",[responseObject mj_JSONString]);
+
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             if(_pageNum == 1)
@@ -150,6 +150,10 @@
 }
 
 -(void)didClickTitleBtn:(UIButton *)sender{
+    
+    if([sender.titleLabel.text isEqualToString:_selectedBtn.titleLabel.text]){
+        return;
+    }
     
     sender.selected = YES;
     _selectedBtn.selected = NO;

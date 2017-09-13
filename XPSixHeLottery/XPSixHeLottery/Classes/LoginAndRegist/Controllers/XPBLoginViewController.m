@@ -100,8 +100,7 @@
                                 };
     
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(UserLogin) parameters:loginDict success:^(id responseObject) {
-//        NSLog(@"%@",[responseObject mj_JSONString]);
-//        [MBProgressHUD hideHUDForView:self.view];
+
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             [MBProgressHUD showSuccess:@"登录成功"];

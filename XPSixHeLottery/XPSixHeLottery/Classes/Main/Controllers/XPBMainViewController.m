@@ -26,7 +26,6 @@
 #import "LCMarqueView.h"
 #import "XPBMarkSixLotteryModel.h"
 #import "XPBCooperationPartnerModel.h"
-
 #import "XPBMainPageCollectionViewCell.h"
 #import "XPBMainpageNewsTableViewCell.h"
 
@@ -34,6 +33,7 @@
 @property(nonatomic,strong)UIScrollView *scrollview;
 @property(nonatomic,strong)UIView *bottomView;
 @property(nonatomic,strong)UIButton *loginBtn;
+@property(nonatomic,copy)NSString *lotteryUrl;
 //轮播
 @property(nonatomic,strong)UICollectionView *bannerView;
 @property(nonatomic,strong)LCMarqueView *mar;
@@ -55,6 +55,8 @@
 @property(nonatomic,strong)UIView *newsView;
 @property(nonatomic,strong)UITableView *newsTableView;
 @property(nonatomic,copy)void(^newsViewGetDataBlock)(XPBNewsDataModel *newsDataModel);
+@property(nonatomic,assign)BOOL isScrolling;
+@property(nonatomic,assign)NSInteger newsIndex;
 //合作伙伴
 @property(nonatomic,strong)NSMutableArray <XPBCooperationPartnerModel *> *partnerArr;
 @property(nonatomic,copy)void(^partnerViewGetDataBlock)(NSMutableArray <XPBCooperationPartnerModel *> *partnerArr);
@@ -79,11 +81,9 @@
     [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.left.right.mas_equalTo(0);
     }];
-    
     MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
         [self getData];
     }];
-    
     _scrollview.mj_header = header;
     
     [self setupBannerView];
@@ -93,7 +93,6 @@
     [self setupAdvertimentsView];
     [self setupInforView];
     [self setupCooperationPartnerView];
-    
     [self getData];
     self.page = 0;
     [self setupTimer];
@@ -145,8 +144,7 @@
 }
 
 -(void)didClickLeftBtn:(UIButton *)sender{
-    if(![BPUserModel shareModel].isLogin)
-    {
+    if(![BPUserModel shareModel].isLogin){
         XPBLoginViewController *loginVC = [XPBLoginViewController new];
         loginVC.popVC = self;
         [self.navigationController pushViewController:loginVC animated:YES];
@@ -155,17 +153,14 @@
         XPBSignInViewController *signInVC = [XPBSignInViewController new];
         [self.navigationController pushViewController:signInVC animated:YES];
     }
-    
 }
 
 -(void)didClickRightBtn:(UIButton *)sender{
     
-    if(![BPUserModel shareModel].isLogin)
-    {
+    if(![BPUserModel shareModel].isLogin){
         XPBLoginViewController *loginVC = [XPBLoginViewController new];
         loginVC.popVC = self;
         [self.navigationController pushViewController:loginVC animated:YES];
-        
     }else{
         [self.tabBarController setSelectedIndex:3];
     }
@@ -180,7 +175,6 @@
                            @"paramData":@{}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(HomepageUrl) parameters:dict success:^(id responseObject) {
-//        NSLog(@"%@",[responseObject mj_JSONString]);
         [_scrollview.mj_header endRefreshing];
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
@@ -191,7 +185,8 @@
             _mar.runString = responseObject[@"data"][@"marque"];
             [self.bannerView reloadData];
             [self.advertimentsView reloadData];
-            
+            self.lotteryUrl = responseObject[@"data"][@"biddingUrl"][@"lottery_url"];
+
             self.newsArr = [XPBNewsDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"news"]];
             if(self.newsArr.count == 0)
             {
@@ -203,6 +198,7 @@
                 _bottomView.frame = CGRectMake(0, 300, SCREENWIDTH, 735);
                 _scrollview.contentSize = CGSizeMake(SCREENWIDTH, 1015);
                 [_newsTableView reloadData];
+                [self beginScrollTheNewsView];
             }
             
             _lotteryDataModel = [XPBMarkSixLotteryModel mj_objectWithKeyValues:responseObject[@"data"][@"lottery_result"]];
@@ -217,14 +213,39 @@
     }];
 }
 
+-(void)beginScrollTheNewsView{
+    if(_isScrolling){
+        return;
+    }
+    if(_newsArr.count <=1){
+        return;
+    }
+    [self scrollNews];
+}
+
+-(void)scrollNews{
+    _isScrolling = YES;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:1.5 animations:^{
+            [_newsTableView setContentOffset:CGPointMake(0, 85 * _newsIndex++)];
+        } completion:^(BOOL finished) {
+            if (_newsIndex == _newsArr.count) {
+                _newsIndex = 0;
+                [_newsTableView  setContentOffset:CGPointMake(0, 0)];
+            }
+        }];
+        [self scrollNews];
+    });
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [_mar startAnimation];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [_mar stopAnimation];
     [super viewWillDisappear:animated];
+    [_mar stopAnimation];
 }
 
 -(void)setupBannerView{
@@ -248,6 +269,8 @@
 }
 
 -(void)setupNewsView{
+    _newsIndex = 0;
+    _isScrolling = NO;
     UIView *newsView = [UIView new];
     _newsView = newsView;
     [self.scrollview addSubview:newsView];
@@ -481,9 +504,7 @@
         dateLabel.text = [NSString stringWithFormat:@"%@ %@",dateStr,lotteryDataModel.next_week];
         XPBMarkSixLotteryDataModel * lotteryModel = lotteryDataModel.lottery_list;
         peroidLabel.text = [NSString stringWithFormat:@"第%@期开奖结果",[lotteryModel.lottery_nper substringFromIndex:4] ];
-        for(int i =0; i < lotteryModel.lottery_result.count;i++)
-        {
-            
+        for(int i =0; i < lotteryModel.lottery_result.count;i++){
             XPBLotteryModel *dataModel = lotteryModel.lottery_result[i];
             UIButton *btn = btnArr[i];
             [btn setBackgroundImage:[UIImage imageNamed:dataModel.colour] forState:UIControlStateNormal];
@@ -498,11 +519,9 @@
     
     XPBLotteryHistroyViewController *histroyVC = [XPBLotteryHistroyViewController new];
     [self.navigationController pushViewController:histroyVC animated:YES];
-    
 }
 
--(void)setupCollectionView
-{
+-(void)setupCollectionView{
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake((SCREENWIDTH -2*2)/3, 85);
     layout.minimumLineSpacing = 2;
@@ -519,8 +538,7 @@
     [collectionView registerClass:[XPBMainPageCollectionViewCell class] forCellWithReuseIdentifier:@"mainPageCell"];
 }
 
--(void)setupAdvertimentsView
-{
+-(void)setupAdvertimentsView{
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake(SCREENWIDTH, 80);
     layout.minimumLineSpacing = 0;
@@ -654,8 +672,7 @@
     
 }
 
--(void)didClickFreeBtn:(UIButton *)sender
-{
+-(void)didClickFreeBtn:(UIButton *)sender{
     XPBFreeInforListViewController *freeInforVC =[XPBFreeInforListViewController new];
     [self.navigationController pushViewController:freeInforVC animated:YES];
 }
@@ -767,8 +784,7 @@
     }
     
     self.partnerViewGetDataBlock = ^(NSMutableArray<XPBCooperationPartnerModel *> *partnerArr) {
-        for(int i = 0;i<3; i++)
-        {
+        for(int i = 0;i<3; i++){
             UILabel *cooperationLab = labelarr[i];
             UIImageView *cooperationIcon = imgViewArr[i];
             XPBCooperationPartnerModel * partnerModel = partnerArr[i];
@@ -782,6 +798,8 @@
 -(void)didClickShowMoreBtn:(UIButton *)sender{
     
     XPBCooperationListViewController *cooperationVC = [XPBCooperationListViewController new];
+    cooperationVC.listType = CooperationType;
+    cooperationVC.title = @"合作伙伴";
     [self.navigationController pushViewController:cooperationVC animated:YES];
 }
 
@@ -828,7 +846,6 @@
         webVC.urlString = bannerModel.banner_link_url;
         webVC.title = bannerModel.banner_title;
         [self.navigationController pushViewController:webVC animated:YES];
-        
     }else{
       if(indexPath.item == 0){
           [self.tabBarController setSelectedIndex:1];
@@ -843,45 +860,33 @@
           [self.navigationController pushViewController:bbsVC animated:YES];
       }else if (indexPath.item == 4){
           BPBaseWebViewController *playLotteryVC = [BPBaseWebViewController new];
-          playLotteryVC.urlString = @"https://www.whhbet.com/";
-          playLotteryVC.title = @"万濠会";
+          playLotteryVC.urlString = self.lotteryUrl ? self.lotteryUrl : @"";
+          playLotteryVC.title = @"竞彩";
           [self.navigationController pushViewController:playLotteryVC animated:YES];
       }else if (indexPath.item == 5){
           XPBActionViewController *actionVC = [XPBActionViewController new];
           actionVC.title = @"活动";
           [self.navigationController pushViewController:actionVC animated:YES];
       }
-        
     }
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView  layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath
-{
+- (CGSize)collectionView:(UICollectionView *)collectionView  layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
     if(collectionView.tag == 100){
-        
         return CGSizeMake(SCREENWIDTH,180);
-        
     }else if(collectionView.tag == 200){
-        
         return CGSizeMake((SCREENWIDTH -2*2)/3, 85);
-        
     }else{
         return CGSizeMake(SCREENWIDTH,80);
     }
 }
 
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if(collectionView.tag == 100 ){
-    
         return self.bannerArr.count;
-        
     }else if(collectionView.tag == 300){
-        
         return self.advArr.count;
-        
     }else{
-        
         return  6;
     }
 }
@@ -893,14 +898,12 @@
         BPBannerModel *bannerModel = _bannerArr[indexPath.row];
         BPBannerViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"bannerViewCell" forIndexPath:indexPath];
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:bannerModel.banner_image_url] placeholderImage:[UIImage imageNamed:@"占位图"]];
-        
         return cell;
         
     }else if (collectionView.tag == 300){
         BPBannerModel *bannerModel = _advArr[indexPath.row];
         BPBannerViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"advertimentsViewCell" forIndexPath:indexPath];
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:bannerModel.banner_image_url] placeholderImage:[UIImage imageNamed:@"占位图"]];
-        
         return cell;
         
     }else{
@@ -912,39 +915,34 @@
     }
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    if(scrollView.tag == 100 || scrollView.tag == 300)
-    {
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    if(scrollView.tag == 100 || scrollView.tag == 300){
         //停止定时器
         [self.timer invalidate];
         self.timer = nil;
     }
 }
 
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    [self setupTimer];
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if(scrollView.tag == 100 || scrollView.tag == 300){
+        [self setupTimer];
+    }
 }
 
--(void)setupTimer
-{
+-(void)setupTimer{
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(nextImage) userInfo:nil repeats:YES];
     self.timer = timer;
     [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
-- (void)nextImage
-{
+- (void)nextImage{
     if (_page >= self.bannerArr.count - 1) {
         _page = 0;
     }else{
         _page++;
     }
     CGFloat offsetX = _page * SCREENWIDTH;
-    
     [self.bannerView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
-    
     if (_advPage >= self.advArr.count - 1) {
         _advPage = 0;
     }else{
@@ -952,48 +950,38 @@
     }
     CGFloat advOffsetX = _advPage * SCREENWIDTH;
     [self.advertimentsView setContentOffset:CGPointMake(advOffsetX, 0) animated:YES];
-    
 }
 
--(void)dealloc
-{
+-(void)dealloc{
     [self.timer invalidate];
     self.timer = nil;
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"loginSuccessed" object:nil];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"logoutSuccessed" object:nil];
 }
 
--(NSMutableArray <XPBCooperationPartnerModel *> *)partnerArr
-{
-    if(_partnerArr == nil)
-    {
+-(NSMutableArray <XPBCooperationPartnerModel *> *)partnerArr{
+    if(_partnerArr == nil){
         _partnerArr = [NSMutableArray array];
     }
     return _partnerArr;
 }
 
--(NSMutableArray <XPBNewsDataModel *> *)newsArr
-{
-    if(_newsArr == nil)
-    {
+-(NSMutableArray <XPBNewsDataModel *> *)newsArr{
+    if(_newsArr == nil){
         _newsArr = [NSMutableArray array];
     }
     return _newsArr;
 }
 
--(NSMutableArray <BPBannerModel *>*)bannerArr
-{
-    if(_bannerArr == nil)
-    {
+-(NSMutableArray <BPBannerModel *>*)bannerArr{
+    if(_bannerArr == nil){
         _bannerArr = [NSMutableArray array];
     }
     return _bannerArr;
 }
 
--(NSMutableArray <BPBannerModel *>*)advArr
-{
-    if(_advArr == nil)
-    {
+-(NSMutableArray <BPBannerModel *>*)advArr{
+    if(_advArr == nil){
         _advArr = [NSMutableArray array];
     }
     return _advArr;

@@ -37,7 +37,7 @@
                            @"paramData":@{@"user_account" : [BPUserModel shareModel].userAccount}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(IntegralDetail) parameters:dict success:^(id responseObject) {
-        NSLog(@"%@",[responseObject mj_JSONString]);
+       
         [self.tableView.mj_header endRefreshing];
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {

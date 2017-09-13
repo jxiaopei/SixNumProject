@@ -8,6 +8,14 @@
 
 #import "BPBaseViewController.h"
 
+typedef NS_ENUM(NSInteger,CooperationListType){
+    
+    CooperationType = 0,   //合作伙伴
+    RecommendedType,       //今日推荐
+};
+
 @interface XPBCooperationListViewController : BPBaseViewController
+
+@property(nonatomic,assign)CooperationListType listType;
 
 @end

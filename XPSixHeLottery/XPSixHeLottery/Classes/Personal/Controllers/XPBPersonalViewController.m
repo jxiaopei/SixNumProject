@@ -162,26 +162,26 @@
         }
         
     }else if (indexPath.item == 1){
-        BPBaseWebViewController *recommendVC = [BPBaseWebViewController new];
-        recommendVC.title = @"推荐";
-        recommendVC.urlString = @"https://www.whhbet.com/";
-        [self.navigationController pushViewController:recommendVC animated:YES];
+        XPBCooperationListViewController *recommendedVC = [XPBCooperationListViewController new];
+        recommendedVC.listType = RecommendedType;
+        recommendedVC.title = @"推荐";
+        [self.navigationController pushViewController:recommendedVC animated:YES];
         
     }else if (indexPath.item == 2){
         XPBCooperationListViewController *cooperationVC = [XPBCooperationListViewController new];
+        cooperationVC.listType = CooperationType;
+        cooperationVC.title = @"合作伙伴";
         [self.navigationController pushViewController:cooperationVC animated:YES];
     }
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
 
     XPBMainPageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"personalCollectionCViewell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     cell.iconView.image = [UIImage imageNamed:_headTitleArr[indexPath.row]] ;
     cell.title.text = _headTitleArr[indexPath.row];
     return cell;
-
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{

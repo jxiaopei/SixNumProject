@@ -99,7 +99,7 @@
                            @"paramData":parameters
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(NewsDetail) parameters:dict success:^(id responseObject) {
-//        NSLog(@"%@",[responseObject mj_JSONString]);
+
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             NSArray *images = responseObject[@"data"][@"news_image"];

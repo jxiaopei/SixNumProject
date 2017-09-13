@@ -15,15 +15,15 @@
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        UILabel *titleLabel = [UILabel new];
-        [self addSubview:titleLabel];
-        _titleLabel = titleLabel;
-        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(10);
-            make.top.mas_equalTo(5);
+        UILabel *levelLabel = [UILabel new];
+        [self addSubview:levelLabel];
+        _levelLabel = levelLabel;
+        [levelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(-10);
+            make.top.mas_equalTo(10);
         }];
-        titleLabel.textColor = [UIColor blackColor];
-        titleLabel.font = [UIFont systemFontOfSize:15];
+        levelLabel.textColor = [UIColor grayColor];
+        levelLabel.font = [UIFont systemFontOfSize:13];
         
         UILabel *dateLabel = [UILabel new];
         [self addSubview:dateLabel];
@@ -37,7 +37,7 @@
         
         UILabel *detailLabel = [UILabel new];
         [self addSubview:detailLabel];
-        _detailLabel = detailLabel;
+//        _detailLabel = detailLabel; 
         [detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(5);
             make.bottom.mas_equalTo(-10);

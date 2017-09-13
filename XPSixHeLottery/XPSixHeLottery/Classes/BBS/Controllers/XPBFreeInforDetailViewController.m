@@ -35,7 +35,7 @@
                            @"paramData":@{@"main_id" :_mianId}
                            };
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(FreeInforDetail) parameters:dict success:^(id responseObject) {
-//                NSLog(@"%@",[responseObject mj_JSONString]);
+
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             [_scrollView.mj_header endRefreshing];
