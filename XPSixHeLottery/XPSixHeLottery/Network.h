@@ -11,11 +11,16 @@
 
 #define NETWORK_STATE 1  //1是正式环境 0是测试环境
 
+#define AppNetwork              @"http://119.9.107.44:9999/getDomainMapper"
+#define AppUpdateInvalidUrl     @"http://119.9.107.44:9999/updateDomainMapper"
+#define AppCheckHostAvailable   @"/index/mobile/checkDomainName"
 #define AppUpdateUrl            @"https://tpfw.083075.com:8080/tizi/system/getAppLastChange"
 #define AppUpdateCode           @"86b305ae91ac3da4c364e5d829c87f7"
 #define AppUpdatePeramters      @{@"code":AppUpdateCode}
 #define AppBeingIntercept       @"index.php?vcode/validate"
 #define APP_MD5PRIVATE_KEY      @"df9464c4975c427bbb51e7fbb3a2f629"
+#define APPSecretKey            @"WHH"
+#define AppTestHostString       @"http://172.16.1.67:8080"
 
 #define AppKey                  @"5981ba3cc62dca68bd0019b5" //友盟appKey
 #define AppSecret               @" rqyibszrse2zevbi9erxwknhxztpdyx0"  //友盟app 秘钥

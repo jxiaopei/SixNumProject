@@ -11,6 +11,7 @@
 #import "LCIntroView.h"
 #import "LCCOllectionInfo.h"
 #import "XPBLotteryViewController.h"
+#import "BPBaseNetworkServiceTool.h"
 
 @interface AppDelegate ()
 
@@ -280,6 +281,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [self getUpdateInfor];
     [self getAppBaseInfors];
+    [[BPBaseNetworkServiceTool shareServiceTool] setNetWorkService];
 }
 
 -(void)getUpdateInfor{
@@ -361,6 +363,8 @@
     
     
 }
+
+
 
 - (void)checAppBeingIntercept:(NSString *)hostString {
     

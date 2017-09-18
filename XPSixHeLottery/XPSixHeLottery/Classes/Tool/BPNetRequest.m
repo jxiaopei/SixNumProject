@@ -84,6 +84,7 @@
     }];
 }
 
+
 /**
  *  Post形式提交数据
  *
@@ -98,7 +99,7 @@
                    fail:(NetRequestFailedBlock)fail
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html",@"text/javascript",nil];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html",@"text/javascript"@"charset=UTF-8",nil];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.requestSerializer  = [AFHTTPRequestSerializer serializer];
     manager.requestSerializer.timeoutInterval = 20;
@@ -132,11 +133,11 @@
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html",@"text/javascript",nil];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.requestSerializer  = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.requestSerializer  = [AFJSONRequestSerializer serializer];
     manager.requestSerializer.timeoutInterval = 20;
     
-    [manager POST:urlString parameters:[LCNetDataParsing inputParsing:parameters] progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manager POST:urlString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     }  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if (success) {

@@ -34,6 +34,8 @@
 		882CC2A21F5A69A6001D2876 /* XPBIntegralTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A11F5A69A6001D2876 /* XPBIntegralTableViewCell.m */; };
 		882CC2A51F5A69EA001D2876 /* XPBIntegralDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A41F5A69EA001D2876 /* XPBIntegralDataModel.m */; };
 		882CC2A81F5A8675001D2876 /* XPBHumorPicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A71F5A8675001D2876 /* XPBHumorPicDetailViewController.m */; };
+		88520D831F6909DD005D5659 /* BPNetworkServiceInforModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88520D821F6909DD005D5659 /* BPNetworkServiceInforModel.m */; };
+		88520D861F690BD2005D5659 /* BPBaseNetworkServiceTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 88520D851F690BD2005D5659 /* BPBaseNetworkServiceTool.m */; };
 		8872AA761F5D3C2C0032D912 /* XPBSignInMissionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8872AA751F5D3C2C0032D912 /* XPBSignInMissionModel.m */; };
 		8881FAB01F5E8770006EA4D6 /* XPBActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8881FAAF1F5E8770006EA4D6 /* XPBActionViewController.m */; };
 		8898A7751F3AC9930062473C /* XPBMantissaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8898A7741F3AC9930062473C /* XPBMantissaTableViewCell.m */; };
@@ -213,6 +215,10 @@
 		882CC2A41F5A69EA001D2876 /* XPBIntegralDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBIntegralDataModel.m; sourceTree = "<group>"; };
 		882CC2A61F5A8675001D2876 /* XPBHumorPicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBHumorPicDetailViewController.h; sourceTree = "<group>"; };
 		882CC2A71F5A8675001D2876 /* XPBHumorPicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBHumorPicDetailViewController.m; sourceTree = "<group>"; };
+		88520D811F6909DD005D5659 /* BPNetworkServiceInforModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPNetworkServiceInforModel.h; sourceTree = "<group>"; };
+		88520D821F6909DD005D5659 /* BPNetworkServiceInforModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPNetworkServiceInforModel.m; sourceTree = "<group>"; };
+		88520D841F690BD2005D5659 /* BPBaseNetworkServiceTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBaseNetworkServiceTool.h; sourceTree = "<group>"; };
+		88520D851F690BD2005D5659 /* BPBaseNetworkServiceTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBaseNetworkServiceTool.m; sourceTree = "<group>"; };
 		8872AA741F5D3C2C0032D912 /* XPBSignInMissionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBSignInMissionModel.h; sourceTree = "<group>"; };
 		8872AA751F5D3C2C0032D912 /* XPBSignInMissionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBSignInMissionModel.m; sourceTree = "<group>"; };
 		8881FAAE1F5E8770006EA4D6 /* XPBActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBActionViewController.h; sourceTree = "<group>"; };
@@ -1083,10 +1089,14 @@
 				88BC758D1F346B4200726D56 /* BPBaseViewController.m */,
 				88BC758E1F346B4200726D56 /* BPBaseWebViewController.h */,
 				88BC758F1F346B4200726D56 /* BPBaseWebViewController.m */,
+				88520D811F6909DD005D5659 /* BPNetworkServiceInforModel.h */,
+				88520D821F6909DD005D5659 /* BPNetworkServiceInforModel.m */,
 				88BC75901F346B4200726D56 /* BPUserModel.h */,
 				88BC75911F346B4200726D56 /* BPUserModel.m */,
 				88BC75421F34671900726D56 /* AppDelegate.h */,
 				88BC75431F34671900726D56 /* AppDelegate.m */,
+				88520D841F690BD2005D5659 /* BPBaseNetworkServiceTool.h */,
+				88520D851F690BD2005D5659 /* BPBaseNetworkServiceTool.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1374,6 +1384,7 @@
 				8898A7F01F4BF7EB0062473C /* XPBColorVoteModel.m in Sources */,
 				88F924021F3848AC00D44EDF /* XPBAttributeReferenceController.m in Sources */,
 				88BC75C01F346B5D00726D56 /* MBProgressHUD+MJ.m in Sources */,
+				88520D861F690BD2005D5659 /* BPBaseNetworkServiceTool.m in Sources */,
 				88BC75DA1F34A1C300726D56 /* XPBPersonalViewController.m in Sources */,
 				8898A7B71F46A80E0062473C /* XPBMainpageNewsTableViewCell.m in Sources */,
 				882CC2931F569876001D2876 /* LCCOllectionInfo.m in Sources */,
@@ -1406,6 +1417,7 @@
 				8898A81E1F4DA3AE0062473C /* LCTextFieldCell.m in Sources */,
 				88BC75D71F34A19D00726D56 /* XPBNewsViewController.m in Sources */,
 				88BC75AF1F346B5600726D56 /* sizeWithString.m in Sources */,
+				88520D831F6909DD005D5659 /* BPNetworkServiceInforModel.m in Sources */,
 				88BC75961F346B4200726D56 /* BPUserModel.m in Sources */,
 				8898A7AE1F45BCEF0062473C /* LCMarqueView.m in Sources */,
 				8898A7841F3B01040062473C /* XPBBAndWPicViewController.m in Sources */,

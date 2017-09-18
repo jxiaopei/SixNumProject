@@ -18,4 +18,6 @@
 
 -(NSString *) md5HexDigest;
 
++ (NSString *) md5:(NSString *) input;
+
 @end
