@@ -18,6 +18,7 @@
 @property(nonatomic,strong)UIView *titleView;
 @property(nonatomic,strong)UIScrollView *scrollView;
 @property(nonatomic,strong)UIButton *selectedBtn;
+@property(nonatomic,strong)UIView *underLineView;
 
 @property(nonatomic,strong)UITableView *picTableView;
 @property(nonatomic,strong)NSMutableArray <XPBBAndWPicModel *>*picDataArr;
@@ -223,8 +224,6 @@
         [titleView addSubview:btn];
         [btn setTitle:titleArr[i] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [btn setBackgroundColor:GlobalLightGreyColor];
         btn.frame = CGRectMake(i * SCREENWIDTH/2, 0, SCREENWIDTH/2, 36);
         btn.tag = i;
         [btn addTarget:self action:@selector(didClickTitleViewBtn:) forControlEvents:UIControlEventTouchUpInside];
@@ -233,8 +232,12 @@
         {
             [self didClickTitleViewBtn:btn];
             btn.selected = YES;
-            [btn setBackgroundColor:GlobalRoseRedColor];
             self.selectedBtn = btn;
+            UIView *underLineView = [UIView new];
+            [titleView addSubview:underLineView];
+            _underLineView = underLineView;
+            underLineView.frame = CGRectMake(SCREENWIDTH/4 - 25, 35, 50, 3);
+            underLineView.backgroundColor = GlobalOrangeColor;
         }
     }
     
@@ -256,9 +259,7 @@
                     {
                         UIButton *btn = _titleView.subviews[i];
                         btn.selected = YES;
-                        [btn setBackgroundColor:GlobalRoseRedColor];
                         self.selectedBtn.selected = NO;
-                        [self.selectedBtn setBackgroundColor:GlobalLightGreyColor];
                         self.selectedBtn = btn;
                         if([btn.titleLabel.text isEqualToString:@"图库"])
                         {
@@ -328,12 +329,24 @@
         NSString *dateStr = [dataModel.create_date insertStandardTimeFormat];
         cell.subTitleLabel.text = [NSString stringWithFormat:@"%@ %@期",dateStr,periodStr];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }else{
         XPBBAndWPicModel *dataModel = _attenPicDataArr[indexPath.row];
         XPBAttentionPicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"attentionPicCell" forIndexPath:indexPath];
+        if([dataModel.pic_list isNotNil])
+        {
+            NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:dataModel.pic_list options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
+            if(decodedImage != nil)
+            {
+                cell.iconView.image = decodedImage;
+            }
+        }
         cell.titleLabel.text = dataModel.pic_name;
+        NSString *periodStr = [dataModel.lottery_num substringFromIndex:4];
+        NSString *dateStr = [dataModel.create_date insertStandardTimeFormat];
+        cell.subTitleLabel.text = [NSString stringWithFormat:@"%@ %@期",dateStr,periodStr];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
@@ -342,16 +355,15 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(tableView.tag == 0){
-        return 80;
-    }else{
-        return 50;
-    }
+    return 80;
 }
 
 -(void)didClickTitleViewBtn:(UIButton *)sender
 {
     [_scrollView setContentOffset:CGPointMake(sender.tag * SCREENWIDTH, 0) animated:YES];
+    [UIView animateWithDuration:0.5 animations:^{
+        _underLineView.frame = CGRectMake(SCREENWIDTH/4 + SCREENWIDTH/2 * sender.tag  - 25, 35, 50, 3);
+    }];
 }
 
 -(NSMutableArray <XPBBAndWPicModel *>*)picDataArr

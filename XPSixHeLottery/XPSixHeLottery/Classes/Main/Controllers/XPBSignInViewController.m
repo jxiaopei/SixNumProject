@@ -25,6 +25,8 @@
 @property(nonatomic,assign)NSInteger daysOfMonth;
 @property(nonatomic,strong)UILabel *tipLabel;
 @property(nonatomic,strong)NSString *currentDayStr;
+@property(nonatomic,assign)NSInteger weekday;
+@property(nonatomic,strong)UIImageView *signInSuccessView;
 
 @end
 
@@ -103,43 +105,42 @@
 
 -(UIView *)setupHeader{
     UIView *header = [UIView new];
-    header.frame = CGRectMake(0, 0, SCREENWIDTH, (SCREENWIDTH/11 + 5)*3 + 140);
+    header.frame = CGRectMake(0, 0, SCREENWIDTH, (SCREENWIDTH/7 + 5)*3 + 140);
     header.backgroundColor = [UIColor whiteColor];
-    
-    UILabel *signInTitle = [UILabel new];
-    [header addSubview:signInTitle];
-    [signInTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(0);
-        make.top.mas_equalTo(10);
-    }];
-    signInTitle.text = @"签到表";
-    signInTitle.textColor = GlobalOrangeColor;
-    signInTitle.font = [UIFont systemFontOfSize:20];
     
     UIView *titleView = [UIView new];
     [header addSubview:titleView];
     [titleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.centerX.mas_equalTo(0);
-        make.top.mas_equalTo(signInTitle.mas_bottom).mas_offset(5);
+        make.top.mas_equalTo(0);
         make.height.mas_equalTo(40);
     }];
-    titleView.backgroundColor = GlobalOrangeColor;
-    titleView.layer.masksToBounds = YES;
-    titleView.layer.cornerRadius = 10;
     
     UILabel *titleLabel = [UILabel new];
     [titleView addSubview:titleLabel];
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(0);
-        make.top.mas_equalTo(5);
+        make.centerX.centerY.mas_equalTo(0);
     }];
     titleLabel.font = [UIFont fontWithName:@"ArialMT"size:18];
     NSDate *date = [NSDate date];
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setDateFormat:@"yyyy年MM月"];
     NSString *dateStr = [formatter stringFromDate:date];
-    titleLabel.text = [NSString stringWithFormat:@"签到表 %@",dateStr];
+    titleLabel.text = dateStr;
     titleLabel.textColor = [UIColor blackColor];
+    
+    NSString *firstDateStr = [NSString stringWithFormat:@"%@01日",dateStr];
+    [formatter setDateFormat:@"yyyy年MM月dd日"];
+    NSDate *firstDate = [formatter dateFromString:firstDateStr];
+    //获取当前星期几
+    NSCalendar*calendar = [NSCalendar currentCalendar];
+    NSDateComponents*comps;
+    comps =[calendar components:NSCalendarUnitYear | NSCalendarUnitMonth |NSCalendarUnitDay|NSCalendarUnitWeekday|NSCalendarUnitDay fromDate:firstDate];//kCFCalendarUnitWeekOfYear  | NSCalendarUnitWeekday |
+    
+    // 本月初得到星期几
+    // 1(星期天) 2(星期二) 3(星期三) 4(星期四) 5(星期五) 6(星期六) 7(星期天)
+    _weekday = [comps weekday];
     
     [formatter setDateFormat:@"MM"];
     NSString *monthStr = [formatter stringFromDate:date];
@@ -180,12 +181,37 @@
     }
     _daysOfMonth = daysOfMonth;
     
+    NSArray *weekDayStrArr = @[@"周日",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"];
+    UIView *weekView = [UIView new];
+    [header addSubview:weekView];
+    [weekView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.height.mas_equalTo(30);
+        make.top.mas_equalTo(titleView.mas_bottom);
+    }];
+    weekView.backgroundColor = GlobalLightGreyColor;
+    
+    for(int i = 0;i < weekDayStrArr.count;i++){
+        
+        UILabel *weekdayLab = [UILabel new];
+        [weekView addSubview:weekdayLab];
+        weekdayLab.frame = CGRectMake(SCREENWIDTH/7 * i, 0, SCREENWIDTH/7, 30);
+        weekdayLab.text = weekDayStrArr[i];
+        weekdayLab.font = [UIFont systemFontOfSize:13];
+        weekdayLab.textColor = [UIColor grayColor];
+        weekdayLab.textAlignment = NSTextAlignmentCenter;
+        
+    }
+    
+    NSInteger rowNum = (_weekday+_daysOfMonth) % 7 ? (_daysOfMonth + _weekday)/7  + 1: (_daysOfMonth + _weekday)/7;
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.itemSize = CGSizeMake((SCREENWIDTH- 4)/11, SCREENWIDTH/11 + 5);
-    UICollectionView *dateCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 70 , SCREENWIDTH, (SCREENWIDTH/11 + 5)*3) collectionViewLayout:layout];
+    layout.itemSize = CGSizeMake((SCREENWIDTH)/7, 60);
+    UICollectionView *dateCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 70 , SCREENWIDTH, 60 * rowNum -5) collectionViewLayout:layout];
+    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 0;
     [header addSubview:dateCollectionView];
     dateCollectionView.backgroundColor = [UIColor whiteColor];
-    [dateCollectionView setContentInset:UIEdgeInsetsMake(5, 2, 0,2)];
     _dateCollectionView = dateCollectionView;
     dateCollectionView.pagingEnabled = YES;
     dateCollectionView.delegate = self;
@@ -196,18 +222,17 @@
     UIView *lineView = [UIView new];
     [header addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(0.5);
+        make.height.mas_equalTo(10);
         make.left.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(dateCollectionView.mas_bottom);
+        make.top.mas_equalTo(dateCollectionView.mas_bottom);
     }];
-    lineView.backgroundColor = [UIColor grayColor];
-    lineView.alpha = 0.6;
+    lineView.backgroundColor = GlobalLightGreyColor;
     
     UILabel *tipLabel = [UILabel new];
     [header addSubview:tipLabel];
     [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(0);
-        make.top.mas_equalTo(dateCollectionView.mas_bottom).mas_offset(5);
+        make.top.mas_equalTo(dateCollectionView.mas_bottom).mas_offset(15);
     }];
     tipLabel.text = @"您本月已连续签到xx天";
     tipLabel.font = [UIFont systemFontOfSize:14];
@@ -229,6 +254,17 @@
     signInBtn.layer.cornerRadius = 10;
     [signInBtn addTarget:self action:@selector(didClickSignInBtn:) forControlEvents:UIControlEventTouchUpInside];
     
+    UIView *horView = [UIView new];
+    [header addSubview:horView];
+    [horView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(0);
+        make.height.mas_equalTo(5);
+    }];
+    horView.backgroundColor = GlobalLightGreyColor;
+    
+    header.frame = CGRectMake(0, 0, SCREENWIDTH, 60 * rowNum + 150 -5);
+    
     return header;
 }
 
@@ -248,6 +284,7 @@
         if(_currentDayStr.integerValue == signInStr.integerValue)
         {
             [MBProgressHUD showError:@"您今天已经签到过了"];
+            
             return;
         }
     }
@@ -264,7 +301,9 @@
             
             if([responseObject[@"code"] isEqualToString:@"0000"])
             {
-                [MBProgressHUD showSuccess:@"签到成功"];
+//              [MBProgressHUD showSuccess:@"签到成功"];
+                [self showSuccessView];
+                
                 [self getData];
 
             }else{
@@ -278,10 +317,42 @@
     
 }
 
+-(void)showSuccessView{
+    UIImageView *signInSuccessView = [UIImageView new];
+    signInSuccessView.image = [UIImage imageNamed:@"签到成功显示"];
+    [self.view addSubview:signInSuccessView];
+    signInSuccessView.frame = CGRectMake(-SCREENWIDTH/2, -SCREENHEIGHT/2, SCREENWIDTH * 2, SCREENHEIGHT * 2);
+    signInSuccessView.alpha = 0;
+    _signInSuccessView = signInSuccessView;
+    signInSuccessView.contentMode = UIViewContentModeScaleToFill;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeSignInSuccessViewByAnimation)];
+    [signInSuccessView addGestureRecognizer:tap];
+    signInSuccessView.userInteractionEnabled = YES;
+    [UIView animateWithDuration:0.5 animations:^{
+        signInSuccessView.alpha = 1.0;
+        signInSuccessView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT - 64);
+    }];
+}
+
+-(void)removeSignInSuccessViewByAnimation{
+    [UIView animateWithDuration:0.5 animations:^{
+        _signInSuccessView.alpha = 0.0;
+        _signInSuccessView.frame = CGRectMake(-SCREENWIDTH/2, -SCREENHEIGHT/2, SCREENWIDTH * 2, SCREENHEIGHT * 2);;
+    }completion:^(BOOL finished) {
+        [_signInSuccessView removeFromSuperview];
+    }];
+}
+
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     XPBSignInCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"signInDateCell" forIndexPath:indexPath];
-    NSString *dateStr = [NSString stringWithFormat:@"%zd",indexPath.row + 1];
+    cell.backgroundColor = [UIColor whiteColor];
+    NSString *dateStr = nil;
+    if(indexPath.row < _weekday - 1){
+       dateStr = @"";
+    }else{
+       dateStr = [NSString stringWithFormat:@"%zd",indexPath.row - _weekday + 2];
+    }
     [cell.btn setTitle:dateStr forState:UIControlStateNormal];
     cell.btn.selected = NO;
     for(XPBIntegralDataModel *model in _signInDataArr)
@@ -297,23 +368,12 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _daysOfMonth;
+    return _daysOfMonth + _weekday;
 }
-
--(CGFloat )collectionView:(UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0;
-}
-
--(CGFloat )collectionView:(UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0;
-}
-
 
 - (CGSize)collectionView:(UICollectionView *)collectionView  layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    return CGSizeMake((SCREENWIDTH- 4)/11, SCREENWIDTH/11 + 5);
+    return CGSizeMake(SCREENWIDTH/7, 60);
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -331,6 +391,7 @@
     }else if ([missionModel.Id isEqualToString:@"17"]){
         XPBBBSViewController *bbsVC = [XPBBBSViewController new];
         [self.navigationController pushViewController:bbsVC animated:YES];
+        }else if ([missionModel.Id isEqualToString:@"12"]){
     }
     
 }

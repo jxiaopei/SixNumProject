@@ -23,11 +23,11 @@
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        _iconView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 44, 44)];
+        _iconView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 14, 14)];
         _iconView.contentMode = UIViewContentModeRedraw;
         [self.contentView addSubview:_iconView];
         
-        _textField = [[DTextField alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_iconView.frame), 0, SCREENWIDTH - 54, 44)];
+        _textField = [[DTextField alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_iconView.frame)+10, 0, SCREENWIDTH - 54, 44)];
         _textField.returnKeyType = UIReturnKeyDone;
         [self.contentView addSubview:_textField];
     }

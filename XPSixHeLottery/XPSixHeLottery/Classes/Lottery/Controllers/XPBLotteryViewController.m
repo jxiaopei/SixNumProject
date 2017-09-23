@@ -32,7 +32,6 @@
     [super viewDidLoad];
     self.title = @"开奖";
     _pageNum = 1;
-    [self setupHeaderView];
     [self setupTableView];
     [self getData];
 
@@ -83,25 +82,46 @@
 -(UIView *)setupHeaderView{
     
     UIView *lotteryView = [UIView new];
-    lotteryView.backgroundColor = GlobalLightGreyColor;
-    lotteryView.frame = CGRectMake(0, 0, SCREENWIDTH, 190);
+    lotteryView.backgroundColor = [UIColor whiteColor];
+    lotteryView.frame = CGRectMake(0, 0, SCREENWIDTH, 215);
     UIImageView *backgroundImage = [UIImageView new];
     [lotteryView addSubview:backgroundImage];
+    
+    UIView *verView = [UIView new];
+    [lotteryView addSubview:verView];
+    [verView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(20);
+        make.left.mas_equalTo(10);
+        make.width.mas_equalTo(4);
+        make.height.mas_equalTo(15);
+    }];
+    verView.backgroundColor = [UIColor redColor];
     
     UILabel *peroidLabel = [UILabel new];
     [lotteryView addSubview:peroidLabel];
     [peroidLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(lotteryView.mas_centerX);
-        make.top.mas_equalTo(15);
+        make.centerY.mas_equalTo(verView.mas_centerY);
+        make.left.mas_equalTo(verView.mas_right).mas_offset(5);
     }];
-    peroidLabel.font = [UIFont systemFontOfSize:18];
+    peroidLabel.font = [UIFont systemFontOfSize:16];
     peroidLabel.textColor = [UIColor blackColor];
-    peroidLabel.text = @"第089期开奖结果";
+    peroidLabel.text = @"第000期开奖结果";
+    
+    
+    UILabel *dateLabel = [UILabel new];
+    [lotteryView addSubview:dateLabel];
+    [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-10);
+        make.centerY.mas_equalTo(verView.mas_centerY);
+    }];
+    dateLabel.font = [UIFont systemFontOfSize:13];
+    dateLabel.text = @"0000.00.00 00:00";
+    dateLabel.textColor = [UIColor grayColor];
     
     NSMutableArray *btnArr = [NSMutableArray new];
     NSMutableArray *labelArr = [NSMutableArray new];
     
-    CGFloat btnW = 38;
+    CGFloat btnW = 30;
     CGFloat margant = (SCREENWIDTH - btnW *7 -20 - 25)/7;
     for(int i= 0; i< 6;i++)
     {
@@ -110,17 +130,17 @@
         
         btn.frame = CGRectMake(10 + (margant + btnW) * i, 45, btnW, btnW);
         [btn setBackgroundImage:[UIImage imageNamed:@"红波"] forState:UIControlStateNormal];
-        [btn setTitle:@"13" forState:UIControlStateNormal];
-        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 5, 5)];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btn setTitle:@"0" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:15];
         btn.tag = i;
         UILabel *zodiaLabel = [UILabel new];
         [lotteryView addSubview:zodiaLabel];
-        zodiaLabel.frame = CGRectMake(10 + (margant + btnW) * i, 45 + btnW, btnW, 30);
+        zodiaLabel.frame = CGRectMake(10 + (margant + btnW) * i, 50 + btnW, btnW, 30);
         zodiaLabel.textColor = [UIColor blackColor];
         zodiaLabel.textAlignment = NSTextAlignmentCenter;
-        zodiaLabel.font = [UIFont systemFontOfSize:18];
-        zodiaLabel.text = @"猴";
+        zodiaLabel.font = [UIFont systemFontOfSize:13];
+        zodiaLabel.text = @"龙";
         [btnArr addObject:btn];
         [labelArr addObject:zodiaLabel];
     }
@@ -137,14 +157,14 @@
     [lotteryView addSubview:spcNumBtn];
     spcNumBtn.frame = CGRectMake(10 + (margant + btnW) * 6 + margant +25, 45, btnW, btnW);
     [spcNumBtn setBackgroundImage:[UIImage imageNamed:@"绿波"] forState:UIControlStateNormal];
-    [spcNumBtn setTitle:@"45" forState:UIControlStateNormal];
-    [spcNumBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 5, 5)];
-    [spcNumBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [spcNumBtn setTitle:@"0" forState:UIControlStateNormal];
+    [spcNumBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    spcNumBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     UILabel *spcZodiaLabel = [UILabel new];
     [lotteryView addSubview:spcZodiaLabel];
-    spcZodiaLabel.frame = CGRectMake(10 + (margant + btnW) * 6 + margant +25, 45 + btnW, btnW, 30);
+    spcZodiaLabel.frame = CGRectMake(10 + (margant + btnW) * 6 + margant +25, 50 + btnW, btnW, 30);
     spcZodiaLabel.textColor = [UIColor blackColor];
-    spcZodiaLabel.font = [UIFont systemFontOfSize:18];
+    spcZodiaLabel.font = [UIFont systemFontOfSize:13];
     spcZodiaLabel.textAlignment = NSTextAlignmentCenter;
     spcZodiaLabel.text = @"虎";
     
@@ -153,8 +173,8 @@
     
     UIView *nextView = [UIView new];
     [lotteryView addSubview:nextView];
-    nextView.frame = CGRectMake(0, 55 + 30 + btnW, SCREENWIDTH, 60);
-    nextView.backgroundColor = [UIColor whiteColor];
+    nextView.frame = CGRectMake(0, 60 + 30 + btnW, SCREENWIDTH, 60);
+    nextView.backgroundColor = GlobalLightGreyColor;
     
     UILabel *nextPeroidLabel = [UILabel new];
     [nextView addSubview:nextPeroidLabel];
@@ -165,15 +185,35 @@
     nextPeroidLabel.font = [UIFont systemFontOfSize:16];
     nextPeroidLabel.text = @"下期开奖时间 0000年00月00日 00:00";
     
-    UILabel *dateLabel = [UILabel new];
-    [nextView addSubview:dateLabel];
-    [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    UILabel *timeLabel = [UILabel new];
+    [nextView addSubview:timeLabel];
+    [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(-5);
         make.centerX.mas_equalTo(nextView.mas_centerX);
     }];
-    dateLabel.font = [UIFont fontWithName:@"DBLCDTempBlack" size: 26];
-    dateLabel.text = @"XX:XX:XX";
-    _timeLabel = dateLabel;
+    timeLabel.font = [UIFont fontWithName:@"DBLCDTempBlack" size: 26];
+    timeLabel.text = @"XX:XX:XX";
+    _timeLabel = timeLabel;
+    
+    UIView *redView = [UIView new];
+    [lotteryView addSubview:redView];
+    [redView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(-10);
+        make.left.mas_equalTo(10);
+        make.width.mas_equalTo(4);
+        make.height.mas_equalTo(15);
+    }];
+    redView.backgroundColor = [UIColor redColor];
+    
+    UILabel *tipLabel = [UILabel new];
+    [lotteryView addSubview:tipLabel];
+    [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(redView.mas_centerY);
+        make.left.mas_equalTo(redView.mas_right).mas_offset(5);
+    }];
+    tipLabel.font = [UIFont systemFontOfSize:16];
+    tipLabel.textColor = [UIColor blackColor];
+    tipLabel.text = @"近期开奖结果";
     
     __weak typeof(self)weakSelf = self;
     self.lotteryGetDataBlock = ^(XPBMarkSixLotteryListModel *dataModel) {
@@ -187,7 +227,7 @@
         NSString *str_second = [NSString stringWithFormat:@"%02ld",_seconds%60];//秒
         NSString *format_time = [NSString stringWithFormat:@"%@:%@:%@",str_hour,str_minute,str_second];
         NSLog(@"time:%@",format_time);
-         dateLabel.text = format_time;
+        timeLabel.text = format_time;
         if(![format_time isEqualToString:@"00:00:00"]){
             [weakSelf setupTimer];
         }
@@ -199,6 +239,7 @@
         XPBMarkSixLotteryDataModel *lotteryDataModel = dataModel.lottery_list.rows[0];
         NSString *periodStr = [lotteryDataModel.lottery_nper substringFromIndex:4];
         peroidLabel.text = [NSString stringWithFormat:@"第%@期开奖结果",periodStr];
+        dateLabel.text = lotteryDataModel.open_time;
         for(int i =0; i < lotteryDataModel.lottery_result.count;i++)
         {
             XPBLotteryModel *dataModel = lotteryDataModel.lottery_result[i];
@@ -276,7 +317,7 @@
 {
     XPBLotteryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"lotteryTableViewCell" forIndexPath:indexPath];
     cell.dataModel = self.lotteriesArr[indexPath.row ];
-    cell.backgroundColor = indexPath.row%2?GlobalLightGreyColor :[UIColor whiteColor];
+    cell.backgroundColor = [UIColor whiteColor];
     return cell;
 }
 

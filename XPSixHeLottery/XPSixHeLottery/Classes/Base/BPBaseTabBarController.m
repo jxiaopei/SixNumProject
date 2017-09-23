@@ -44,7 +44,6 @@
     nav1.tabBarItem =[[UITabBarItem alloc]initWithTitle:@"开奖" image:newsNorImage selectedImage:newsSelImage];
     
     XPBServiceViewController *serviceVC = [XPBServiceViewController new];
-    serviceVC.urlString = CustomerService;
     BPBaseNavigationController *nav2 = [[BPBaseNavigationController alloc]initWithRootViewController:serviceVC];
     UIImage *staNorImage =  [[UIImage imageNamed:@"hm" ] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal];
     UIImage *staSelImage = [[UIImage imageNamed:@"hm_selected"] imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal];

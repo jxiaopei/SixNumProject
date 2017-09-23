@@ -210,7 +210,7 @@
 {
     XPBLotteryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"lotteryHistoryCell" forIndexPath:indexPath];
     cell.dataModel = self.lotteriesArr[indexPath.row ];
-    cell.backgroundColor = indexPath.row%2?GlobalLightGreyColor :[UIColor whiteColor];
+    cell.backgroundColor = [UIColor whiteColor];
     return cell;
 }
 

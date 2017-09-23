@@ -9,11 +9,12 @@
 #import "XPBBBSPublishViewController.h"
 #import "DTextField.h"
 
-@interface XPBBBSPublishViewController ()<UITextViewDelegate,UITextFieldDelegate>
+@interface XPBBBSPublishViewController ()<UITextViewDelegate,UITextFieldDelegate,UIScrollViewDelegate>
 
 @property(nonatomic,strong)UILabel *placeholder;
 @property(nonatomic,strong)UITextView *contentText;
 @property(nonatomic,strong)DTextField *titleText;
+@property(nonatomic,strong)UIButton *publishBtn;
 
 @end
 
@@ -32,6 +33,7 @@
     [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.bottom.mas_equalTo(0);
     }];
+    scrollView.delegate = self;
     scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [scrollView setContentSize:CGSizeMake(SCREENWIDTH, SCREENHEIGHT - 64 + 10)];
     
@@ -43,7 +45,7 @@
         make.width.mas_equalTo(50);
     }];
     titleLabel.textColor = [UIColor blackColor];
-    titleLabel.font = [UIFont systemFontOfSize:18];
+    titleLabel.font = [UIFont systemFontOfSize:16];
     titleLabel.text = @"标题:";
     
     DTextField *titleText = [DTextField new];
@@ -55,7 +57,7 @@
         make.width.mas_equalTo(SCREENWIDTH-20);
     }];
     titleText.placeholder = @"(必填,最多30字)";
-    titleText.font = [UIFont systemFontOfSize:18];
+    titleText.font = [UIFont systemFontOfSize:16];
     titleText.textAlignment = NSTextAlignmentLeft;
     titleText.delegate = self;
     
@@ -65,51 +67,31 @@
         make.left.mas_equalTo(10);
         make.width.mas_equalTo(SCREENWIDTH-20);
         make.height.mas_equalTo(0.5);
-        make.top.mas_equalTo(titleLabel.mas_bottom).mas_offset(5);
+        make.top.mas_equalTo(titleLabel.mas_bottom).mas_offset(10);
     }];
     lineView.backgroundColor = [UIColor grayColor];
     
-    UILabel *contextTitle = [UILabel new];
-    [scrollView addSubview:contextTitle];
-    [contextTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(10);
-        make.top.mas_equalTo(lineView.mas_bottom).mas_offset(5);
-    }];
-    contextTitle.textColor = [UIColor blackColor];
-    contextTitle.font = [UIFont systemFontOfSize:18];
-    contextTitle.text = @"内容:";
-    
     UIButton *publishBtn = [UIButton new];
     [scrollView addSubview:publishBtn];
-    [publishBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(10);
-        make.width.mas_equalTo(SCREENWIDTH-20);
-        make.height.mas_equalTo(40);
-        make.bottom.mas_equalTo(SCREENHEIGHT - 74);
-    }];
+    _publishBtn = publishBtn;
+    publishBtn.frame = CGRectMake(0, SCREENHEIGHT - 50 - 64, SCREENWIDTH, 50);
     publishBtn.backgroundColor = GlobalOrangeColor;
-    publishBtn.layer.masksToBounds = YES;
-    publishBtn.layer.cornerRadius = 5;
     [publishBtn setTitle:@"发 布" forState:UIControlStateNormal];
     [publishBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    publishBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    publishBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     [publishBtn addTarget:self action:@selector(didClickPublishBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     UITextView *textView = [UITextView new];
     [scrollView addSubview:textView];
     _contentText = textView;
     [textView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(contextTitle.mas_bottom).mas_offset(5);
+        make.top.mas_equalTo(lineView.mas_bottom).mas_offset(10);
         make.left.mas_equalTo(10);
         make.width.mas_equalTo(SCREENWIDTH-20);
         make.bottom.mas_equalTo(publishBtn.mas_top).mas_offset(-5);
     }];
     textView.delegate =self;
-    textView.layer.borderWidth = 0.5;
-    textView.layer.borderColor = [UIColor grayColor].CGColor;
     textView.font = [UIFont systemFontOfSize:18];
-    textView.layer.masksToBounds = YES;
-    textView.layer.cornerRadius = 5;
     
     _placeholder = [[UILabel alloc]initWithFrame:CGRectMake(3, 8, 200, 20)];
     _placeholder.enabled = NO;
@@ -118,6 +100,11 @@
     _placeholder.textColor = [UIColor lightGrayColor];
     [textView addSubview:_placeholder];
     
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat offsetY = scrollView.contentOffset.y;
+    _publishBtn.frame = CGRectMake(0, SCREENHEIGHT - 50 - 64 + offsetY, SCREENWIDTH, 50);
 }
 
 
@@ -162,7 +149,6 @@
         [_placeholder setHidden:NO];
         
     }else{
-        
         [_placeholder setHidden:YES];
         
     }

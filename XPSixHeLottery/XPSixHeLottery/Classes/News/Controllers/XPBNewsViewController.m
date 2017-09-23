@@ -80,6 +80,7 @@
     cell.imageView.image = [UIImage imageNamed:_titleArr[indexPath.row]] ;
     cell.textLabel.text = self.titleArr[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 

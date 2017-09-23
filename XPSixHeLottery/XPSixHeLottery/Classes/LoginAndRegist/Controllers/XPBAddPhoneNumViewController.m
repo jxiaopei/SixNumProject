@@ -31,12 +31,13 @@
 - (void)setFoot {
     UIView *foot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 64)];
     
-    UIButton *addPhoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 20, SCREENWIDTH - 30, 44)];
+    UIButton *addPhoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 20, SCREENWIDTH - 60, 44)];
     addPhoneBtn.layer.masksToBounds = YES;
-    addPhoneBtn.layer.cornerRadius = 5;
+    addPhoneBtn.layer.cornerRadius = 22;
     [addPhoneBtn setTitle:@"绑定手机" forState:UIControlStateNormal];
     addPhoneBtn.backgroundColor = GlobalOrangeColor;
     [addPhoneBtn addTarget:self action:@selector(addPhoneAction:) forControlEvents:UIControlEventTouchUpInside];
+    addPhoneBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [foot addSubview:addPhoneBtn];
     
     self.tableView.tableFooterView = foot;
@@ -109,7 +110,7 @@
 
 - (NSArray *)dataArr {
     if (!_dataArr) {
-        _dataArr = @[@{@"title":@"手机号",@"image":@"Login_account"},
+        _dataArr = @[@{@"title":@"手机号",@"image":@"Login_phone"},
                      ];
     }
     return _dataArr;

@@ -32,7 +32,7 @@
     if (self)
     {
         self.borderStyle = UITextBorderStyleNone;
-        self.font = [UIFont systemFontOfSize:15];
+        self.font = [UIFont systemFontOfSize:13];
         self.clearButtonMode = UITextFieldViewModeWhileEditing;
         self.leftViewMode = UITextFieldViewModeAlways;
         self.rightViewMode = UITextFieldViewModeAlways;

@@ -11,6 +11,7 @@
 @interface XPBPersonalEixtTableViewCell : UITableViewCell
 
 @property(nonatomic,strong)UIButton *loginBtn;
+@property(nonatomic,assign)BOOL ishiddenBtn;
 @property(nonatomic,copy)void(^didClickExitBtnBlock)();
 
 @end

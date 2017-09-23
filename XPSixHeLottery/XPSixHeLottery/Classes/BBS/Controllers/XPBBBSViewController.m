@@ -20,6 +20,7 @@
 @property(nonatomic,strong)NSMutableArray <XPBBBSListDataModel *>*bbsDataArr;
 @property(nonatomic,assign)NSInteger currentRankType;
 @property(nonatomic,strong)UIButton *selectedBtn;
+@property(nonatomic,strong)UIView *underLineView;
 
 @end
 
@@ -120,6 +121,7 @@
         make.left.right.mas_equalTo(0);
         make.height.mas_equalTo(45);
     }];
+    
     UIView *lineView = [UIView new];
     [titleView addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -130,20 +132,25 @@
     lineView.backgroundColor = GlobalLightGreyColor;
     
     NSArray *titleArr = @[@"默认",@"排行",@"精华"];
-    CGFloat margant = 20;
     for(int i = 0; i < 3;i++){
         UIButton *titleBtn = [UIButton new];
         [titleView addSubview:titleBtn];
-        titleBtn.frame = CGRectMake(20 + (40 + margant)* i,5, 40, 35);
+        titleBtn.frame = CGRectMake(SCREENWIDTH/3 * i,5, SCREENWIDTH/3, 35);
         [titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [titleBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+//        [titleBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
         [titleBtn setTitle:titleArr[i] forState:UIControlStateNormal];
-        titleBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        titleBtn.titleLabel.font = [UIFont systemFontOfSize:17];
         titleBtn.tag = 1000 + i;
         [titleBtn addTarget:self action:@selector(didClickTitleBtn:) forControlEvents:UIControlEventTouchUpInside];
         if(i == 0){
             titleBtn.selected = YES;
             _selectedBtn = titleBtn;
+            
+            UIView *underLineView = [UIView new];
+            [titleView addSubview:underLineView];
+            _underLineView = underLineView;
+            underLineView.frame = CGRectMake(SCREENWIDTH/6 - 25, 40, 50, 3);
+            underLineView.backgroundColor = GlobalOrangeColor;
         }
     }
     
@@ -154,7 +161,9 @@
     if([sender.titleLabel.text isEqualToString:_selectedBtn.titleLabel.text]){
         return;
     }
-    
+    [UIView animateWithDuration:0.5 animations:^{
+        _underLineView.frame = CGRectMake(SCREENWIDTH/6 + SCREENWIDTH/3*(sender.tag -1000) - 25, 40, 50, 3);
+    }];
     sender.selected = YES;
     _selectedBtn.selected = NO;
     _selectedBtn = sender;

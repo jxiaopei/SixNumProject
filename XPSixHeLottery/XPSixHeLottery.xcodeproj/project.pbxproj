@@ -126,6 +126,7 @@
 		88BC75D71F34A19D00726D56 /* XPBNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88BC75D61F34A19D00726D56 /* XPBNewsViewController.m */; };
 		88BC75DA1F34A1C300726D56 /* XPBPersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88BC75D91F34A1C300726D56 /* XPBPersonalViewController.m */; };
 		88BC75DD1F34A1FC00726D56 /* XPBStatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88BC75DC1F34A1FC00726D56 /* XPBStatisticsViewController.m */; };
+		88D3EA131F76857F00FD40E3 /* XPBPersonCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D3EA121F76857F00FD40E3 /* XPBPersonCollectionViewCell.m */; };
 		88E7070B1F5E92AE00A7D6A1 /* XPBActionDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E7070A1F5E92AE00A7D6A1 /* XPBActionDataModel.m */; };
 		88E7070E1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E7070D1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m */; };
 		88E707B01F6172A100A7D6A1 /* XPBAddPhoneNumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E707AF1F6172A100A7D6A1 /* XPBAddPhoneNumViewController.m */; };
@@ -395,6 +396,8 @@
 		88BC75D91F34A1C300726D56 /* XPBPersonalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBPersonalViewController.m; sourceTree = "<group>"; };
 		88BC75DB1F34A1FC00726D56 /* XPBStatisticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBStatisticsViewController.h; sourceTree = "<group>"; };
 		88BC75DC1F34A1FC00726D56 /* XPBStatisticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBStatisticsViewController.m; sourceTree = "<group>"; };
+		88D3EA111F76857F00FD40E3 /* XPBPersonCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBPersonCollectionViewCell.h; sourceTree = "<group>"; };
+		88D3EA121F76857F00FD40E3 /* XPBPersonCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBPersonCollectionViewCell.m; sourceTree = "<group>"; };
 		88E707091F5E92AE00A7D6A1 /* XPBActionDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBActionDataModel.h; sourceTree = "<group>"; };
 		88E7070A1F5E92AE00A7D6A1 /* XPBActionDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBActionDataModel.m; sourceTree = "<group>"; };
 		88E7070C1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBActionCollectionViewCell.h; sourceTree = "<group>"; };
@@ -1005,6 +1008,8 @@
 				8898A8011F4D73080062473C /* XPBPersonalEixtTableViewCell.m */,
 				882CC2A01F5A69A6001D2876 /* XPBIntegralTableViewCell.h */,
 				882CC2A11F5A69A6001D2876 /* XPBIntegralTableViewCell.m */,
+				88D3EA111F76857F00FD40E3 /* XPBPersonCollectionViewCell.h */,
+				88D3EA121F76857F00FD40E3 /* XPBPersonCollectionViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1449,6 +1454,7 @@
 				882CC2531F514C61001D2876 /* XPBBBSPublishViewController.m in Sources */,
 				88F923F91F382B6100D44EDF /* XPBSixHeStatDataModel.m in Sources */,
 				8898A78A1F3B304E0062473C /* XPBPicDetailViewController.m in Sources */,
+				88D3EA131F76857F00FD40E3 /* XPBPersonCollectionViewCell.m in Sources */,
 				882CC2471F4FDF0D001D2876 /* XPBBAndWPicModel.m in Sources */,
 				88BC75BF1F346B5D00726D56 /* MBProgressHUD+Add.m in Sources */,
 				8898A8151F4DA2BF0062473C /* XPBRegistViewController.m in Sources */,

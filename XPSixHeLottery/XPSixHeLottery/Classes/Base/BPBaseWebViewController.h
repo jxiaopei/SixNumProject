@@ -11,5 +11,6 @@
 @interface BPBaseWebViewController : BPBaseViewController
 
 @property(nonatomic,copy)NSString *urlString;
+@property(nonatomic,strong)UIWebView *webView;
 
 @end

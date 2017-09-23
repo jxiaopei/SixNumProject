@@ -70,16 +70,16 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XPBVoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"voteCell" forIndexPath:indexPath];
-    cell.titleLabel.text = self.titleArr[indexPath.row];
-    cell.iconView.image = [UIImage imageNamed:self.titleArr[indexPath.row]];
-    cell.backgroundColor = indexPath.row%2?GlobalLightGreyColor :[UIColor whiteColor];
+    cell.imageView.image = [UIImage imageNamed:_titleArr[indexPath.row]] ;
+    cell.textLabel.text = self.titleArr[indexPath.row];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (SCREENHEIGHT - 64)/3;
+    return 60;
 }
 
 -(NSArray *)titleArr

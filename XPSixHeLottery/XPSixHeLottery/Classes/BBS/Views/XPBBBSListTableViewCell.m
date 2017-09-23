@@ -15,7 +15,6 @@
 @property(nonatomic,strong)UILabel *contentLabel;
 @property(nonatomic,strong)UILabel *anthorLabel;
 @property(nonatomic,strong)UILabel *commentsLabel;
-@property(nonatomic,strong)UIView *verLineView;
 @property(nonatomic,strong)UIButton *appreciatesBtn;
 
 @end
@@ -36,15 +35,34 @@
         }];
         heLineView.backgroundColor = GlobalLightGreyColor;
         
+        UIImageView *iconView = [UIImageView new];
+        [self addSubview:iconView];
+        [iconView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(15);
+            make.top.mas_equalTo(heLineView.mas_bottom).mas_offset(15);
+            make.width.height.mas_equalTo(30);
+        }];
+        iconView.image = [UIImage imageNamed:@"默认头像 (1)"];
+        
+        UILabel *anthorLabel = [UILabel new];
+        [self addSubview:anthorLabel];
+        [anthorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(iconView.mas_top);
+            make.left.mas_equalTo(iconView.mas_right).mas_offset(5);
+        }];
+        _anthorLabel = anthorLabel;
+        anthorLabel.font = [UIFont systemFontOfSize:13];
+        anthorLabel.textColor = [UIColor blackColor];
+        
         UILabel *dateLabel = [UILabel new];
         [self addSubview:dateLabel];
         [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(15);
-            make.top.mas_equalTo(heLineView.mas_bottom).mas_offset(5);
+            make.left.mas_equalTo(iconView.mas_right).mas_offset(5);
+            make.bottom.mas_equalTo(iconView.mas_bottom);
         }];
         _dateLabel = dateLabel;
-        dateLabel.font = [UIFont systemFontOfSize:13];
-        dateLabel.textColor = [UIColor blackColor];
+        dateLabel.font = [UIFont systemFontOfSize:12];
+        dateLabel.textColor = [UIColor grayColor];
         
         UILabel *commentsLabel = [UILabel new];
         [self addSubview:commentsLabel];
@@ -52,7 +70,6 @@
         [commentsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(-10);
             make.top.mas_equalTo(dateLabel.mas_top);
-//            make.width.mas_equalTo(100);
         }];
         commentsLabel.font = [UIFont systemFontOfSize:13];
         commentsLabel.textColor = [UIColor grayColor];
@@ -92,38 +109,22 @@
         }];
         _titleLabel = titleLabel;
         titleLabel.adjustsFontSizeToFitWidth = YES;
-        titleLabel.font = [UIFont systemFontOfSize:20];
+        titleLabel.font = [UIFont systemFontOfSize:18];
         titleLabel.textColor = [UIColor blackColor];
         titleLabel.text = @"标题";
-        
-        UIView *verLineView = [UIView new];
-        [self addSubview:verLineView];
-        _verLineView = verLineView;
-        verLineView.backgroundColor = [UIColor redColor];
-        verLineView.frame = CGRectMake(20, 80, 3, 60);
         
         UILabel *contentLabel = [UILabel new];
         [self addSubview:contentLabel];
         [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(verLineView.mas_right).mas_offset(5);
+            make.left.mas_equalTo(15);
             make.right.mas_equalTo(-5);
-            make.top.mas_equalTo(titleLabel.mas_bottom).mas_offset(15);
+            make.top.mas_equalTo(titleLabel.mas_bottom).mas_offset(10);
         }];
         _contentLabel = contentLabel;
         contentLabel.textAlignment =  NSTextAlignmentLeft;
         contentLabel.numberOfLines = 4;
         contentLabel.font = [UIFont systemFontOfSize:13];
         contentLabel.textColor = [UIColor grayColor];
-        
-        UILabel *anthorLabel = [UILabel new];
-        [self addSubview:anthorLabel];
-        [anthorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(contentLabel.mas_bottom).mas_offset(5);
-            make.left.mas_equalTo(verLineView.mas_right).mas_offset(5);
-        }];
-        _anthorLabel = anthorLabel;
-        anthorLabel.font = [UIFont systemFontOfSize:13];
-        anthorLabel.textColor = [UIColor blackColor];
         
     }
     return self;
@@ -150,12 +151,8 @@
     CGFloat margin = 2 * countStr.length;
     _appreciatesBtn.titleEdgeInsets = UIEdgeInsetsMake(0, margin, 0, 0);
     _appreciatesBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, margin);
-    CGSize textSize = [dataModel.post_content boundingRectWithSize:CGSizeMake(SCREENWIDTH - 33, CGFLOAT_MAX)
-                                                      options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
-                                                   attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size;
-    CGFloat textHeight = textSize.height > 60 ? 60 : textSize.height;
-    CGFloat viewHeight = textHeight + 25;
-    _verLineView.frame = CGRectMake(20, 80, 3, viewHeight);
+
+    
 }
 
 @end

@@ -11,23 +11,14 @@
 
 #define NETWORK_STATE 1  //1是正式环境 0是测试环境
 
-#define AppNetwork              @"http://119.9.107.44:9999/getDomainMapper"
-#define AppUpdateInvalidUrl     @"http://119.9.107.44:9999/updateDomainMapper"
-#define AppCheckHostAvailable   @"/index/mobile/checkDomainName"
-#define AppUpdateUrl            @"https://tpfw.083075.com:8080/tizi/system/getAppLastChange"
-#define AppUpdateCode           @"86b305ae91ac3da4c364e5d829c87f7"
+#define AppUpdateCode           @"86b305ae91ac3da4c364e5d829c87f7"    //检测新版本更新code
 #define AppUpdatePeramters      @{@"code":AppUpdateCode}
-#define AppBeingIntercept       @"index.php?vcode/validate"
-#define APP_MD5PRIVATE_KEY      @"df9464c4975c427bbb51e7fbb3a2f629"
-#define APPSecretKey            @"WHH"
-#define AppTestHostString       @"http://172.16.1.67:8080"
 
-#define AppKey                  @"5981ba3cc62dca68bd0019b5" //友盟appKey
+#define AppKey                  @"5981ba3cc62dca68bd0019b5"           //友盟appKey
 #define AppSecret               @" rqyibszrse2zevbi9erxwknhxztpdyx0"  //友盟app 秘钥
-#define COMPANYURLARR           @[@"http://www.026939.com",@"http://www.026950.com",@"http://www.026951.com",@"http://www.026953.com",@"http://www.026952.com"] //公司防拦截
-#define COMPANYPARA             @{@"app_id":@"1258070698"}  //appID
+
+#define COMPANYPARA             @{@"app_id":@"1258070698"}            //appID
 #define CacheKey                @"myCacheKey"
-#define LoginUserPassword       @"userPassword"
 #define UserID                  @"UserID"
 #define SCREENHEIGHT  [UIScreen mainScreen].bounds.size.height
 #define SCREENWIDTH   [UIScreen mainScreen].bounds.size.width
@@ -35,8 +26,14 @@
 #define Log_ResponseObject      NSLog(@"%@",[responseObject mj_JSONString])
 
 
-#define BaseHttpUrl   NETWORK_STATE ? @"http://096859.com" : @"http://172.16.5.237:8088"//@"http://172.16.5.237:8088"//@"http://172.16.3.200:8080"
+#define BaseHttpUrl   NETWORK_STATE ? [[YYCache cacheWithName:CacheKey] objectForKey:@"serviceHost"] : @"http://172.16.5.237:8088"//@"http://172.16.5.237:8088"//@"http://172.16.3.200:8080"
 #define BaseUrl(url)  [NSString stringWithFormat:@"%@%@",BaseHttpUrl,url]
+
+#define AppNetwork              @"http://119.9.107.44:9999/getDomainMapper"                    //请求动态域名
+#define AppUpdateInvalidUrl     @"http://119.9.107.44:9999/updateDomainMapper"                 //上传失效域名
+#define AppCheckHostAvailable   @"/user/homepage/checkDomainName"                              //握手
+#define AppUpdateUrl            @"https://tpfw.083075.com:8080/tizi/system/getAppLastChange"   //检测新版本更新
+#define AppInitialize           @"/user/homepage/getLotteryInitialization"                     //app初始化信息接口
 
 #define HomepageUrl      @"/user/homepage/getIndex"                            //首页
 #define LotteryHistory   @"/user/lottery/getAppLotteryHistoryList"             //开奖历史

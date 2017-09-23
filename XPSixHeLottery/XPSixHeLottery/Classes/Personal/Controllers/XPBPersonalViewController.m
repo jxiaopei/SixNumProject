@@ -8,7 +8,7 @@
 
 #import "XPBPersonalViewController.h"
 #import "XPBNewsTableViewCell.h"
-#import "XPBMainPageCollectionViewCell.h"
+#import "XPBPersonCollectionViewCell.h"
 #import "XPBPersonalEixtTableViewCell.h"
 #import "LCAboutViewController.h"
 #import "XPBCooperationListViewController.h"
@@ -22,7 +22,7 @@
 @property(nonatomic,strong)NSArray *titleArr;
 @property(nonatomic,strong)NSMutableArray *headTitleArr;
 @property(nonatomic,strong)UILabel *statusLabel;
-@property(nonatomic,strong)UIButton *loginBtn;
+@property(nonatomic,strong)XPBPersonalEixtTableViewCell *loginBtnCell;
 
 @end
 
@@ -42,7 +42,7 @@
 }
 
 -(void)didLoginSuccessed{
-    [_loginBtn setTitle:@"退出登录" forState:UIControlStateNormal ];
+    _loginBtnCell.ishiddenBtn = NO;
     _statusLabel.text = [BPUserModel shareModel].userName;
 }
 
@@ -80,14 +80,15 @@
         make.right.mas_equalTo(0);
         make.height.mas_equalTo(150);
     }];
-    personalView.image = [UIImage imageNamed:@"个人中心背景"];
+    personalView.backgroundColor = [UIColor whiteColor];
+//    personalView.image = [UIImage imageNamed:@"个人中心背景"];
     
     UIImageView *iconView = [UIImageView new];
     [personalView addSubview:iconView];
     [iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(40);
         make.centerY.mas_equalTo(0);
-        make.height.width.mas_equalTo(60);
+        make.height.width.mas_equalTo(70);
     }];
     iconView.image = [UIImage imageNamed:@"默认头像 (1)"];
     
@@ -98,7 +99,7 @@
         make.centerY.mas_equalTo(iconView.mas_centerY);
     }];
     statusLabel.font = [UIFont systemFontOfSize:18];
-    statusLabel.textColor = [UIColor whiteColor];
+    statusLabel.textColor = [UIColor blackColor];
     if([BPUserModel shareModel].isLoginOtherView)
     {
         statusLabel.text = [BPUserModel shareModel].userName;
@@ -106,6 +107,16 @@
         statusLabel.text =  @"登录/注册";
     }
     _statusLabel = statusLabel;
+    
+    UIImageView *rightImage = [UIImageView new];
+    [personalView addSubview:rightImage];
+    [rightImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.mas_equalTo(personalView.mas_centerY);
+        make.right.mas_equalTo(-10);
+        make.height.mas_equalTo(20);
+        make.width.mas_equalTo(10);
+    }];
+    rightImage.image = [UIImage imageNamed:@"arrow_right"];
     
     UIButton *loginBtn = [UIButton new];
     [header addSubview:loginBtn];
@@ -125,15 +136,18 @@
     titleView.backgroundColor = GlobalLightGreyColor;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.itemSize = CGSizeMake(SCREENWIDTH/3, 80);
+    layout.itemSize = CGSizeMake((SCREENWIDTH - 4)/3, 80);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 0;
     UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 10 , SCREENWIDTH, 80) collectionViewLayout:layout];
+    [collectionView setContentInset:UIEdgeInsetsMake(0, 2, 0, 2)];
     [titleView addSubview:collectionView];
     collectionView.backgroundColor = [UIColor whiteColor];
     _collectionView = collectionView;
     collectionView.delegate = self;
     collectionView.dataSource = self;
-    [collectionView registerClass:[XPBMainPageCollectionViewCell class] forCellWithReuseIdentifier:@"personalCollectionCViewell"];
+    [collectionView registerClass:[XPBPersonCollectionViewCell class] forCellWithReuseIdentifier:@"personalCollectionCViewell"];
 
     return header;
 }
@@ -177,7 +191,7 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
 
-    XPBMainPageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"personalCollectionCViewell" forIndexPath:indexPath];
+    XPBPersonCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"personalCollectionCViewell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     cell.iconView.image = [UIImage imageNamed:_headTitleArr[indexPath.row]] ;
     cell.title.text = _headTitleArr[indexPath.row];
@@ -188,20 +202,9 @@
     return self.headTitleArr.count;
 }
 
--(CGFloat )collectionView:(UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0;
-}
-
--(CGFloat )collectionView:(UICollectionView *)collectionView layout:(nonnull UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0;
-}
-
-
 - (CGSize)collectionView:(UICollectionView *)collectionView  layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-   return CGSizeMake(SCREENWIDTH/3,80);
+   return CGSizeMake((SCREENWIDTH - 4)/3, 80);
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -229,13 +232,14 @@
     if(indexPath.row == self.titleArr.count)
     {
         XPBPersonalEixtTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"personalExitCell" forIndexPath:indexPath];
-        _loginBtn =  cell.loginBtn;
+        _loginBtnCell = cell;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.ishiddenBtn = YES;
         if([BPUserModel shareModel].isLoginOtherView)
         {
-            [_loginBtn setTitle:@"退出登录" forState:UIControlStateNormal];
-//            [BPUserModel shareModel].isLoginOtherView = NO;
+            cell.ishiddenBtn = NO;
         }
+        __weak typeof (cell)weakCell = cell;
         cell.didClickExitBtnBlock = ^{
             if([BPUserModel shareModel].isLogin)
             {
@@ -251,10 +255,7 @@
                 [cache setObject:userModel forKey:UserID];
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"logoutSuccessed" object:nil];
                 _statusLabel.text = @"登录/注册";
-                [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-            }else{
-                XPBLoginViewController *loginVC = [XPBLoginViewController new];
-                [self.navigationController pushViewController:loginVC animated:YES];
+                weakCell.ishiddenBtn = YES;
             }
         };
         return cell;
@@ -290,7 +291,7 @@
 {
     if(_headTitleArr == nil)
     {
-        _headTitleArr = [NSMutableArray arrayWithArray:@[@"积分",@"推荐",@"合作伙伴"]];
+        _headTitleArr = [NSMutableArray arrayWithArray:@[@"积分明细",@"推荐活动",@"合作伙伴"]];
     }
     return _headTitleArr;
 }

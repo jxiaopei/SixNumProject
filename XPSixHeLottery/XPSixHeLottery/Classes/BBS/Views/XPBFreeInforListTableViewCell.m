@@ -13,7 +13,6 @@
 @property(nonatomic,strong)UILabel *dateLabel;
 @property(nonatomic,strong)UILabel *titleLabel;
 @property(nonatomic,strong)UILabel *contentLabel;
-@property(nonatomic,strong)UIView *verLineView;
 
 @end
 
@@ -56,16 +55,10 @@
         titleLabel.textColor = [UIColor blackColor];
         titleLabel.text = @"标题";
         
-        UIView *verLineView = [UIView new];
-        [self addSubview:verLineView];
-        _verLineView = verLineView;
-        verLineView.backgroundColor = [UIColor redColor];
-        verLineView.frame = CGRectMake(20, 50, 3, 60);
-        
         UILabel *contentLabel = [UILabel new];
         [self addSubview:contentLabel];
         [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(verLineView.mas_right).mas_offset(5);
+            make.left.mas_equalTo(15);
             make.right.mas_equalTo(-5);
             make.top.mas_equalTo(titleLabel.mas_bottom).mas_offset(15);
         }];
@@ -86,13 +79,6 @@
     _dateLabel.text = dataModel.main_time;
     _titleLabel.text = dataModel.post_title;
     _contentLabel.text = dataModel.post_content;
-    
-    CGSize textSize = [dataModel.post_content boundingRectWithSize:CGSizeMake(SCREENWIDTH - 33, CGFLOAT_MAX)
-                                                           options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
-                                                        attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size;
-    CGFloat textHeight = textSize.height > 60 ? 60 : textSize.height;
-    CGFloat viewHeight = textHeight + 10;
-    _verLineView.frame = CGRectMake(20, 50, 3, viewHeight);
 }
 
 @end

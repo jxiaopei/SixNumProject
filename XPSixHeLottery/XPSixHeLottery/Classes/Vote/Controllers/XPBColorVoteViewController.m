@@ -138,9 +138,10 @@
     
     UIView *colorView = [UIView new];
     [self.scrollView addSubview:colorView];
-    colorView.frame = CGRectMake(-10, 5, SCREENWIDTH/3 + 20, 30);
+    colorView.frame = CGRectMake(-10, 15, SCREENWIDTH/3 + 20, 30);
     colorView.layer.masksToBounds = YES;
     colorView.layer.cornerRadius = 5;
+    colorView.backgroundColor = GlobalOrangeColor;
     
     UILabel *colorlabel = [UILabel new];
     [colorView addSubview:colorlabel];
@@ -156,7 +157,7 @@
     peroidLabel.backgroundColor = GlobalLightGreyColor;
     [self.scrollView addSubview:peroidLabel];
     [peroidLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(colorView.mas_bottom).mas_offset(5);
+        make.centerY.mas_equalTo(colorView.mas_centerY);
         make.left.mas_equalTo(SCREENWIDTH - 55);
         make.width.mas_equalTo(50);
         make.height.mas_equalTo(25);
@@ -195,13 +196,10 @@
     self.didVoteGetData = ^(id responseObject) {
         NSString *colorStr =  responseObject [@"data"][@"top_name"];
         if([colorStr isEqualToString:@"红波 "]){
-            colorView.backgroundColor = GlobalRedBallColor;
             colorlabel.text = @"本期热门波色: 红";
         }else if ([colorStr isEqualToString:@"绿波 "]){
-            colorView.backgroundColor = GlobalGreenBallColor;
             colorlabel.text = @"本期热门波色: 绿";
         }else if ([colorStr isEqualToString:@"蓝波 "]){
-            colorView.backgroundColor = GlobalBlueBallColor;
             colorlabel.text = @"本期热门波色: 蓝";
         }else{
             colorView.backgroundColor = [UIColor blackColor];
@@ -278,16 +276,16 @@
     NSString *colorStr = [dateModel.prop_name substringToIndex:1];
     [cell.colorBtn setTitle:colorStr forState:UIControlStateNormal];
     if([dateModel.prop_name isEqualToString:@"红波"]){
-        cell.colorBtn.backgroundColor = GlobalRedBallColor;
+        [cell.colorBtn setBackgroundImage:[UIImage imageNamed:@"红"] forState:UIControlStateNormal];
     }else if ([dateModel.prop_name isEqualToString:@"绿波"]){
-        cell.colorBtn.backgroundColor = GlobalGreenBallColor;
+       [cell.colorBtn setBackgroundImage:[UIImage imageNamed:@"绿"] forState:UIControlStateNormal];
     }else if ([dateModel.prop_name isEqualToString:@"蓝波"]){
-        cell.colorBtn.backgroundColor = GlobalBlueBallColor;
+       [cell.colorBtn setBackgroundImage:[UIImage imageNamed:@"蓝"] forState:UIControlStateNormal];
     }
 
     cell.countLabel.text = [NSString stringWithFormat:@"%@票",dateModel.prop_sum];
     cell.voteBtn.selected = dateModel.isAttention;
-    cell.voteBtn.backgroundColor = dateModel.isAttention ? [UIColor redColor] : [UIColor whiteColor];
+    cell.voteBtn.backgroundColor = dateModel.isAttention ? GlobalOrangeColor : [UIColor whiteColor];
     cell.backgroundColor = [UIColor whiteColor];
     __weak typeof(cell)weakCell = cell;
     cell.didClickVoteBtnBlock = ^{
@@ -304,7 +302,7 @@
             
             weakCell.voteBtn.selected = !weakCell.voteBtn.selected;
             [MBProgressHUD showSuccess:@"投票成功"];
-            weakCell.voteBtn.backgroundColor = [UIColor redColor];
+            weakCell.voteBtn.backgroundColor = GlobalOrangeColor;
             _count = [dateModel.prop_sum integerValue] + 1;
             weakCell.countLabel.text = [NSString stringWithFormat:@"%zd票",_count];
             _voteCountArr[indexPath.row] = [NSString stringWithFormat:@"%zd",_count];

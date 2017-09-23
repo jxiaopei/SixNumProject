@@ -28,12 +28,12 @@
         [self addSubview:newsTitle];
         _newsTitle = newsTitle;
         [newsTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(10);
+            make.left.mas_equalTo(15);
             make.top.mas_equalTo(8);
-            make.right.mas_equalTo(-10);
+            make.right.mas_equalTo(-15);
         }];
-        newsTitle.numberOfLines = 2;
-        newsTitle.font = [UIFont fontWithName:@"Helvetica-Bold" size:17];
+        newsTitle.adjustsFontSizeToFitWidth = YES;
+        newsTitle.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
         newsTitle.textColor = [UIColor blackColor];
         newsTitle.text = @"菲律宾新闻";
         
@@ -41,23 +41,22 @@
         [self addSubview:publishLabel];
         _publishLabel = publishLabel;
         [publishLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(10);
-            make.bottom.mas_equalTo(-5);
+            make.left.mas_equalTo(15);
+            make.bottom.mas_equalTo(-20);
         }];
         publishLabel.font = [UIFont systemFontOfSize:13];
         publishLabel.textColor = [UIColor grayColor];
         
-        
-       UITextView  *newsDetail = [UITextView  new];
+       UITextView  *newsDetail = [UITextView new];
         [self addSubview:newsDetail];
         _newsDetail = newsDetail;
         [newsDetail mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(newsTitle);
-            make.right.mas_equalTo(-10);
-            make.bottom.mas_equalTo(publishLabel.mas_top).mas_offset(-5);
-            make.top.mas_equalTo(newsTitle.mas_bottom).mas_offset(5);
+            make.right.mas_equalTo(-15);
+            make.bottom.mas_equalTo(publishLabel.mas_top).mas_offset(-15);
+            make.top.mas_equalTo(newsTitle.mas_bottom).mas_offset(10);
         }];
-        newsDetail.font = [UIFont systemFontOfSize:13];
+        newsDetail.font = [UIFont systemFontOfSize:14];
         newsDetail.textColor = [UIColor grayColor];
         newsDetail.text = @"新闻内容";
         newsDetail.editable = NO;
@@ -67,11 +66,20 @@
         [self addSubview:newsImage];
         _newsImage = newsImage;
         [newsImage mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(10);
-            make.right.mas_equalTo(-10);
+            make.left.mas_equalTo(15);
+            make.right.mas_equalTo(-15);
             make.bottom.mas_equalTo(-2);
             make.top.mas_equalTo(2);
         }];
+        
+        UIView *horView = [UIView new];
+        [self addSubview:horView];
+        [horView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.mas_equalTo(0);
+            make.bottom.mas_equalTo(0);
+            make.height.mas_equalTo(5);
+        }];
+        horView.backgroundColor = GlobalLightGreyColor;
         
         
     }

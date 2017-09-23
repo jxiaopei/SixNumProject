@@ -29,42 +29,42 @@
         _periodLabel = periodLabel;
         [periodLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(10);
-            make.top.mas_equalTo(5);
+            make.top.mas_equalTo(10);
         }];
-        periodLabel.font = [UIFont systemFontOfSize:16];
-        periodLabel.textColor = [UIColor blackColor];
+        periodLabel.font = [UIFont systemFontOfSize:13];
+        periodLabel.textColor = [UIColor grayColor];
         
         UILabel *dateLabel = [UILabel new];
         [self addSubview:dateLabel];
         _dateLabel = dateLabel;
         [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.mas_equalTo(-20);
-            make.top.mas_equalTo(5);
+            make.left.mas_equalTo(periodLabel.mas_right).mas_offset(5);
+            make.top.mas_equalTo(10);
         }];
-        dateLabel.font = [UIFont systemFontOfSize:16];
-        dateLabel.textColor = [UIColor blackColor];
+        dateLabel.font = [UIFont systemFontOfSize:13];
+        dateLabel.textColor = [UIColor grayColor];
         
         
         
-        CGFloat btnW = 38;
+        CGFloat btnW = 30;
         CGFloat margant = (SCREENWIDTH - btnW *7 -20 - 25)/7;
         for(int i= 0; i< 6;i++)
         {
             UIButton *btn = [UIButton new];
             [self addSubview:btn];
             
-            btn.frame = CGRectMake(10 + (margant + btnW) * i, 45, btnW, btnW);
+            btn.frame = CGRectMake(10 + (margant + btnW) * i, 40, btnW, btnW);
             [btn setBackgroundImage:[UIImage imageNamed:@"红波"] forState:UIControlStateNormal];
             [btn setTitle:@"0" forState:UIControlStateNormal];
-            [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 5, 5)];
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            btn.titleLabel.font = [UIFont systemFontOfSize:15];
             btn.tag = i;
             UILabel *zodiaLabel = [UILabel new];
             [self addSubview:zodiaLabel];
             zodiaLabel.frame = CGRectMake(10 + (margant + btnW) * i, 45 + btnW, btnW, 30);
             zodiaLabel.textColor = [UIColor blackColor];
             zodiaLabel.textAlignment = NSTextAlignmentCenter;
-            zodiaLabel.font = [UIFont systemFontOfSize:18];
+            zodiaLabel.font = [UIFont systemFontOfSize:13];
             zodiaLabel.text = @"龙";
             [self.btnArr addObject:btn];
             [self.labelArr addObject:zodiaLabel];
@@ -72,7 +72,7 @@
         
         UIButton *plusBtn = [UIButton new];
         [self addSubview:plusBtn];
-        plusBtn.frame = CGRectMake(10 + (margant + btnW) * 6,45, 25, btnW);
+        plusBtn.frame = CGRectMake(10 + (margant + btnW) * 6,40, 25, btnW);
         [plusBtn setTitle:@"+" forState:UIControlStateNormal];
         [plusBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 10, 0)];
         [plusBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
@@ -80,20 +80,29 @@
         
         UIButton *spcNumBtn = [UIButton new];
         [self addSubview:spcNumBtn];
-        spcNumBtn.frame = CGRectMake(10 + (margant + btnW) * 6 + margant +25, 45, btnW, btnW);
+        spcNumBtn.frame = CGRectMake(10 + (margant + btnW) * 6 + margant +25, 40, btnW, btnW);
         [spcNumBtn setBackgroundImage:[UIImage imageNamed:@"绿波"] forState:UIControlStateNormal];
         [spcNumBtn setTitle:@"0" forState:UIControlStateNormal];
-        [spcNumBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 5, 5)];
-        [spcNumBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [spcNumBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        spcNumBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         UILabel *spcZodiaLabel = [UILabel new];
         [self addSubview:spcZodiaLabel];
         spcZodiaLabel.frame = CGRectMake(10 + (margant + btnW) * 6 + margant +25, 45 + btnW, btnW, 30);
         spcZodiaLabel.textColor = [UIColor blackColor];
-        spcZodiaLabel.font = [UIFont systemFontOfSize:18];
+        spcZodiaLabel.font = [UIFont systemFontOfSize:13];
         spcZodiaLabel.textAlignment = NSTextAlignmentCenter;
         spcZodiaLabel.text = @"龙";
         [self.btnArr addObject:spcNumBtn];
         [self.labelArr addObject:spcZodiaLabel];
+        
+        UIView *lineView = [UIView new];
+        [self addSubview:lineView];
+        [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.mas_equalTo(0);
+            make.bottom.mas_equalTo(0);
+            make.height.mas_equalTo(2);
+        }];
+        lineView.backgroundColor = GlobalLightGreyColor;
     }
     return self;
 }

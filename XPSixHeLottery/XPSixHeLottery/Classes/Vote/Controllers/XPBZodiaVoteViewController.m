@@ -105,7 +105,7 @@
     
     //每个柱子的颜色
     
-    [barChart setStrokeColor:GlobalRedColor];
+    [barChart setStrokeColor:GlobalOrangeColor];
     
     //    barChart.strokeColor = [UIColor redColor];
     
@@ -145,8 +145,8 @@
     
     UIView *zodiaView = [UIView new];
     [self.scrollView addSubview:zodiaView];
-    zodiaView.frame = CGRectMake(-10, 5, SCREENWIDTH/3 + 60, 30);
-    zodiaView.backgroundColor = GlobalRedColor;
+    zodiaView.frame = CGRectMake(-10, 15, SCREENWIDTH/3 + 60, 30);
+    zodiaView.backgroundColor = GlobalOrangeColor;
     zodiaView.layer.masksToBounds = YES;
     zodiaView.layer.cornerRadius = 5;
     
@@ -163,7 +163,7 @@
     UILabel *peroidLabel = [UILabel new];
     peroidLabel.backgroundColor = GlobalLightGreyColor;
     [self.scrollView addSubview:peroidLabel];
-    peroidLabel.frame = CGRectMake(SCREENWIDTH - 55, 40, 50, 25);
+    peroidLabel.frame = CGRectMake(SCREENWIDTH - 55, 17.5, 50, 25);
     peroidLabel.layer.masksToBounds = YES;
     peroidLabel.layer.cornerRadius = 12.5;
     peroidLabel.textColor = [UIColor blackColor];
@@ -173,7 +173,7 @@
     
     UILabel *dateLabel = [UILabel new];
     [self.scrollView addSubview:dateLabel];
-    dateLabel.frame = CGRectMake(SCREENWIDTH - 180, 40, 120, 25);
+    dateLabel.frame = CGRectMake(SCREENWIDTH - 160, 17.5, 120, 25);
     dateLabel.textColor = [UIColor blackColor];
     dateLabel.font = [UIFont systemFontOfSize:14];
     dateLabel.text = @"2017年08月10日";
@@ -257,11 +257,11 @@
     NSString *contentStr = [NSString stringWithFormat:@"%@:%@票",dateModel.prop_name,dateModel.prop_sum];
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:contentStr];
     //设置：在0-3个单位长度内的内容显示成红色
-    [str addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 2)];
+    [str addAttribute:NSForegroundColorAttributeName value:GlobalOrangeColor range:NSMakeRange(0, 2)];
     cell.countLabel.attributedText = str;
     cell.backgroundColor = [UIColor whiteColor];
     cell.voteBtn.selected = dateModel.isAttention;
-    cell.voteBtn.backgroundColor = dateModel.isAttention ? [UIColor redColor] : [UIColor whiteColor];
+    cell.voteBtn.backgroundColor = dateModel.isAttention ? GlobalOrangeColor : [UIColor whiteColor];
     __weak typeof(cell)weakCell = cell;
     cell.didClickVoteBtnBlock = ^{
         
@@ -277,7 +277,7 @@
             
             weakCell.voteBtn.selected = !weakCell.voteBtn.selected;
             [MBProgressHUD showSuccess:@"投票成功"];
-            weakCell.voteBtn.backgroundColor = [UIColor redColor];
+            weakCell.voteBtn.backgroundColor = GlobalOrangeColor;
             _count = [dateModel.prop_sum integerValue] + 1;
             NSString *contentStr = [NSString stringWithFormat:@"%@:%zd票",dateModel.prop_name,_count];
             NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:contentStr];

@@ -8,6 +8,13 @@
 
 #import "XPBPersonalEixtTableViewCell.h"
 
+@interface XPBPersonalEixtTableViewCell ()
+
+@property(nonatomic,strong)UIView *lineView;
+@property(nonatomic,strong)UIView *topView;
+
+@end
+
 @implementation XPBPersonalEixtTableViewCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -25,7 +32,7 @@
         }];
         exitBtn.backgroundColor = [UIColor whiteColor];
         exitBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-        [exitBtn setTitle:@"登录" forState:UIControlStateNormal];
+        [exitBtn setTitle:@"退出登录" forState:UIControlStateNormal];
         [exitBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [exitBtn addTarget:self action:@selector(didClickExitBtn:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -38,6 +45,7 @@
         }];
         topLineView.backgroundColor = [UIColor grayColor];
         topLineView.alpha = 0.8;
+        _topView = topLineView;
         
         UIView *lineView = [UIView new];
         [exitBtn addSubview:lineView];
@@ -48,9 +56,17 @@
         }];
         lineView.backgroundColor = [UIColor grayColor];
         lineView.alpha = 0.8;
+        _lineView = lineView;
         
     }
     return self;
+}
+
+-(void)setIshiddenBtn:(BOOL)ishiddenBtn{
+    _ishiddenBtn = ishiddenBtn;
+    _lineView.hidden = ishiddenBtn;
+    _topView.hidden = ishiddenBtn;
+    _loginBtn.hidden = ishiddenBtn;
 }
 
 -(void)didClickExitBtn:(UIButton *)sender{

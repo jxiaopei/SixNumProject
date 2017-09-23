@@ -11,7 +11,7 @@
 
 @interface BPBaseWebViewController ()<UIWebViewDelegate>
 
-@property(nonatomic,strong)UIWebView *webView;
+
 
 @end
 
@@ -19,6 +19,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self setupWebView];
 }
 

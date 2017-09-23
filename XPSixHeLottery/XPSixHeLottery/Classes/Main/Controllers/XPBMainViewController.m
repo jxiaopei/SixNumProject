@@ -28,6 +28,7 @@
 #import "XPBCooperationPartnerModel.h"
 #import "XPBMainPageCollectionViewCell.h"
 #import "XPBMainpageNewsTableViewCell.h"
+#import "BPBaseNetworkServiceTool.h"
 
 @interface XPBMainViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIScrollView *scrollview;
@@ -50,6 +51,9 @@
 @property(nonatomic,strong)UICollectionView *advertimentsView;
 @property(nonatomic,strong)NSMutableArray <BPBannerModel *>*advArr;
 @property(nonatomic,assign)NSInteger advPage;
+//资料
+@property(nonatomic,strong)UICollectionView *inforView;
+@property(nonatomic,strong)NSMutableArray *inforTitleArr;
 //新闻
 @property(nonatomic,strong)NSMutableArray <XPBNewsDataModel *>*newsArr;
 @property(nonatomic,strong)UIView *newsView;
@@ -73,6 +77,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLoginSuccessed) name:@"loginSuccessed" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLogoutSuccessed) name:@"logoutSuccessed" object:nil];
     _titleArr = [NSMutableArray arrayWithObjects:@"直播",@"图库",@"投票",@"论坛",@"竞彩",@"活动", nil];
+    _inforTitleArr = [NSMutableArray arrayWithObjects:@"免费资料",@"六合宝典",@"敬请期待", nil];
     UIScrollView *scrollView = [UIScrollView new];
     scrollView.backgroundColor = [UIColor whiteColor];
     _scrollview = scrollView;
@@ -187,16 +192,17 @@
             [self.advertimentsView reloadData];
             self.lotteryUrl = responseObject[@"data"][@"biddingUrl"][@"lottery_url"];
 
-            self.newsArr = [XPBNewsDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"news"]];
+            //暂时屏蔽新闻模块
+//            self.newsArr = [XPBNewsDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"news"]];
             if(self.newsArr.count == 0)
             {
                 _newsView.hidden = YES;
-                _bottomView.frame = CGRectMake(0, 180, SCREENWIDTH, 735);
-                _scrollview.contentSize = CGSizeMake(SCREENWIDTH, 895);
+                _bottomView.frame = CGRectMake(0, 180, SCREENWIDTH, 630);
+                _scrollview.contentSize = CGSizeMake(SCREENWIDTH, 820);
             }else{
                 _newsView.hidden = NO;
-                _bottomView.frame = CGRectMake(0, 300, SCREENWIDTH, 735);
-                _scrollview.contentSize = CGSizeMake(SCREENWIDTH, 1015);
+                _bottomView.frame = CGRectMake(0, 300, SCREENWIDTH, 630);
+                _scrollview.contentSize = CGSizeMake(SCREENWIDTH, 940);
                 [_newsTableView reloadData];
                 [self beginScrollTheNewsView];
             }
@@ -240,6 +246,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [[BPBaseNetworkServiceTool shareServiceTool] getAppBaseInfors];
     [_mar startAnimation];
 }
 
@@ -366,142 +373,113 @@
     UIView *bottomView = [UIView new];
     [self.scrollview addSubview:bottomView];
     bottomView.backgroundColor = [UIColor whiteColor];
-    bottomView.frame = CGRectMake(0, 300, SCREENWIDTH, 735);
+    bottomView.frame = CGRectMake(0, 300, SCREENWIDTH, 630);
     _bottomView = bottomView;
     
     UIView *lotteryView = [UIView new];
     [_bottomView addSubview:lotteryView];
-    lotteryView.backgroundColor = GlobalLightGreyColor;
-    lotteryView.frame = CGRectMake(0, 0, SCREENWIDTH, 175);
-    UIImageView *backgroundImage = [UIImageView new];
-    [lotteryView addSubview:backgroundImage];
-    [backgroundImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.mas_equalTo(0);
-        make.top.mas_equalTo(5);
-        make.height.mas_equalTo(125);
+    lotteryView.frame = CGRectMake(0, 0, SCREENWIDTH, 125);
+
+    UIView *verView = [UIView new];
+    [lotteryView addSubview:verView];
+    [verView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(20);
+        make.left.mas_equalTo(10);
+        make.width.mas_equalTo(4);
+        make.height.mas_equalTo(15);
     }];
-    backgroundImage.image = [UIImage imageNamed:@"彩票背景图"];
+    verView.backgroundColor = [UIColor redColor];
     
     UILabel *peroidLabel = [UILabel new];
     [lotteryView addSubview:peroidLabel];
     [peroidLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(lotteryView.mas_centerX);
-        make.top.mas_equalTo(20);
+        make.centerY.mas_equalTo(verView.mas_centerY);
+        make.left.mas_equalTo(verView.mas_right).mas_offset(5);
     }];
-    peroidLabel.font = [UIFont systemFontOfSize:18];
+    peroidLabel.font = [UIFont systemFontOfSize:16];
     peroidLabel.textColor = [UIColor blackColor];
-    peroidLabel.text = @"第089期开奖结果";
+    peroidLabel.text = @"第000期开奖结果";
+    
+    UILabel *dateLabel = [UILabel new];
+    [lotteryView addSubview:dateLabel];
+    [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(peroidLabel.mas_right).mas_offset(5);
+        make.centerY.mas_equalTo(verView.mas_centerY);
+    }];
+    dateLabel.font = [UIFont systemFontOfSize:13];
+    dateLabel.text = @"0000.00.00 00:00";
+    dateLabel.textColor = [UIColor grayColor];
     
     UIButton *historyBtn = [UIButton new];
     [lotteryView addSubview:historyBtn];
     [historyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-20);
-        make.centerY.mas_equalTo(peroidLabel.mas_centerY);
+        make.right.mas_equalTo(-5);
+        make.centerY.mas_equalTo(verView.mas_centerY);
         make.height.mas_equalTo(30);
         make.width.mas_equalTo(60);
     }];
-    [historyBtn setTitle:@"开奖历史" forState:UIControlStateNormal];
-    historyBtn.backgroundColor = GlobalOrangeColor;
+    [historyBtn setTitle:@"历史 》" forState:UIControlStateNormal];
+    [historyBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     historyBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    historyBtn.layer.borderWidth = 1;
-    historyBtn.layer.masksToBounds = YES;
-    historyBtn.layer.cornerRadius = 8;
     [historyBtn addTarget:self action:@selector(didClickHistoryBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     NSMutableArray *btnArr = [NSMutableArray new];
     NSMutableArray *labelArr = [NSMutableArray new];
     
-    CGFloat btnW = 38;
+    CGFloat btnW = 30;
     CGFloat margant = (SCREENWIDTH - btnW *7 -20 - 25)/7;
     for(int i= 0; i< 6;i++)
     {
         UIButton *btn = [UIButton new];
         [lotteryView addSubview:btn];
         
-        btn.frame = CGRectMake(10 + (margant + btnW) * i, 50, btnW, btnW);
+        btn.frame = CGRectMake(10 + (margant + btnW) * i, 45, btnW, btnW);
         [btn setBackgroundImage:[UIImage imageNamed:@"红波"] forState:UIControlStateNormal];
-        [btn setTitle:@"13" forState:UIControlStateNormal];
-        [btn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 5, 5)];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btn setTitle:@"00" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:15];
         btn.tag = i;
         UILabel *zodiaLabel = [UILabel new];
         [lotteryView addSubview:zodiaLabel];
         zodiaLabel.frame = CGRectMake(10 + (margant + btnW) * i,50 + btnW, btnW, 30);
         zodiaLabel.textColor = [UIColor blackColor];
         zodiaLabel.textAlignment = NSTextAlignmentCenter;
-        zodiaLabel.font = [UIFont systemFontOfSize:18];
-        zodiaLabel.text = @"猴";
+        zodiaLabel.font = [UIFont systemFontOfSize:13];
+        zodiaLabel.text = @"龙";
         [btnArr addObject:btn];
         [labelArr addObject:zodiaLabel];
     }
     
     UIButton *plusBtn = [UIButton new];
     [lotteryView addSubview:plusBtn];
-    plusBtn.frame = CGRectMake(10 + (margant + btnW) * 6,50, 25, btnW);
+    plusBtn.frame = CGRectMake(10 + (margant + btnW) * 6,45, 25, btnW);
     [plusBtn setTitle:@"+" forState:UIControlStateNormal];
     [plusBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 10, 0)];
     [plusBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     plusBtn.titleLabel.font = [UIFont systemFontOfSize:40];
-
     
     UIButton *spcNumBtn = [UIButton new];
     [lotteryView addSubview:spcNumBtn];
-    spcNumBtn.frame = CGRectMake(10 + (margant + btnW) * 6 + margant +25, 50, btnW, btnW);
+    spcNumBtn.frame = CGRectMake(10 + (margant + btnW) * 6 + margant +25, 45, btnW, btnW);
     [spcNumBtn setBackgroundImage:[UIImage imageNamed:@"绿波"] forState:UIControlStateNormal];
-    [spcNumBtn setTitle:@"45" forState:UIControlStateNormal];
-    [spcNumBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 5, 5)];
-    [spcNumBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [spcNumBtn setTitle:@"00" forState:UIControlStateNormal];
+    [spcNumBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    spcNumBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     UILabel *spcZodiaLabel = [UILabel new];
     [lotteryView addSubview:spcZodiaLabel];
     spcZodiaLabel.frame = CGRectMake(10 + (margant + btnW) * 6 + margant +25, 50 + btnW, btnW, 30);
     spcZodiaLabel.textColor = [UIColor blackColor];
-    spcZodiaLabel.font = [UIFont systemFontOfSize:18];
+    spcZodiaLabel.font = [UIFont systemFontOfSize:13];
     spcZodiaLabel.textAlignment = NSTextAlignmentCenter;
-    spcZodiaLabel.text = @"虎";
+    spcZodiaLabel.text = @"龙";
     
     [btnArr addObject:spcNumBtn];
     [labelArr addObject:spcZodiaLabel];
     
-    UIView *nextView = [UIView new];
-    [lotteryView addSubview:nextView];
-    nextView.frame = CGRectMake(10, 70 + 30 +  btnW, SCREENWIDTH - 20, 30);
-    nextView.layer.masksToBounds = YES;
-    nextView.layer.cornerRadius = 15;
-    nextView.layer.borderWidth = 0.5;
-    nextView.backgroundColor = GlobalOrangeColor;
-    UILabel *nextPeroidLabel = [UILabel new];
-    [nextView addSubview:nextPeroidLabel];
-    [nextPeroidLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(10);
-        make.centerY.mas_equalTo(nextView.mas_centerY);
-    }];
-    nextPeroidLabel.font = [UIFont systemFontOfSize:16];
-    nextPeroidLabel.text = @"第090期";
-    nextPeroidLabel.textColor = [UIColor whiteColor];
-    
-    UILabel *dateLabel = [UILabel new];
-    [nextView addSubview:dateLabel];
-    [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-10);
-        make.centerY.mas_equalTo(nextView.mas_centerY);
-    }];
-    dateLabel.font = [UIFont systemFontOfSize:16];
-    dateLabel.text = @"2017-08-03 21点30分 星期四";
-    dateLabel.textColor = [UIColor whiteColor];
-    
-    UIView *bottomLine = [UIView new];
-    [lotteryView addSubview:bottomLine];
-    [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.left.right.mas_equalTo(0);
-        make.height.mas_equalTo(1);
-    }];
-    bottomLine.backgroundColor = [UIColor grayColor];
-    bottomLine.alpha = 0.6;
-    
     self.lotteryViewGetDataBlock = ^(XPBMarkSixLotteryModel *lotteryDataModel) {
-        nextPeroidLabel.text = [NSString stringWithFormat:@"第%@期",[lotteryDataModel.periods_name substringFromIndex:4]];
-        NSString *dateStr = [lotteryDataModel.next_date insertStandardTimeFormat];
-        dateLabel.text = [NSString stringWithFormat:@"%@ %@",dateStr,lotteryDataModel.next_week];
+        
+        NSString *dateStr = [lotteryDataModel.next_date insertStandardTimeFormatWithIntegral];
+        dateLabel.text = [NSString stringWithFormat:@"%@",[dateStr substringToIndex:dateStr.length-2]];
         XPBMarkSixLotteryDataModel * lotteryModel = lotteryDataModel.lottery_list;
         peroidLabel.text = [NSString stringWithFormat:@"第%@期开奖结果",[lotteryModel.lottery_nper substringFromIndex:4] ];
         for(int i =0; i < lotteryModel.lottery_result.count;i++){
@@ -526,7 +504,7 @@
     layout.itemSize = CGSizeMake((SCREENWIDTH -2*2)/3, 85);
     layout.minimumLineSpacing = 2;
     layout.minimumInteritemSpacing = 2;
-    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 175, SCREENWIDTH, 180) collectionViewLayout:layout];
+    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 125, SCREENWIDTH, 190) collectionViewLayout:layout];
     [_bottomView addSubview:collectionView];
     collectionView.tag = 200;
     collectionView.backgroundColor = GlobalLightGreyColor;
@@ -534,17 +512,17 @@
     collectionView.scrollEnabled = NO;
     collectionView.delegate = self;
     collectionView.dataSource = self;
-    [collectionView setContentInset:UIEdgeInsetsMake(5, 0,5, 0)];
+    [collectionView setContentInset:UIEdgeInsetsMake(10,0,10,0)];
     [collectionView registerClass:[XPBMainPageCollectionViewCell class] forCellWithReuseIdentifier:@"mainPageCell"];
 }
 
 -(void)setupAdvertimentsView{
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.itemSize = CGSizeMake(SCREENWIDTH, 80);
+    layout.itemSize = CGSizeMake(SCREENWIDTH, 100);
     layout.minimumLineSpacing = 0;
     layout.minimumInteritemSpacing = 0;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    UICollectionView *advertimentsView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 355, SCREENWIDTH, 80) collectionViewLayout:layout];
+    UICollectionView *advertimentsView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 315, SCREENWIDTH, 100) collectionViewLayout:layout];
     [self.bottomView addSubview:advertimentsView];
     advertimentsView.tag = 300;
     advertimentsView.backgroundColor = [UIColor whiteColor];
@@ -557,141 +535,28 @@
 
 -(void)setupInforView
 {
-    UIView *inforView = [UIView new];
-    [self.bottomView addSubview:inforView];
-    inforView.frame = CGRectMake(0, 435, SCREENWIDTH, 160);
-    UIView *freeView = [UIView new];
-    [inforView addSubview:freeView];
-    [freeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.mas_equalTo(5);
-        make.bottom.mas_equalTo(-5);
-        make.width.mas_equalTo(100);
-    }];
-    freeView.layer.masksToBounds = YES;
-    freeView.layer.cornerRadius = 15;
-    freeView.backgroundColor = GlobalLightGreyColor;
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+    layout.itemSize = CGSizeMake((SCREENWIDTH -2*2)/3, 85);
+    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 0;
+    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 415, SCREENWIDTH, 105) collectionViewLayout:layout];
+    [_bottomView addSubview:collectionView];
+    collectionView.tag = 400;
+    collectionView.backgroundColor = GlobalLightGreyColor;
+    _inforView = collectionView;
+    collectionView.scrollEnabled = NO;
+    collectionView.delegate = self;
+    collectionView.dataSource = self;
+    [collectionView setContentInset:UIEdgeInsetsMake(10,0,10,0)];
+    [collectionView registerClass:[XPBMainPageCollectionViewCell class] forCellWithReuseIdentifier:@"inforViewCell"];
     
-    UIImageView *freeImage = [UIImageView new];
-    [freeView addSubview:freeImage];
-    freeImage.image = [UIImage imageNamed:@"资料"];
-    [freeImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.width.mas_equalTo(90);
-        make.centerX.mas_equalTo(freeView.mas_centerX);
-        make.top.mas_equalTo(15);
-    }];
-    UILabel *freeLabel = [UILabel new];
-    [freeView addSubview:freeLabel];
-    [freeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(freeView.mas_centerX);
-        make.top.mas_equalTo(freeImage.mas_bottom).mas_offset(10);
-    }];
-    freeLabel.font = [UIFont systemFontOfSize:14];
-    freeLabel.textColor = [UIColor blackColor];
-    freeLabel.text = @"免费资料";
-    
-    UIButton *freeBtn = [UIButton new];
-    [freeView addSubview:freeBtn];
-    [freeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.bottom.mas_equalTo(0);
-    }];
-    [freeBtn addTarget:self action:@selector(didClickFreeBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView *bookView = [UIView new];
-    [inforView addSubview:bookView];
-    [bookView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(5);
-        make.left.mas_equalTo(freeView.mas_right).mas_offset(5);
-        make.height.mas_equalTo(72);
-        make.right.mas_equalTo(-5);
-    }];
-    bookView.layer.masksToBounds = YES;
-    bookView.layer.cornerRadius = 15;
-    bookView.backgroundColor = GlobalLightGreyColor;
-    
-    UIImageView *bookImage = [UIImageView new];
-    [bookView addSubview:bookImage];
-    bookImage.image = [UIImage imageNamed:@"宝典"];
-    [bookImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.width.mas_equalTo(60);
-        make.centerY.mas_equalTo(bookView.mas_centerY);
-        make.left.mas_equalTo(25);
-    }];
-    UILabel *bookLabel = [UILabel new];
-    [bookView addSubview:bookLabel];
-    [bookLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(bookView.mas_centerY);
-        make.left.mas_equalTo(bookImage.mas_right).mas_offset(20);
-    }];
-    bookLabel.font = [UIFont systemFontOfSize:14];
-    bookLabel.textColor = [UIColor blackColor];
-    bookLabel.text = @"六合宝典";
-    
-    UIButton *bookBtn = [UIButton new];
-    [bookView addSubview:bookBtn];
-    [bookBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.bottom.mas_equalTo(0);
-    }];
-    [bookBtn addTarget:self action:@selector(didClickBookBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView *hotView = [UIView new];
-    [inforView addSubview:hotView];
-    [hotView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(bookView.mas_bottom).mas_offset(5);
-        make.left.mas_equalTo(freeView.mas_right).mas_offset(5);
-        make.height.mas_equalTo(72);
-        make.right.mas_equalTo(-5);
-    }];
-    hotView.layer.masksToBounds = YES;
-    hotView.layer.cornerRadius = 15;
-    hotView.backgroundColor = GlobalLightGreyColor;
-    
-    UIImageView *hotImage = [UIImageView new];
-    [hotView addSubview:hotImage];
-    hotImage.image = [UIImage imageNamed:@"热帖"];
-    [hotImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.width.mas_equalTo(60);
-        make.centerY.mas_equalTo(hotView.mas_centerY);
-        make.left.mas_equalTo(25);
-    }];
-    UILabel *hotLabel = [UILabel new];
-    [hotView addSubview:hotLabel];
-    [hotLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(hotView.mas_centerY);
-        make.left.mas_equalTo(hotImage.mas_right).mas_offset(20);
-    }];
-    hotLabel.font = [UIFont systemFontOfSize:14];
-    hotLabel.textColor = [UIColor blackColor];
-    hotLabel.text = @"高手热帖";
-    
-    UIButton *hotBtn = [UIButton new];
-    [hotView addSubview:hotBtn];
-    [hotBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.bottom.mas_equalTo(0);
-    }];
-    [hotBtn addTarget:self action:@selector(didClickHotBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
-}
-
--(void)didClickFreeBtn:(UIButton *)sender{
-    XPBFreeInforListViewController *freeInforVC =[XPBFreeInforListViewController new];
-    [self.navigationController pushViewController:freeInforVC animated:YES];
-}
-
--(void)didClickBookBtn:(UIButton *)sender{
-    XPBStatisticsViewController *statisticsVC = [XPBStatisticsViewController new];
-    [self.navigationController pushViewController:statisticsVC animated:YES];
-}
-
--(void)didClickHotBtn:(UIButton *)sender{
-    XPBBBSViewController *bbsVC = [XPBBBSViewController new];
-    [self.navigationController pushViewController:bbsVC animated:YES];
 }
 
 -(void)setupCooperationPartnerView{
     
     UIView *cooperationView = [UIView new];
     [self.bottomView addSubview:cooperationView];
-    cooperationView.frame = CGRectMake(0, 595, SCREENWIDTH, 100);
+    cooperationView.frame = CGRectMake(0, 520, SCREENWIDTH, 100);
     UIView *titleView = [UIView new];
     [cooperationView addSubview:titleView];
     [titleView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -699,13 +564,23 @@
         make.height.mas_equalTo(30);
     }];
     
+    UIView *verView = [UIView new];
+    [titleView addSubview:verView];
+    [verView mas_makeConstraints:^(MASConstraintMaker *make) {
+         make.centerY.mas_equalTo(titleView.mas_centerY);
+        make.left.mas_equalTo(10);
+        make.width.mas_equalTo(4);
+        make.height.mas_equalTo(15);
+    }];
+    verView.backgroundColor = [UIColor redColor];
+    
     UILabel *cooperationLabel = [UILabel new];
     [titleView addSubview:cooperationLabel];
     [cooperationLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(titleView.mas_centerY);
-        make.left.mas_equalTo(10);
+        make.left.mas_equalTo(verView.mas_right).mas_offset(5);
     }];
-    cooperationLabel.font = [UIFont systemFontOfSize:18];
+    cooperationLabel.font = [UIFont systemFontOfSize:15];
     cooperationLabel.textColor = [UIColor blackColor];
     cooperationLabel.text = @"合作伙伴";
     
@@ -727,15 +602,15 @@
         make.height.mas_equalTo(1);
     }];
     
-    UIImageView *rightImage = [UIImageView new];
-    [titleView addSubview:rightImage];
-    [rightImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.mas_equalTo(titleView.mas_centerY);
+    UILabel *moreLabel = [UILabel new];
+    [titleView addSubview:moreLabel];
+    [moreLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-10);
-        make.height.mas_equalTo(15);
-        make.width.mas_equalTo(8);
+        make.centerY.mas_equalTo(titleView.mas_centerY);
     }];
-    rightImage.image = [UIImage imageNamed:@"arrow_right"];
+    moreLabel.text = @"更多 》";
+    moreLabel.font = [UIFont systemFontOfSize:13];
+
     
     UIButton *showMoreBtn = [UIButton new];
     [titleView addSubview:showMoreBtn];
@@ -846,6 +721,18 @@
         webVC.urlString = bannerModel.banner_link_url;
         webVC.title = bannerModel.banner_title;
         [self.navigationController pushViewController:webVC animated:YES];
+        
+    }else if(collectionView.tag == 400){
+        if(indexPath.item == 0){
+            XPBFreeInforListViewController *freeInforVC =[XPBFreeInforListViewController new];
+            [self.navigationController pushViewController:freeInforVC animated:YES];
+        }else if (indexPath.item == 1){
+            XPBStatisticsViewController *statisticsVC = [XPBStatisticsViewController new];
+            [self.navigationController pushViewController:statisticsVC animated:YES];
+        }else if (indexPath.item == 2){
+            [MBProgressHUD showSuccess:@"敬请期待"];
+        }
+        
     }else{
       if(indexPath.item == 0){
           [self.tabBarController setSelectedIndex:1];
@@ -874,10 +761,10 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView  layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
     if(collectionView.tag == 100){
         return CGSizeMake(SCREENWIDTH,180);
-    }else if(collectionView.tag == 200){
+    }else if(collectionView.tag == 200 || collectionView.tag == 400){
         return CGSizeMake((SCREENWIDTH -2*2)/3, 85);
     }else{
-        return CGSizeMake(SCREENWIDTH,80);
+        return CGSizeMake(SCREENWIDTH,100);
     }
 }
 
@@ -886,6 +773,8 @@
         return self.bannerArr.count;
     }else if(collectionView.tag == 300){
         return self.advArr.count;
+    }else if(collectionView.tag == 400){
+        return 3;
     }else{
         return  6;
     }
@@ -904,6 +793,12 @@
         BPBannerModel *bannerModel = _advArr[indexPath.row];
         BPBannerViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"advertimentsViewCell" forIndexPath:indexPath];
         [cell.imageView sd_setImageWithURL:[NSURL URLWithString:bannerModel.banner_image_url] placeholderImage:[UIImage imageNamed:@"占位图"]];
+        return cell;
+    }else if(collectionView.tag == 400){
+        XPBMainPageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"inforViewCell" forIndexPath:indexPath];
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.iconView.image = [UIImage imageNamed:_inforTitleArr[indexPath.row]] ;
+        cell.title.text = _inforTitleArr[indexPath.row];
         return cell;
         
     }else{

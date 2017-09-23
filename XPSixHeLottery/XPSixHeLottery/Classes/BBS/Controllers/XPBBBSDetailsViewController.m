@@ -116,9 +116,8 @@
     UIView *titleView = [UIView new];
     [scrollView addSubview:titleView];
     titleView.frame = CGRectMake(5, 5, SCREENWIDTH - 10, 60);
-    titleView.backgroundColor = GlobalOrangeColor;
-    titleView.layer.masksToBounds = YES;
-    titleView.layer.cornerRadius = 10;
+    titleView.backgroundColor = [UIColor whiteColor];
+ 
     
     UILabel *titleLabel = [UILabel new];
     [titleView addSubview:titleLabel];
@@ -167,7 +166,7 @@
         make.centerY.mas_equalTo(titleLabel.mas_centerY);
     }];
     [appreciatesBtn setTitle:@"0" forState:UIControlStateNormal];
-    [appreciatesBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [appreciatesBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     appreciatesBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [appreciatesBtn setImage:[UIImage imageNamed:@"未点赞"] forState:UIControlStateNormal];
     [appreciatesBtn setImage:[UIImage imageNamed:@"点赞"] forState:UIControlStateSelected];
@@ -182,7 +181,7 @@
         make.bottom.mas_equalTo(-5);
     }];
     anthorLabel.text = @"楼主:作者";
-    anthorLabel.font = [UIFont systemFontOfSize:15];
+    anthorLabel.font = [UIFont systemFontOfSize:12];
     anthorLabel.textColor = [UIColor grayColor];
     
     UILabel *dateLabel = [UILabel new];
@@ -192,37 +191,32 @@
         make.bottom.mas_equalTo(-5);
     }];
     dateLabel.text = @"2017-08-11 10:20:41";
-    dateLabel.font = [UIFont systemFontOfSize:15];
+    dateLabel.font = [UIFont systemFontOfSize:12];
     dateLabel.textColor = [UIColor grayColor];
     
     UITextView *textView = [UITextView new];
     [scrollView addSubview:textView];
-    textView.frame = CGRectMake(5, 70, SCREENWIDTH -10, 30);
+    textView.frame = CGRectMake(0, 70, SCREENWIDTH , 30);
     textView.editable = NO;
     textView.scrollEnabled = NO;
     textView.font = [UIFont systemFontOfSize:15];
     textView.textColor = [UIColor darkGrayColor];
-    textView.layer.masksToBounds = YES;
-    textView.layer.cornerRadius = 10;
-    textView.layer.borderWidth = 0.5;
     textView.layer.borderColor = [UIColor grayColor].CGColor;
-    textView.text= @"我在这里";
+    textView.text= @"帖子内容";
     
     UILabel *commentsLabel = [UILabel new];
     [scrollView addSubview:commentsLabel];
     [commentsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(5);
-        make.width.mas_equalTo(SCREENWIDTH - 10);
+        make.left.mas_equalTo(0);
+        make.width.mas_equalTo(SCREENWIDTH);
         make.top.mas_equalTo(textView.mas_bottom).mas_offset(5);
-        make.height.mas_equalTo(30);
+        make.height.mas_equalTo(35);
     }];
-    commentsLabel.layer.masksToBounds = YES;
-    commentsLabel.layer.cornerRadius = 10;
-    commentsLabel.backgroundColor = [UIColor grayColor];
     commentsLabel.font = [UIFont systemFontOfSize:15];
-    commentsLabel.text = @"评论(0)";
+    commentsLabel.text = @"   全部评论(0)";
     commentsLabel.textColor = [UIColor blackColor];
-    commentsLabel.textAlignment = NSTextAlignmentCenter;
+    commentsLabel.backgroundColor = [UIColor whiteColor];
+ 
     
     UITableView *tableView = [UITableView new];
     _tableView = tableView;
@@ -270,11 +264,11 @@
                                                    attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size;
         
         CGFloat textHeight = textSize.height < 60 ? 60 : textSize.height;
-        textView.frame = CGRectMake(5, 70, SCREENWIDTH -10, textHeight);
-        tableView.frame = CGRectMake(0, 110 + textHeight, SCREENWIDTH, dataModel.reply_list.count * 60);
-        [scrollView setContentSize:CGSizeMake(SCREENWIDTH, 110 + textHeight + dataModel.reply_list.count * 60)];
+        textView.frame = CGRectMake(0, 70, SCREENWIDTH, textHeight);
+        tableView.frame = CGRectMake(0, 110 + textHeight, SCREENWIDTH, dataModel.reply_list.count * 80);
+        [scrollView setContentSize:CGSizeMake(SCREENWIDTH, 110 + textHeight + dataModel.reply_list.count * 80)];
         [weakSelf.tableView reloadData];
-        commentsLabel.text = [NSString stringWithFormat:@"评论(%zd)",dataModel.reply_count];
+        commentsLabel.text = [NSString stringWithFormat:@"   全部评论(%zd)",dataModel.reply_count];
     };
 }
 
@@ -488,18 +482,15 @@
 {
     XPBBBSCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"bbsCommentsCell" forIndexPath:indexPath];
     XPBBBSCommentsModel *commentModel = _commentsArr[indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:@"personal"];
-    cell.textLabel.text = commentModel.reply_user_name;
-    cell.detailTextLabel.text = commentModel.reply_content;
+    cell.dataModel =commentModel;
     cell.levelLabel.text = [NSString stringWithFormat:@"%zd楼",indexPath.row+2];
-    cell.dateLabel.text = commentModel.reply_time;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 80;
 }
 
 @end

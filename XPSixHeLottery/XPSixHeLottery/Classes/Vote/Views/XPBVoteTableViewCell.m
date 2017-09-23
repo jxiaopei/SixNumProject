@@ -25,6 +25,7 @@
         titleLabel.textColor = [UIColor blackColor];
         titleLabel.font = [UIFont systemFontOfSize:20];
         
+        
         UIImageView *iconView = [UIImageView new];
         _iconView = iconView;
         [self addSubview:iconView];

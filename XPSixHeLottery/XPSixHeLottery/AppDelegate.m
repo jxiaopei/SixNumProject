@@ -31,7 +31,7 @@
     [self.window makeKeyAndVisible];
     BPBaseTabBarController *tabBarVC = [BPBaseTabBarController new];
     _tabBarVC = tabBarVC;
-    [self.window setRootViewController:tabBarVC];
+    [self.window setRootViewController:tabBarVC];//[BPBaseViewController new]
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:) name:@"UIApplicationDidEnterBackgroundNotification" object:nil];
     
     //友盟统计
@@ -280,7 +280,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [self getUpdateInfor];
-    [self getAppBaseInfors];
+//    [self getAppBaseInfors];
     [[BPBaseNetworkServiceTool shareServiceTool] setNetWorkService];
 }
 
@@ -343,74 +343,10 @@
     
 }
 
--(void)getAppBaseInfors{
-    
-    NSArray *urlArr = COMPANYURLARR;
-    
-    for(NSString *urlStr in urlArr){
-        [[BPNetRequest getInstance].sharedManager POST:urlStr parameters:COMPANYPARA progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            if (responseObject
-                &&responseObject[@"data"]&&[responseObject[@"data"] isKindOfClass:[NSDictionary class]]) {
-                [self checAppBeingIntercept:responseObject[@"data"][@"url"]];
-            }else {
-//                [MBProgressHUD showError:@"服务配置出错！"];
-            }
-            
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//            [MBProgressHUD showError:@"域名初始化请求失败"];
-        }];
-    }
-    
-    
-}
 
 
 
-- (void)checAppBeingIntercept:(NSString *)hostString {
-    
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",hostString,AppBeingIntercept]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    request.HTTPMethod = @"POST";
-    NSString *time = [NSString stringWithFormat:@"%ul", (int)[[NSDate date] timeIntervalSince1970]];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setObject:time forKey:@"time"];
-    [dict setObject:@"123" forKey:@"token"];
-    [dict setObject:@"1" forKey:@"version"];
-    [dict setObject:@"xxx" forKey:@"code"];
-    
-    NSString *bodyString = [NSString stringWithFormat:@"time=%@&token=123&version=1&code=xxx&signature=%@",time,[dict getMD5]];
-    request.HTTPBody = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
-    NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        if (!data || ![data isKindOfClass:[NSData class]] || data == nil) {
-            return ;
-        }else {
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSString *validate = json[@"data"][@"validate"];
-            
-            NSMutableString *mstring = [[NSMutableString alloc] init];
-            for (int i = 0; i < validate.length; i++) {
-                if (i%2 == 0) {
-                    NSString *str = [validate substringWithRange:NSMakeRange(i, 1)];
-                    [mstring appendString:str];
-                }
-            }
-            if ([mstring isEqualToString:[@"xxx" md5HexDigest]]) {
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    YYCache *cache = [YYCache cacheWithName:CacheKey];
-                    [cache setObject:hostString forKey:@"ServerSite"];
-                    if (![[self getCurrentVC] isKindOfClass:[UITabBarController class]]) {
-                        BPBaseTabBarController *tab=[[BPBaseTabBarController alloc]init];
-                        self.window.rootViewController = tab;
-                        [self.window makeKeyAndVisible];
-                    }
-                });
-                
-            }
-        }
-    }];
-    [dataTask resume];
-}
+
 
 //- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
 //    

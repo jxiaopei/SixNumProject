@@ -71,6 +71,7 @@
     [self.view addSubview:newsTableView];
     newsTableView.delegate =self;
     newsTableView.dataSource = self;
+    newsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 //    newsTableView.separatorStyle =  UITableViewCellSeparatorStyleSingleLineEtched;
     _newsTableView = newsTableView;
     [newsTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -113,7 +114,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 120;
+    return 125;
 }
 
 -(NSMutableArray <XPBNewsListModel *>*)newsListArr

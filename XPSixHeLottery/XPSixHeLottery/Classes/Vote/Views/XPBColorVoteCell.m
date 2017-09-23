@@ -50,8 +50,8 @@
         voteBtn.layer.masksToBounds = YES;
         voteBtn.layer.cornerRadius = 5;
         voteBtn.layer.borderWidth = 1;
-        voteBtn.layer.borderColor = [UIColor redColor].CGColor;
-        [voteBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        voteBtn.layer.borderColor = GlobalOrangeColor.CGColor;
+        [voteBtn setTitleColor:GlobalOrangeColor forState:UIControlStateNormal];
         [voteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [voteBtn setTitle:@"投票" forState:UIControlStateNormal];
         [voteBtn setTitle:@"已投票" forState:UIControlStateSelected];

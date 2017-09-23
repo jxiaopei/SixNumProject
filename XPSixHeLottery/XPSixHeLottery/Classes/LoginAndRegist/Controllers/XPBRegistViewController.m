@@ -24,21 +24,55 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"注册";
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self setFoot];
     [self.view addSubview:self.tableView];
     
 }
 
 - (void)setFoot {
-    UIView *foot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 64)];
-    UIButton *registBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 20, SCREENWIDTH - 30, 44)];
+    UIView *foot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 120)];
+    UIButton *registBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 20, SCREENWIDTH - 60, 44)];
     registBtn.layer.masksToBounds = YES;
-    registBtn.layer.cornerRadius = 5;
+    registBtn.layer.cornerRadius = 22;
     [registBtn setTitle:@"立即注册" forState:UIControlStateNormal];
     registBtn.backgroundColor = GlobalOrangeColor;
     [registBtn addTarget:self action:@selector(registAction) forControlEvents:UIControlEventTouchUpInside];
+    registBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [foot addSubview:registBtn];
+    
+    UILabel *tipLabel = [UILabel new];
+    [foot addSubview:tipLabel];
+    [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(-30);
+        make.width.mas_equalTo(60);
+        make.top.mas_equalTo(registBtn.mas_bottom).mas_offset(30);
+    }];
+    tipLabel.text = @"已有账号?";
+    tipLabel.font = [UIFont systemFontOfSize:13];
+    tipLabel.textColor = [UIColor grayColor];
+    tipLabel.textAlignment = NSTextAlignmentRight;
+    
+    UIButton *jumpBtn = [UIButton new];
+    [foot addSubview:jumpBtn];
+    [jumpBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(tipLabel.mas_right);
+        make.centerY.mas_equalTo(tipLabel);
+        make.width.mas_equalTo(60);
+        make.height.mas_equalTo(30);
+    }];
+    [jumpBtn setTitle:@"立即登录" forState:UIControlStateNormal];
+    [jumpBtn setTitleColor:GlobalOrangeColor forState:UIControlStateNormal];
+    jumpBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    jumpBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [jumpBtn addTarget:self action:@selector(didClickJumpBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
     self.tableView.tableFooterView = foot;
+}
+
+-(void)didClickJumpBtn:(UIButton *)sender{
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)registAction {
@@ -184,8 +218,8 @@
 - (NSArray *)dataArr {
     if (!_dataArr) {
         _dataArr = @[@{@"title":@"用户名",@"image":@"Login_account"},
-                     @{@"title":@"昵称(选填)",@"image":@"Login_account"},
-                     @{@"title":@"手机号(选填)",@"image":@"Login_account"},
+                     @{@"title":@"昵称(选填)",@"image":@"Login_nickname"},
+                     @{@"title":@"手机号(选填)",@"image":@"Login_phone"},
                      @{@"title":@"密码",@"image":@"Login_password"},
                      @{@"title":@"确认密码",@"image":@"Login_password"}];
     }

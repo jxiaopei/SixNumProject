@@ -23,7 +23,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = GlobalLightGreyColor;
+        
         
         UIButton *completeBtn = [UIButton new];
         [self addSubview:completeBtn];

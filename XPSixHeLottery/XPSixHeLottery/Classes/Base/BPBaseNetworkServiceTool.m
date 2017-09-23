@@ -32,7 +32,7 @@
 
 -(void)setNetWorkService{
     
-    NSDictionary *paramers = @{@"paramData":@{@"code":@"acp"},
+    NSDictionary *paramers = @{@"paramData":@{@"code":@"lhc"},
                                @"uri":@"/getDomainMapper",
                                @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef"};
     [[BPNetRequest getInstance]postJsonDataWithUrl:AppNetwork parameters:paramers success:^(id responseObject) {
@@ -48,7 +48,8 @@
                         [self updateInvalidURLs];
                         YYCache *cache = [YYCache cacheWithName:CacheKey];
                         [cache setObject:inforModel.domain forKey:@"serviceHost"];
-//                        [[UIApplication sharedApplication] keyWindow].rootViewController = [BPBaseTabBarController new]; //成功则指向tabBarController 失败则保留在空白页
+                        
+                        [[UIApplication sharedApplication] keyWindow].rootViewController = [BPBaseTabBarController new]; //成功则指向tabBarController 失败则保留在空白页
                         return ;
                     }callback:^{
                         [self.invalidUrlArr addObject:inforModel];
@@ -69,9 +70,44 @@
     
 }
 
+-(void)getAppBaseInfors{
+    
+    NSLog(@"%@",BaseUrl(AppInitialize));
+    
+    NSDictionary *paramers = @{@"paramData":@{@"app_type":@1},
+                               @"uri":AppInitialize,
+                               @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef"};
+    
+    [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(AppInitialize) parameters:paramers success:^(id responseObject) {
+        Log_ResponseObject;
+        if([responseObject[@"code"] isEqualToString:@"0000"])
+        {
+            YYCache *cache = [YYCache cacheWithName:CacheKey];
+            NSString *signInStatus = nil;
+            
+            if([responseObject[@"data"][@"signInStatus"][0][@"mission_status"] integerValue] == 0){
+                signInStatus = @"Yes";
+                [cache setObject:signInStatus forKey:@"signInStatus"];
+            }else{
+                signInStatus = @"No";
+                [cache setObject:signInStatus forKey:@"signInStatus"];
+            }
+            NSString *serviceUrl = responseObject[@"data"][@"service"][@"customer_server_url"];
+            if([serviceUrl isNotNil]){
+                [cache setObject:serviceUrl forKey:@"serviceUrl"];
+            }
+            
+        }
+        
+    } fail:^(NSError *error) {
+        
+    }];
+    
+}
+
 -(void)updateInvalidURLs{
     NSMutableArray *muArr = [NSMutableArray array];
-    if(_invalidUrlArr.count == 0)
+     if( !_invalidUrlArr || self.invalidUrlArr.count == 0)
     {
         return;
     }
@@ -79,9 +115,14 @@
         
         NSDictionary *dict = @{@"id":[NSString stringWithFormat:@"%zd",inforModel.Id],
                                @"domainState":@1,
-                               @"systemCode":@"acp",
+                               @"systemCode":@"lhc",
                                @"domain":inforModel.domain,};
         [muArr addObject:dict];
+    }
+    
+    if(muArr.count == 0)
+    {
+        return;
     }
     
     NSDictionary *paramers = @{@"paramData":@{@"changes":muArr.copy},
@@ -115,13 +156,13 @@
     if(![inforModel.privateKey isNotNil]){
        key = @"";
     }
-    NSString *md5string = [NSString stringWithFormat:@"acp%@%@%@",dateStr,dayStr,[NSString md5:key]];
+    NSString *md5string = [NSString stringWithFormat:@"lhc%@%@%@",dateStr,dayStr,[NSString md5:key]];
     NSString *md5Str = [NSString md5:md5string];
     
     NSString *url = [NSString stringWithFormat:@"%@%@",inforModel.domain,AppCheckHostAvailable];
     NSDictionary *paramers = @{@"paramData":@{@"date":dateStr,
                                               @"check_dn" :md5Str,
-                                              @"host":@"acp"},
+                                              @"host":@"lhc"},
                                @"uri":AppCheckHostAvailable,
                                @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef"};
     
@@ -129,14 +170,24 @@
         
         if([responseObject[@"stat"] integerValue] == 0){
             Log_ResponseObject;
-            success();
+            NSInteger dayNum = [dayStr integerValue] * 2;
+            NSString *newDateStr = [NSString stringWithFormat:@"%@%02zd",[dateStr substringToIndex:dateStr.length-2],dayNum];
+            NSString *mathStr = [NSString stringWithFormat:@"%@%@lhc%@",dayStr,newDateStr,[NSString md5:key]];
+            NSLog(@"key === %@",mathStr);
+            NSString *newMd5Str = [NSString md5:mathStr];
+            if([newMd5Str isEqualToString:responseObject[@"data"][@"check_dn"] ]){
+                success();
+            }else{
+                callback();
+            }
+            
         }else{
             callback();
         }
         
     } fail:^(NSError *error) {
         NSLog(@"%@",error.description);
-        callback();
+//        callback();
     }];
    
 }

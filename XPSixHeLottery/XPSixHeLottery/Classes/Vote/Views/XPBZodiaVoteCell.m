@@ -22,10 +22,6 @@
         [self addSubview:colorBtn];
         colorBtn.frame = CGRectMake(10, 10, imgW, imgW);
         [colorBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        colorBtn.layer.masksToBounds = YES;
-        colorBtn.layer.cornerRadius = 5;
-        colorBtn.layer.borderWidth = 2;
-        colorBtn.layer.borderColor = [UIColor redColor].CGColor;
         
         UILabel *countLabel = [UILabel new];
         _countLabel = countLabel;
@@ -38,11 +34,12 @@
         countLabel.textColor = [UIColor blackColor];
         countLabel.font = [UIFont systemFontOfSize:15];
         countLabel.textAlignment = NSTextAlignmentCenter;
+        countLabel.adjustsFontSizeToFitWidth = YES;
         
         NSString *contentStr = @"鼠:10票";
         NSMutableAttributedString *str = [[NSMutableAttributedString alloc]initWithString:contentStr];
         //设置：在0-3个单位长度内的内容显示成红色
-        [str addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 2)];
+        [str addAttribute:NSForegroundColorAttributeName value:GlobalOrangeColor range:NSMakeRange(0, 2)];
         countLabel.attributedText = str;
         
         UIButton *voteBtn = [UIButton new];
@@ -57,8 +54,8 @@
         voteBtn.layer.masksToBounds = YES;
         voteBtn.layer.cornerRadius = 5;
         voteBtn.layer.borderWidth = 1;
-        voteBtn.layer.borderColor = [UIColor redColor].CGColor;
-        [voteBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        voteBtn.layer.borderColor = GlobalOrangeColor.CGColor;
+        [voteBtn setTitleColor:GlobalOrangeColor forState:UIControlStateNormal];
         [voteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [voteBtn setTitle:@"投票" forState:UIControlStateNormal];
         [voteBtn setTitle:@"已投票" forState:UIControlStateSelected];

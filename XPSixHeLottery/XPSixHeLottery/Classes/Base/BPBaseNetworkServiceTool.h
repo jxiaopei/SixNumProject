@@ -14,4 +14,6 @@
 
 -(void)setNetWorkService;
 
+-(void)getAppBaseInfors;
+
 @end

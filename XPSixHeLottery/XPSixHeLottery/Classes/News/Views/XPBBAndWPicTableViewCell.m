@@ -15,6 +15,15 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        UIView *horView = [UIView new];
+        [self addSubview:horView];
+        [horView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.mas_equalTo(0);
+            make.top.mas_equalTo(0);
+            make.height.mas_equalTo(5);
+        }];
+        horView.backgroundColor = GlobalLightGreyColor;
+        
         UIImageView *imageView = [UIImageView new];
         _iconView = imageView;
         [self addSubview:imageView];
@@ -47,16 +56,6 @@
         subTitleLabel.font = [UIFont systemFontOfSize:14];
         subTitleLabel.textColor = [UIColor lightGrayColor];
         titleLabel.text = @"0000年00月00日 000期";
-        
-        UIView *lineView = [UIView new];
-        [self addSubview:lineView];
-        [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(0.5);
-            make.left.right.mas_equalTo(0);
-            make.bottom.mas_equalTo(-2);
-        }];
-        lineView.backgroundColor = [UIColor grayColor];
-        lineView.alpha = 0.8;
         
         
     }

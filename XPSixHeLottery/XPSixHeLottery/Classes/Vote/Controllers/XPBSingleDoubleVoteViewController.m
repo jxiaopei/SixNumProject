@@ -103,7 +103,7 @@
     
     //每个柱子的颜色
     
-    [barChart setStrokeColors:@[GlobalSingleColor,GlobalDoubleColor]];
+    [barChart setStrokeColor:GlobalOrangeColor];
     
     //    barChart.strokeColor = [UIColor redColor];
     
@@ -142,8 +142,8 @@
     _scrollView.mj_header = header;
     UIView *singleDoubleView = [UIView new];
     [self.scrollView addSubview:singleDoubleView];
-    singleDoubleView.frame = CGRectMake(-10, 5, SCREENWIDTH/3 + 20, 30);
-    singleDoubleView.backgroundColor = GlobalSingleColor;
+    singleDoubleView.frame = CGRectMake(-10, 15, SCREENWIDTH/3 + 20, 30);
+    singleDoubleView.backgroundColor = GlobalOrangeColor;
     singleDoubleView.layer.masksToBounds = YES;
     singleDoubleView.layer.cornerRadius = 5;
     
@@ -161,7 +161,7 @@
     peroidLabel.backgroundColor = GlobalLightGreyColor;
     [self.scrollView addSubview:peroidLabel];
     [peroidLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(singleDoubleView.mas_bottom).mas_offset(5);
+        make.centerY.mas_equalTo(singleDoubleView.mas_centerY);
         make.left.mas_equalTo(SCREENWIDTH - 55);
         make.width.mas_equalTo(50);
         make.height.mas_equalTo(25);
@@ -200,7 +200,6 @@
     self.didVoteGetData = ^(id responseObject) {
         NSString *singleOrDoubleStr =  responseObject [@"data"][@"top_name"];
         singleOrDoublelabel.text = [NSString stringWithFormat:@"本期热门单双: %@",singleOrDoubleStr];
-        singleDoubleView.backgroundColor = [singleOrDoubleStr isEqualToString:@"单"] ? GlobalSingleColor : GlobalDoubleColor;
         weakSelf.periodStr =  responseObject [@"data"][@"periods_name"];
         peroidLabel.text = [NSString stringWithFormat:@"%@期",[weakSelf.periodStr substringFromIndex:4]];
         NSString *dateStr = responseObject [@"data"][@"open_date"];
