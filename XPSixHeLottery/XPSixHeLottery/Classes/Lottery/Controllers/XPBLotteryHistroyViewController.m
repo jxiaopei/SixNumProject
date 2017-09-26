@@ -211,6 +211,7 @@
     XPBLotteryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"lotteryHistoryCell" forIndexPath:indexPath];
     cell.dataModel = self.lotteriesArr[indexPath.row ];
     cell.backgroundColor = [UIColor whiteColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 

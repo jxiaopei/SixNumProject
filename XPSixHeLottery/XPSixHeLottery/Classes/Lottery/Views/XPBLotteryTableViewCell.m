@@ -112,7 +112,7 @@
     _dataModel = dataModel;
     NSString *periodStr = [dataModel.lottery_nper substringFromIndex:4];
     _periodLabel.text = [NSString stringWithFormat:@"第%@期",periodStr];
-    _dateLabel.text = [NSString stringWithFormat:@"%@(%@)",[[dataModel.open_time substringToIndex:8] insertDateUnitWithCN ],dataModel.open_week];
+    _dateLabel.text = [NSString stringWithFormat:@"%@",[[dataModel.open_time substringToIndex:8] insertDateUnitWithCN ]];//,dataModel.open_week
     
     for(int i = 0; i < dataModel.lottery_result.count;i++)
     {

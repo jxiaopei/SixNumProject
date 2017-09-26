@@ -203,7 +203,7 @@
         
     }
     
-    NSInteger rowNum = (_weekday+_daysOfMonth) % 7 ? (_daysOfMonth + _weekday)/7  + 1: (_daysOfMonth + _weekday)/7;
+    NSInteger rowNum = (_weekday+_daysOfMonth-1) % 7 ? (_daysOfMonth + _weekday-1)/7  + 1: (_daysOfMonth + _weekday-1)/7;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake((SCREENWIDTH)/7, 60);
@@ -368,7 +368,7 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _daysOfMonth + _weekday;
+    return _daysOfMonth + _weekday - 1;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView  layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath

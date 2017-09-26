@@ -33,9 +33,9 @@
             [self addSubview:btn];
             [btn setBackgroundImage:[UIImage imageNamed:@"占位图"] forState:UIControlStateNormal];
             [btn setTitle:@"0" forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             btn.titleLabel.font = [UIFont systemFontOfSize:13];
-            btn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 5, 5);
+           
             [btn addTarget:self action:@selector(didClickDataBtn:) forControlEvents:UIControlEventTouchUpInside];
             btn.frame = CGRectMake(5+ i * (25+ margant) , CGRectGetMaxY(appearSNumLabel.frame) + 5, 25, 25);
             btn.tag = i;

@@ -115,7 +115,7 @@
     
     UIView *titleView = [UIView new];
     [scrollView addSubview:titleView];
-    titleView.frame = CGRectMake(5, 5, SCREENWIDTH - 10, 60);
+    titleView.frame = CGRectMake(0, 0, SCREENWIDTH, 60);
     titleView.backgroundColor = [UIColor whiteColor];
  
     
@@ -190,7 +190,7 @@
         make.right.mas_equalTo(-20);
         make.bottom.mas_equalTo(-5);
     }];
-    dateLabel.text = @"2017-08-11 10:20:41";
+    dateLabel.text = @"0000-00-00 00:00:00";
     dateLabel.font = [UIFont systemFontOfSize:12];
     dateLabel.textColor = [UIColor grayColor];
     

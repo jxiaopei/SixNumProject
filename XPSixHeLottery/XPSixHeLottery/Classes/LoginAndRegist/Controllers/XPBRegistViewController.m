@@ -45,7 +45,7 @@
     [foot addSubview:tipLabel];
     [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(-30);
-        make.width.mas_equalTo(60);
+        make.width.mas_equalTo(65);
         make.top.mas_equalTo(registBtn.mas_bottom).mas_offset(30);
     }];
     tipLabel.text = @"已有账号?";
@@ -58,7 +58,7 @@
     [jumpBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(tipLabel.mas_right);
         make.centerY.mas_equalTo(tipLabel);
-        make.width.mas_equalTo(60);
+        make.width.mas_equalTo(65);
         make.height.mas_equalTo(30);
     }];
     [jumpBtn setTitle:@"立即登录" forState:UIControlStateNormal];
@@ -144,7 +144,7 @@
                 {
                     
                     BPUserModel *userModel = [BPUserModel shareModel];
-                    userModel.userName = responseObject[@"data"][@"user_name"];;
+                    userModel.userName = responseObject[@"data"][@"user_name"];
                     userModel.userAccount = responseObject[@"data"][@"user_account"];
                     userModel.phoneNumber = responseObject[@"data"][@"user_phone"];
                     userModel.currentToken = responseObject[@"data"][@"token"];

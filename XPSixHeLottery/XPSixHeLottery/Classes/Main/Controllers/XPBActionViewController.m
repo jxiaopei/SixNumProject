@@ -9,12 +9,14 @@
 #import "XPBActionViewController.h"
 #import "XPBActionDataModel.h"
 #import "XPBActionCollectionViewCell.h"
+#import "XPBActionTableViewCell.h"
 #import "BPBaseWebViewController.h"
 
-@interface XPBActionViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface XPBActionViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property(nonatomic,strong)UICollectionView *actionCollectionView;
 @property(nonatomic,strong)NSMutableArray <XPBActionDataModel *>*dataSource;
+@property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,assign)NSInteger pageNum;
 
 @end
@@ -24,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _pageNum = 1;
-    [self setupCollectionView];
+    [self setupTableView];
     [self getData];
 }
 
@@ -41,21 +43,21 @@
             
             if(_pageNum == 1)
             {
-                [_actionCollectionView.mj_header endRefreshing];
-                [_actionCollectionView.mj_footer endRefreshing];
+                [_tableView.mj_header endRefreshing];
+                [_tableView.mj_footer endRefreshing];
                 _dataSource = [XPBActionDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
             }else{
                 NSMutableArray *mutableArr = [NSMutableArray array];
                 mutableArr =  [XPBActionDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
                 if(!mutableArr.count)
                 {
-                    [_actionCollectionView.mj_footer endRefreshingWithNoMoreData];
+                    [_tableView.mj_footer endRefreshingWithNoMoreData];
                 }else{
-                    [_actionCollectionView.mj_footer endRefreshing];
+                    [_tableView.mj_footer endRefreshing];
                     [self.dataSource addObjectsFromArray:mutableArr];
                 }
             }
-            [_actionCollectionView reloadData];
+            [_tableView reloadData];
         }else{
             
         }
@@ -64,35 +66,66 @@
     }];
 }
 
--(void)setupCollectionView{
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.itemSize = CGSizeMake(SCREENWIDTH/2 - 6, 270);
-    layout.minimumLineSpacing = 2;
-    layout.minimumInteritemSpacing = 2;
-    UICollectionView *actionCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT - 64) collectionViewLayout:layout];
-    [self.view addSubview:actionCollectionView];
-    _actionCollectionView = actionCollectionView;
-    actionCollectionView.backgroundColor = GlobalLightGreyColor;
-    [actionCollectionView setContentInset:UIEdgeInsetsMake(5, 5, 5, 5)];
-    actionCollectionView.delegate = self;
-    actionCollectionView.dataSource = self;
-    [actionCollectionView registerClass:[XPBActionCollectionViewCell class] forCellWithReuseIdentifier:@"actionCell"];
+-(void)setupTableView
+{
+    UITableView *tableView = [UITableView new];
+    [self.view addSubview:tableView];
+    tableView.backgroundColor = GlobalLightGreyColor;
+    tableView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGHT- 64);
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    [tableView registerClass:[XPBActionTableViewCell class] forCellReuseIdentifier:@"actionCell"];
+    _tableView = tableView;
+    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
         _pageNum = 1;
         [self getData];
     }];
-    actionCollectionView.mj_header = header;
+    tableView.mj_header = header;
     MJRefreshAutoStateFooter *footer = [MJRefreshAutoStateFooter footerWithRefreshingBlock:^{
         _pageNum++;
         
         [self getData];
     }];
-    actionCollectionView.mj_footer = footer;
+    tableView.mj_footer = footer;
+    
+    tableView.tableFooterView = [UIView new];
+    tableView.tableHeaderView = [self setupHeader];
+    
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+-(UIView *)setupHeader{
+    
+    UIView *header = [UIView new];
+    header.frame = CGRectMake(0, 0, SCREENWIDTH, 120);
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+    layout.itemSize = CGSizeMake(SCREENWIDTH, 120);
+    layout.minimumLineSpacing = 0;
+    layout.minimumInteritemSpacing = 0;
+    UICollectionView *actionCollectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 120) collectionViewLayout:layout];
+    [header addSubview:actionCollectionView];
+    _actionCollectionView = actionCollectionView;
+    actionCollectionView.delegate = self;
+    actionCollectionView.dataSource = self;
+    [actionCollectionView registerClass:[XPBActionCollectionViewCell class] forCellWithReuseIdentifier:@"actionAdvCell"];
+    
+    return header;
+}
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataSource.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    XPBActionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"actionCell" forIndexPath:indexPath ];
+    cell.dataModel = self.dataSource[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     BPBaseWebViewController *actionDetailVC = [BPBaseWebViewController new];
     XPBActionDataModel *model = _dataSource[indexPath.row];
     actionDetailVC.title = model.act_name;
@@ -100,21 +133,34 @@
     [self.navigationController pushViewController:actionDetailVC animated:YES];
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 80;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+//    BPBaseWebViewController *actionDetailVC = [BPBaseWebViewController new];
+//    XPBActionDataModel *model = _dataSource[indexPath.row];
+//    actionDetailVC.title = model.act_name;
+//    actionDetailVC.urlString = model.act_link_url;
+//    [self.navigationController pushViewController:actionDetailVC animated:YES];
+}
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.dataSource.count;
+    return 1;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    XPBActionCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"actionCell" forIndexPath:indexPath];
-    cell.dataModel = self.dataSource[indexPath.row];
+    XPBActionCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"actionAdvCell" forIndexPath:indexPath];
+//    cell.dataModel = self.dataSource[indexPath.row];
+    cell.iconView.image = [UIImage imageNamed:@"活动图"];
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView  layout:(nonnull UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    return CGSizeMake(SCREENWIDTH/2 - 6, 270);
+    return CGSizeMake(SCREENWIDTH, 120);
 }
 
 -(NSMutableArray<XPBActionDataModel *>*)dataSource{

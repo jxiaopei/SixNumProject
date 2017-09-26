@@ -28,9 +28,9 @@
         [self addSubview:btn];
         [btn setBackgroundImage:[UIImage imageNamed:@"占位图"] forState:UIControlStateNormal];
         [btn setTitle:@"0" forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:13];
-        btn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 3, 3);
+        
 
     }
     return self;

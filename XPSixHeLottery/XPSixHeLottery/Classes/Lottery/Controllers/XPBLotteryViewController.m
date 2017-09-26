@@ -239,7 +239,7 @@
         XPBMarkSixLotteryDataModel *lotteryDataModel = dataModel.lottery_list.rows[0];
         NSString *periodStr = [lotteryDataModel.lottery_nper substringFromIndex:4];
         peroidLabel.text = [NSString stringWithFormat:@"第%@期开奖结果",periodStr];
-        dateLabel.text = lotteryDataModel.open_time;
+        dateLabel.text = [lotteryDataModel.open_time insertStandardTimeFormatWithCN];
         for(int i =0; i < lotteryDataModel.lottery_result.count;i++)
         {
             XPBLotteryModel *dataModel = lotteryDataModel.lottery_result[i];
@@ -318,6 +318,7 @@
     XPBLotteryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"lotteryTableViewCell" forIndexPath:indexPath];
     cell.dataModel = self.lotteriesArr[indexPath.row ];
     cell.backgroundColor = [UIColor whiteColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 

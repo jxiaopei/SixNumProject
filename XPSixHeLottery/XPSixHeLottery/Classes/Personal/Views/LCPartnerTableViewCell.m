@@ -26,6 +26,7 @@
         [self.contentView addSubview:_headImageView];
         
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(115, 40, SCREENWIDTH - 120, 20)];
+        _titleLabel.font = [UIFont systemFontOfSize:15];
         [self.contentView addSubview:_titleLabel];
     }
     return self;

@@ -31,7 +31,7 @@
     [self.window makeKeyAndVisible];
     BPBaseTabBarController *tabBarVC = [BPBaseTabBarController new];
     _tabBarVC = tabBarVC;
-    [self.window setRootViewController:tabBarVC];//[BPBaseViewController new]
+    [self.window setRootViewController:[BPBaseViewController new]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:) name:@"UIApplicationDidEnterBackgroundNotification" object:nil];
     
     //友盟统计
@@ -280,7 +280,6 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [self getUpdateInfor];
-//    [self getAppBaseInfors];
     [[BPBaseNetworkServiceTool shareServiceTool] setNetWorkService];
 }
 

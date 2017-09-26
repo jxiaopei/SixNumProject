@@ -23,8 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"我的积分";
-    [self setupUI];
     [self setupTableView];
     [self getData];
 }
@@ -44,9 +44,9 @@
             self.dataSource = [XPBIntegralDataModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"sige_history"]];
             NSArray *strArr = responseObject[@"data"][@"integral_balance"];
             if(strArr.count){
-                NSString *tempString = [NSString stringWithFormat:@"可用积分:%@",strArr[0][@"user_amount"]];
+                NSString *tempString = [NSString stringWithFormat:@"可用积分:%@分",strArr[0][@"user_amount"]];
                 NSMutableAttributedString *colorString = [[NSMutableAttributedString alloc]initWithString:tempString];
-                [colorString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(5, tempString.length-5)];
+                [colorString addAttribute:NSForegroundColorAttributeName value:GlobalOrangeColor range:NSMakeRange(5, tempString.length-6)];
                 _integralLabel.attributedText = colorString;
             }
             
@@ -58,56 +58,64 @@
     }];
 }
 
--(void)setupUI{
+-(UIView *)setupHeader{
+    
+    UIView *header = [UIView new];
+    header.frame = CGRectMake(0, 0, SCREENWIDTH, 130);
+    header.backgroundColor = [UIColor whiteColor];
+    
+    UIView *headerView = [UIView new];
+    [header addSubview:headerView];
+    [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(0);
+        make.top.mas_equalTo(30);
+        make.height.mas_equalTo(60);
+        make.width.mas_equalTo(200);
+    }];
     
     UIImageView *imageView = [UIImageView new];
-    [self.view addSubview:imageView];
+    [headerView addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(0);
-        make.top.mas_equalTo(20);
-        make.width.height.mas_equalTo(SCREENWIDTH/3);
+        make.centerY.mas_equalTo(0);
+        make.left.mas_equalTo(0);
+        make.width.height.mas_equalTo(60);
     }];
     imageView.image = [UIImage imageNamed:@"积分详情"];
     
     UILabel *integralLabel = [UILabel new];
-    [self.view addSubview:integralLabel];
+    [headerView addSubview:integralLabel];
     _integralLabel = integralLabel;
     [integralLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(0);
-        make.top.mas_equalTo(imageView.mas_bottom).mas_offset(10);
+        make.left.mas_equalTo(imageView.mas_right).mas_offset(5);
+        make.top.mas_equalTo(5);
     }];
     integralLabel.font = [UIFont systemFontOfSize:17];
     NSInteger colorStrCount = 1;
-    NSString *tempString = [NSString stringWithFormat:@"可用积分:0"];
+    NSString *tempString = [NSString stringWithFormat:@"我的总积分:0分"];
     NSMutableAttributedString *colorString = [[NSMutableAttributedString alloc]initWithString:tempString];
-    [colorString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(5, colorStrCount)];
+    [colorString addAttribute:NSForegroundColorAttributeName value:GlobalOrangeColor range:NSMakeRange(5, colorStrCount)];
     integralLabel.attributedText = colorString;
     
-    UIView *titleView = [UIView new];
-    [self.view addSubview:titleView];
-    [titleView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(integralLabel.mas_bottom).mas_offset(23);
-        make.left.right.mas_equalTo(0);
-        make.height.mas_equalTo(30);
+    UILabel *tipLabel = [UILabel new];
+    [headerView addSubview:tipLabel];
+    [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(imageView.mas_right).mas_offset(5);
+        make.bottom.mas_equalTo(-5);
     }];
-    titleView.backgroundColor = GlobalLightGreyColor;
-    NSArray *titleArr = @[@"日期",@"积分变化",@"说明"];
-    for(int i = 0 ; i < titleArr.count;i++)
-    {
-        UIButton *btn = [UIButton new];
-        [titleView addSubview:btn];
-        if(i == 0)
-        {
-            btn.frame =  CGRectMake(50, 6, 40, 20);
-        }else if(i == 1){
-            btn.frame = CGRectMake(SCREENWIDTH/2-45, 6, 120, 20);
-        }else{
-            btn.frame = CGRectMake(SCREENWIDTH -80, 6, 40, 20);
-        }
-        btn.titleLabel.font = [UIFont systemFontOfSize:17];
-        [btn setTitle:titleArr[i] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    }
+    tipLabel.font = [UIFont systemFontOfSize:14];
+    tipLabel.textColor = [UIColor grayColor];
+    tipLabel.text = @"完成任务,赚取更多积分";
+    
+    UIView *horView = [UIView new];
+    [header addSubview:horView];
+    [horView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(0);
+        make.height.mas_equalTo(10);
+    }];
+    horView.backgroundColor = GlobalLightGreyColor;
+    
+    return header;
 }
 
 -(void)setupTableView
@@ -116,14 +124,14 @@
     _tableView = tableView;
     [self.view addSubview:tableView];
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(SCREENWIDTH/3 + 104);
+        make.top.mas_equalTo(0);
         make.left.right.bottom.mas_equalTo(0);
     }];
     tableView.backgroundColor = GlobalLightGreyColor;
     tableView.dataSource = self;
     tableView.delegate =self;
     tableView.showsVerticalScrollIndicator = NO;
-    tableView.separatorStyle =  UITableViewCellSeparatorStyleNone;
+//    tableView.separatorStyle =  UITableViewCellSeparatorStyleNone;
     [tableView registerClass:[XPBIntegralTableViewCell class] forCellReuseIdentifier:@"integralCell"];
     tableView.tableFooterView = [UIView new];
     
@@ -132,6 +140,7 @@
     }];
     tableView.mj_header = header;
     
+    tableView.tableHeaderView = [self setupHeader];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -148,7 +157,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 30;
+    return 60;
 }
 
 -(NSMutableArray <XPBIntegralDataModel *>*)dataSource{

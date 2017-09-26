@@ -60,7 +60,7 @@
         make.left.right.mas_equalTo(0);
         make.bottom.mas_equalTo(0);
     }];
-    [scrollView setContentSize:CGSizeMake(SCREENWIDTH - 10, SCREENHEIGHT - 64- 45)];
+    [scrollView setContentSize:CGSizeMake(SCREENWIDTH, SCREENHEIGHT - 64- 45)];
     MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
         [self getData];
     }];
@@ -69,10 +69,9 @@
     
     UIView *titleView = [UIView new];
     [scrollView addSubview:titleView];
-    titleView.frame = CGRectMake(5, 5, SCREENWIDTH - 10, 60);
-    titleView.backgroundColor = GlobalOrangeColor;
-    titleView.layer.masksToBounds = YES;
-    titleView.layer.cornerRadius = 10;
+    titleView.frame = CGRectMake(0, 0, SCREENWIDTH, 60);
+    titleView.backgroundColor = [UIColor whiteColor];
+    
     
     UILabel *titleLabel = [UILabel new];
     [titleView addSubview:titleLabel];
@@ -93,22 +92,18 @@
         make.right.mas_equalTo(-20);
         make.bottom.mas_equalTo(-5);
     }];
-    dateLabel.text = @"2017-08-11 10:20:41";
+    dateLabel.text = @"0000-00-00 00:00:00";
     dateLabel.font = [UIFont systemFontOfSize:15];
     dateLabel.textColor = [UIColor grayColor];
     
     UITextView *textView = [UITextView new];
     [scrollView addSubview:textView];
-    textView.frame = CGRectMake(5, 70, SCREENWIDTH -10, 30);
+    textView.frame = CGRectMake(0, 70, SCREENWIDTH, 30);
     textView.editable = NO;
     textView.scrollEnabled = NO;
     textView.font = [UIFont systemFontOfSize:15];
     textView.textColor = [UIColor darkGrayColor];
-    textView.layer.masksToBounds = YES;
-    textView.layer.cornerRadius = 10;
-    textView.layer.borderWidth = 0.5;
-    textView.layer.borderColor = [UIColor grayColor].CGColor;
-    textView.text= @"我在这里";
+    textView.text= @"资讯内容";
     
     self.didFreeInforGetData = ^(XPBFreeInforListDataModel *dataModel) {
         titleLabel.text = dataModel.post_title;
@@ -118,14 +113,14 @@
         CGSize titleSize = [titleLabel.text boundingRectWithSize:CGSizeMake(SCREENWIDTH - 20, CGFLOAT_MAX)
                                                        options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
                                                     attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18]} context:nil].size;
-        titleView.frame = CGRectMake(5, 5, SCREENWIDTH - 10, 30 + titleSize.height);
+        titleView.frame = CGRectMake(0, 0, SCREENWIDTH, 30 + titleSize.height);
 
         CGSize textSize = [textView.text boundingRectWithSize:CGSizeMake(SCREENWIDTH - 10, CGFLOAT_MAX)
                                                       options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin
                                                    attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size;
         
         CGFloat textHeight = textSize.height < 60 ? 60 : textSize.height;
-        textView.frame = CGRectMake(5, 40 + titleSize.height, SCREENWIDTH -10, textHeight);
+        textView.frame = CGRectMake(0, 40 + titleSize.height, SCREENWIDTH, textHeight);
         [scrollView setContentSize:CGSizeMake(SCREENWIDTH, 50 + titleSize.height + textHeight)];
 
     };

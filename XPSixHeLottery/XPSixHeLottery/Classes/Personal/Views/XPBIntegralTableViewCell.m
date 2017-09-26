@@ -24,43 +24,40 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         
-        UILabel *dateLabel = [UILabel new];
-        [self addSubview:dateLabel];
-        _dateLabel = dateLabel;
-        [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.mas_equalTo(0);
+        UILabel *detailLabel = [UILabel new];
+        [self addSubview:detailLabel];
+        _detailLabel = detailLabel;
+        [detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(10);
+            make.centerY.mas_equalTo(0);
         }];
-        dateLabel.text = @"0000.00.00 00:00";
-        dateLabel.font = [UIFont systemFontOfSize:15];
-        dateLabel.textColor = [UIColor grayColor];
+        detailLabel.text = @"消费内容";
+        detailLabel.font = [UIFont systemFontOfSize:13];
+        detailLabel.textAlignment = NSTextAlignmentCenter;
+//        detailLabel.textColor = [UIColor grayColor];
         
         UILabel *sorceLabel = [UILabel new];
         [self addSubview:sorceLabel];
         _sorceLabel = sorceLabel;
         [sorceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(0);
-            make.width.mas_equalTo(80);
-            make.left.mas_equalTo(SCREENWIDTH/2-25);
+            make.left.mas_equalTo(detailLabel.mas_right).mas_offset(2);
         }];
-        sorceLabel.text = @"0";
-        sorceLabel.font = [UIFont systemFontOfSize:15];
+        sorceLabel.text = @"(0分)";
+        sorceLabel.font = [UIFont systemFontOfSize:13];
         sorceLabel.textAlignment = NSTextAlignmentCenter;
         sorceLabel.textColor = [UIColor grayColor];
         
-        UILabel *detailLabel = [UILabel new];
-        [self addSubview:detailLabel];
-        _detailLabel = detailLabel;
-        [detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.mas_equalTo(-10);
+        UILabel *dateLabel = [UILabel new];
+        [self addSubview:dateLabel];
+        _dateLabel = dateLabel;
+        [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.mas_equalTo(0);
-            make.width.mas_equalTo(100);
+            make.right.mas_equalTo(-10);
         }];
-        detailLabel.text = @"消费内容";
-        detailLabel.font = [UIFont systemFontOfSize:15];
-        detailLabel.textAlignment = NSTextAlignmentCenter;
-        detailLabel.textColor = [UIColor grayColor];
-        
+        dateLabel.text = @"0000.00.00 00:00";
+        dateLabel.font = [UIFont systemFontOfSize:13];
+        dateLabel.textColor = [UIColor grayColor];
     }
     return self;
 }
@@ -69,7 +66,7 @@
 {
     _dataModel = dataModel;
     _dateLabel.text = [dataModel.create_time substringToIndex:dataModel.create_time.length - 3];
-    _sorceLabel.text = dataModel.mission_point;
+    _sorceLabel.text = [NSString stringWithFormat:@"(%@分)", dataModel.mission_point];
     _detailLabel.text = dataModel.mission_name;
 }
 

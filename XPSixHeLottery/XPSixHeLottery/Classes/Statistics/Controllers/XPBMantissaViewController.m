@@ -147,6 +147,7 @@
     XPBMantissaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mantissaCell" forIndexPath:indexPath];
     cell.dataModel = _dataArr[indexPath.row];
     cell.backgroundColor = indexPath.row % 2 ? GlobalLightGreyColor : [UIColor whiteColor] ;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 

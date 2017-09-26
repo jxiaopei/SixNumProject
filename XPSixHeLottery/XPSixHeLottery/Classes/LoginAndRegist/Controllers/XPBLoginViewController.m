@@ -68,7 +68,7 @@
     [foot addSubview:tipLabel];
     [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(-30);
-        make.width.mas_equalTo(60);
+        make.width.mas_equalTo(65);
         make.top.mas_equalTo(LoginBtn.mas_bottom).mas_offset(30);
     }];
     tipLabel.text = @"没有账号?";
@@ -81,7 +81,7 @@
     [jumpBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(tipLabel.mas_right);
         make.centerY.mas_equalTo(tipLabel);
-        make.width.mas_equalTo(60);
+        make.width.mas_equalTo(65);
         make.height.mas_equalTo(30);
     }];
     [jumpBtn setTitle:@"立即注册" forState:UIControlStateNormal];
@@ -163,6 +163,7 @@
     cell.textField.tag = RegisterTextTag + indexPath.row;
     cell.textField.delegate = self;
     cell.dict = self.dataArr[indexPath.row];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 

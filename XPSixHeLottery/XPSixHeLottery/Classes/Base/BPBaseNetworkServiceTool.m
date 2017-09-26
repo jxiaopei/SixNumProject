@@ -79,7 +79,7 @@
                                @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef"};
     
     [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(AppInitialize) parameters:paramers success:^(id responseObject) {
-        Log_ResponseObject;
+
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             YYCache *cache = [YYCache cacheWithName:CacheKey];
@@ -131,7 +131,6 @@
     [[BPNetRequest getInstance]postJsonDataWithUrl:AppUpdateInvalidUrl parameters:paramers success:^(id responseObject) {
         if([responseObject[@"stat"]  integerValue] == 0){
            
-            Log_ResponseObject;
             
         }else{
             
@@ -169,7 +168,7 @@
     [[BPNetRequest getInstance]postJsonWithUrl:url parameters:paramers success:^(id responseObject) {
         
         if([responseObject[@"stat"] integerValue] == 0){
-            Log_ResponseObject;
+
             NSInteger dayNum = [dayStr integerValue] * 2;
             NSString *newDateStr = [NSString stringWithFormat:@"%@%02zd",[dateStr substringToIndex:dateStr.length-2],dayNum];
             NSString *mathStr = [NSString stringWithFormat:@"%@%@lhc%@",dayStr,newDateStr,[NSString md5:key]];

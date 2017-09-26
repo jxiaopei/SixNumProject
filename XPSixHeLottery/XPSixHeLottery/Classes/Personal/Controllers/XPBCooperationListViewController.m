@@ -9,6 +9,8 @@
 #import "XPBCooperationListViewController.h"
 #import "LCPartnerTableViewCell.h"
 #import "LCRecommendItem.h"
+#import "XPBActionDataModel.h"
+#import "XPBActionCollectionViewCell.h"
 
 @interface XPBCooperationListViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -68,6 +70,7 @@
     LCPartnerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LCPartnerTableViewCell"];
     [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:self.dataArr[indexPath.section].image_url] placeholderImage:[UIImage imageNamed:@"占位图"]];
     cell.titleLabel.text = self.dataArr[indexPath.section].title;
+    cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -89,10 +92,6 @@
     partnerVC.title = self.dataArr[indexPath.section].title;
     partnerVC.urlString = [NSString stringWithFormat:@"https://%@",self.dataArr[indexPath.section].link_url];
     [self.navigationController pushViewController:partnerVC animated:YES];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 - (UITableView *)tableView

@@ -36,6 +36,7 @@
 		882CC2A81F5A8675001D2876 /* XPBHumorPicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A71F5A8675001D2876 /* XPBHumorPicDetailViewController.m */; };
 		88520D831F6909DD005D5659 /* BPNetworkServiceInforModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88520D821F6909DD005D5659 /* BPNetworkServiceInforModel.m */; };
 		88520D861F690BD2005D5659 /* BPBaseNetworkServiceTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 88520D851F690BD2005D5659 /* BPBaseNetworkServiceTool.m */; };
+		885806981F78C0AB00E49BB2 /* XPBActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 885806971F78C0AB00E49BB2 /* XPBActionTableViewCell.m */; };
 		8872AA761F5D3C2C0032D912 /* XPBSignInMissionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8872AA751F5D3C2C0032D912 /* XPBSignInMissionModel.m */; };
 		8881FAB01F5E8770006EA4D6 /* XPBActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8881FAAF1F5E8770006EA4D6 /* XPBActionViewController.m */; };
 		8898A7751F3AC9930062473C /* XPBMantissaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8898A7741F3AC9930062473C /* XPBMantissaTableViewCell.m */; };
@@ -220,6 +221,8 @@
 		88520D821F6909DD005D5659 /* BPNetworkServiceInforModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPNetworkServiceInforModel.m; sourceTree = "<group>"; };
 		88520D841F690BD2005D5659 /* BPBaseNetworkServiceTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBaseNetworkServiceTool.h; sourceTree = "<group>"; };
 		88520D851F690BD2005D5659 /* BPBaseNetworkServiceTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBaseNetworkServiceTool.m; sourceTree = "<group>"; };
+		885806961F78C0AB00E49BB2 /* XPBActionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBActionTableViewCell.h; sourceTree = "<group>"; };
+		885806971F78C0AB00E49BB2 /* XPBActionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBActionTableViewCell.m; sourceTree = "<group>"; };
 		8872AA741F5D3C2C0032D912 /* XPBSignInMissionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBSignInMissionModel.h; sourceTree = "<group>"; };
 		8872AA751F5D3C2C0032D912 /* XPBSignInMissionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBSignInMissionModel.m; sourceTree = "<group>"; };
 		8881FAAE1F5E8770006EA4D6 /* XPBActionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBActionViewController.h; sourceTree = "<group>"; };
@@ -904,6 +907,8 @@
 				882CC2981F56C93F001D2876 /* XPBSignInCollectionViewCell.m */,
 				88E7070C1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.h */,
 				88E7070D1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m */,
+				885806961F78C0AB00E49BB2 /* XPBActionTableViewCell.h */,
+				885806971F78C0AB00E49BB2 /* XPBActionTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1442,6 +1447,7 @@
 				88E707B01F6172A100A7D6A1 /* XPBAddPhoneNumViewController.m in Sources */,
 				8898A81B1F4DA3910062473C /* DTextField.m in Sources */,
 				88E7070B1F5E92AE00A7D6A1 /* XPBActionDataModel.m in Sources */,
+				885806981F78C0AB00E49BB2 /* XPBActionTableViewCell.m in Sources */,
 				8898A77B1F3AD0FD0062473C /* XPBMantissaViewController.m in Sources */,
 				8872AA761F5D3C2C0032D912 /* XPBSignInMissionModel.m in Sources */,
 				8898A7AA1F45A6080062473C /* XPBNewsDataModel.m in Sources */,

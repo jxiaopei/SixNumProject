@@ -21,8 +21,8 @@
     
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+-(void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:animated];
     NSString *url = (NSString *)[[YYCache cacheWithName:CacheKey] objectForKey:@"serviceUrl"];
     self.urlString = [url isNotNil]?url : @"";
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.urlString]];
