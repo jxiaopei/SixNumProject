@@ -25,8 +25,9 @@
         _headImageView.layer.cornerRadius = 40;;
         [self.contentView addSubview:_headImageView];
         
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(115, 40, SCREENWIDTH - 120, 20)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(115, 40, SCREENWIDTH - 150, 20)];
         _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.adjustsFontSizeToFitWidth = YES;
         [self.contentView addSubview:_titleLabel];
     }
     return self;

@@ -203,7 +203,7 @@
     scrollView.bounces = NO;
     scrollView.delegate = self;
     scrollView.pagingEnabled = YES;
-    scrollView.backgroundColor = GlobalRedColor;
+    scrollView.backgroundColor = [UIColor whiteColor];
     scrollView.contentSize = CGSizeMake(SCREENWIDTH *4, SCREENHEIGHT - 64 - 40);
 }
 

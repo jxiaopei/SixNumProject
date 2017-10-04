@@ -136,9 +136,9 @@
 }
 
 -(void)setupLeftBtn{
-    if(![[YYCache cacheWithName:CacheKey] objectForKey:@"signInStatus"]){
-        return;
-    }
+//    if(![[YYCache cacheWithName:CacheKey] objectForKey:@"signInStatus"] ){
+//        return;
+//    }
     UIButton *signInBtn = [UIButton new];
     signInBtn.frame = CGRectMake(0, 0, 40, 25);
     [signInBtn setTitle:@"签到" forState:UIControlStateNormal];

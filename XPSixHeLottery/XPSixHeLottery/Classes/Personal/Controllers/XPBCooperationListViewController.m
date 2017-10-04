@@ -9,8 +9,7 @@
 #import "XPBCooperationListViewController.h"
 #import "LCPartnerTableViewCell.h"
 #import "LCRecommendItem.h"
-#import "XPBActionDataModel.h"
-#import "XPBActionCollectionViewCell.h"
+
 
 @interface XPBCooperationListViewController ()<UITableViewDelegate, UITableViewDataSource>
 

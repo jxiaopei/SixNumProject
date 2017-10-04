@@ -89,18 +89,7 @@ typedef void (^NetRequestFailedBlock)(NSError *error);//失败Block
              parameters:(id)parameters
                 success:(NetRequestSuccessBlock)success
                    fail:(NetRequestFailedBlock)fail;
-/**
- *  Get形式提交数据(拦截接口数据用)
- *
- *  @param urlString  Url
- *  @param parameters 参数
- *  @param success    成功Block
- *  @param fail       失败Block
- */
--(void)getDataWithUrl:(NSString *)urlString parameters:(id)parameters success:(NetRequestSuccessBlock)success fail:(NetRequestFailedBlock)fail;
 
--(void)postListDataWithUrl:(NSString *)urlString parameters:(id)parameters success:(NetRequestSuccessBlock)success fail:(NetRequestFailedBlock)fail;
 
--(void)getListDataWithUrl:(NSString *)urlString parameters:(id)parameters success:(NetRequestSuccessBlock)success fail:(NetRequestFailedBlock)fail;
 
 @end

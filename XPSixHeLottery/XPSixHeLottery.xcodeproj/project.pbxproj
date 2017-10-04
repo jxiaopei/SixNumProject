@@ -131,10 +131,8 @@
 		88E7070B1F5E92AE00A7D6A1 /* XPBActionDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E7070A1F5E92AE00A7D6A1 /* XPBActionDataModel.m */; };
 		88E7070E1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E7070D1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m */; };
 		88E707B01F6172A100A7D6A1 /* XPBAddPhoneNumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E707AF1F6172A100A7D6A1 /* XPBAddPhoneNumViewController.m */; };
-		88E707B41F62792200A7D6A1 /* XPBaseInforsNetTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E707B31F62792200A7D6A1 /* XPBaseInforsNetTool.m */; };
 		88E707B71F6282B800A7D6A1 /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E707B61F6282B800A7D6A1 /* NSDictionary+Extension.m */; };
 		88F923E81F35878F00D44EDF /* XPBStatisticsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F923E71F35878F00D44EDF /* XPBStatisticsCell.m */; };
-		88F923EB1F358ADA00D44EDF /* XPBStatisticModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F923EA1F358ADA00D44EDF /* XPBStatisticModel.m */; };
 		88F923F31F35F3C000D44EDF /* XPBSixHeStatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F923F21F35F3C000D44EDF /* XPBSixHeStatViewController.m */; };
 		88F923F61F38249A00D44EDF /* XPBSixHeStatNumTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F923F51F38249A00D44EDF /* XPBSixHeStatNumTableViewCell.m */; };
 		88F923F91F382B6100D44EDF /* XPBSixHeStatDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F923F81F382B6100D44EDF /* XPBSixHeStatDataModel.m */; };
@@ -407,14 +405,10 @@
 		88E7070D1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBActionCollectionViewCell.m; sourceTree = "<group>"; };
 		88E707AE1F6172A100A7D6A1 /* XPBAddPhoneNumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBAddPhoneNumViewController.h; sourceTree = "<group>"; };
 		88E707AF1F6172A100A7D6A1 /* XPBAddPhoneNumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBAddPhoneNumViewController.m; sourceTree = "<group>"; };
-		88E707B21F62792200A7D6A1 /* XPBaseInforsNetTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBaseInforsNetTool.h; sourceTree = "<group>"; };
-		88E707B31F62792200A7D6A1 /* XPBaseInforsNetTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBaseInforsNetTool.m; sourceTree = "<group>"; };
 		88E707B51F6282B800A7D6A1 /* NSDictionary+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extension.h"; sourceTree = "<group>"; };
 		88E707B61F6282B800A7D6A1 /* NSDictionary+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extension.m"; sourceTree = "<group>"; };
 		88F923E61F35878F00D44EDF /* XPBStatisticsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBStatisticsCell.h; sourceTree = "<group>"; };
 		88F923E71F35878F00D44EDF /* XPBStatisticsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBStatisticsCell.m; sourceTree = "<group>"; };
-		88F923E91F358ADA00D44EDF /* XPBStatisticModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBStatisticModel.h; sourceTree = "<group>"; };
-		88F923EA1F358ADA00D44EDF /* XPBStatisticModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBStatisticModel.m; sourceTree = "<group>"; };
 		88F923F11F35F3C000D44EDF /* XPBSixHeStatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBSixHeStatViewController.h; sourceTree = "<group>"; };
 		88F923F21F35F3C000D44EDF /* XPBSixHeStatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBSixHeStatViewController.m; sourceTree = "<group>"; };
 		88F923F41F38249A00D44EDF /* XPBSixHeStatNumTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBSixHeStatNumTableViewCell.h; sourceTree = "<group>"; };
@@ -1053,8 +1047,6 @@
 		88BC75851F34694800726D56 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				88F923E91F358ADA00D44EDF /* XPBStatisticModel.h */,
-				88F923EA1F358ADA00D44EDF /* XPBStatisticModel.m */,
 				88F923F71F382B6100D44EDF /* XPBSixHeStatDataModel.h */,
 				88F923F81F382B6100D44EDF /* XPBSixHeStatDataModel.m */,
 				8898A7761F3ACDB70062473C /* XPBMantissaDataModel.h */,
@@ -1189,8 +1181,6 @@
 			children = (
 				88BC759A1F346B5600726D56 /* BPNetRequest.h */,
 				88BC759B1F346B5600726D56 /* BPNetRequest.m */,
-				88E707B21F62792200A7D6A1 /* XPBaseInforsNetTool.h */,
-				88E707B31F62792200A7D6A1 /* XPBaseInforsNetTool.m */,
 			);
 			path = NetWorkTool;
 			sourceTree = "<group>";
@@ -1265,8 +1255,8 @@
 				TargetAttributes = {
 					88BC753B1F34671900726D56 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = B5RB4WNDEX;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 7W8E998SSL;
+						ProvisioningStyle = Manual;
 					};
 					88BC75541F34671900726D56 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -1465,8 +1455,6 @@
 				88BC75BF1F346B5D00726D56 /* MBProgressHUD+Add.m in Sources */,
 				8898A8151F4DA2BF0062473C /* XPBRegistViewController.m in Sources */,
 				8898A7FC1F4D53FA0062473C /* XPBFreeInforListViewController.m in Sources */,
-				88E707B41F62792200A7D6A1 /* XPBaseInforsNetTool.m in Sources */,
-				88F923EB1F358ADA00D44EDF /* XPBStatisticModel.m in Sources */,
 				8898A79E1F4430CD0062473C /* BPBannerModel.m in Sources */,
 				882CC2A21F5A69A6001D2876 /* XPBIntegralTableViewCell.m in Sources */,
 				882CC29C1F57E0C6001D2876 /* XPBStatisticsBarChartViewController.m in Sources */,
@@ -1655,8 +1643,8 @@
 			baseConfigurationReference = 58654F0096CCF3BCE7BB339D /* Pods-XPSixHeLottery.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = B5RB4WNDEX;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 7W8E998SSL;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XPSixHeLottery/Classes/Lib/UMeng",
@@ -1672,8 +1660,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = sixNumberProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "bc79e1b1-051f-42b1-ba31-e7fbbae52ffc";
+				PROVISIONING_PROFILE_SPECIFIER = XPsixNumberProjectInHouse;
 			};
 			name = Debug;
 		};
@@ -1682,8 +1670,8 @@
 			baseConfigurationReference = 9512C576E181CD679E7989EA /* Pods-XPSixHeLottery.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = B5RB4WNDEX;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 7W8E998SSL;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XPSixHeLottery/Classes/Lib/UMeng",
@@ -1699,8 +1687,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = sixNumberProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "bc79e1b1-051f-42b1-ba31-e7fbbae52ffc";
+				PROVISIONING_PROFILE_SPECIFIER = XPsixNumberProjectInHouse;
 			};
 			name = Release;
 		};

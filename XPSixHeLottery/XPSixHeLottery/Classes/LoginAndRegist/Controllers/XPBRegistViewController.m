@@ -109,8 +109,6 @@
         return;
     }
     
-//    [MBProgressHUD showMessage:@"正在注册" toView:self.view];
-    
     NSLog(@"%@",BaseUrl(UserRegist));
     
     NSDictionary *dict = @{

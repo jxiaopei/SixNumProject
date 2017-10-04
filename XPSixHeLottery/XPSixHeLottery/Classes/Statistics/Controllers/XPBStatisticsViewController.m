@@ -8,7 +8,6 @@
 
 #import "XPBStatisticsViewController.h"
 #import "XPBStatisticsCell.h"
-#import "XPBStatisticModel.h"
 #import "XPBSixHeStatViewController.h"
 #import "XPBAttributeReferenceController.h"
 #import "XPBMantissaViewController.h"
@@ -20,7 +19,7 @@
 
 @property(nonatomic,strong)UICollectionView *statisticsCollectionView;
 @property(nonatomic,strong)NSMutableArray *titleArr;
-@property(nonatomic,strong)NSMutableArray <XPBStatisticModel *>*dataSource;
+
 
 @end
 
@@ -33,21 +32,6 @@
     self.view.backgroundColor = GlobalLightGreyColor;
     [self setupCollectionView];
     
-}
-
--(void)getData
-{
-    NSString *url =nil; //[NSString stringWithFormat:@"http://query-api.8win.com/command/execute?command=200001&lotteryType=1&matchId=%@",self.dataModel.matchId];
-    [[BPNetRequest getInstance]getDataWithUrl:url parameters:nil success:^(id responseObject) {
-        if([responseObject[@"code"]  integerValue] == 0)
-        {
-           self.dataSource = [XPBStatisticModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
-            
-        }
-        
-    } fail:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
 }
 
 -(void)setupCollectionView
@@ -162,14 +146,7 @@
     return CGSizeMake((SCREENWIDTH - 2)/3,(SCREENWIDTH - 2)/3);
 }
 
--(NSMutableArray <XPBStatisticModel *>*)dataSource
-{
-    if(_dataSource == nil)
-    {
-        _dataSource = [NSMutableArray array];
-    }
-    return _dataSource;
-}
+
 
 -(NSMutableArray *)titleArr
 {

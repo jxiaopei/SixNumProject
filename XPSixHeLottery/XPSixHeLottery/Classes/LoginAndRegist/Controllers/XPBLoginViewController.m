@@ -106,8 +106,7 @@
         pwdText.promptText = @"请输入密码";
         return;
     }
-    
-//    [MBProgressHUD showMessage:@"正在登录" toView:self.view];
+
     
     NSLog(@"%@",BaseUrl(UserLogin));
     NSDictionary *loginDict = @{

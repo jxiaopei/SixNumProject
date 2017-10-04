@@ -11,7 +11,7 @@
 
 #define NETWORK_STATE 1  //1是正式环境 0是测试环境
 
-#define AppUpdateCode           @"86b305ae91ac3da4c364e5d829c87f7"    //检测新版本更新code
+#define AppUpdateCode           @"86b305ae91ac3da4c364e5d829c87f7a"   //检测新版本更新code
 #define AppUpdatePeramters      @{@"code":AppUpdateCode}
 
 #define AppKey                  @"5981ba3cc62dca68bd0019b5"           //友盟appKey
@@ -32,7 +32,7 @@
 #define AppNetwork              @"http://119.9.107.44:9999/getDomainMapper"                    //请求动态域名
 #define AppUpdateInvalidUrl     @"http://119.9.107.44:9999/updateDomainMapper"                 //上传失效域名
 #define AppCheckHostAvailable   @"/user/homepage/checkDomainName"                              //握手
-#define AppUpdateUrl            @"https://tpfw.083075.com:8080/tizi/system/getAppLastChange"   //检测新版本更新
+#define AppUpdateUrl            @"https://tpfw.083075.com/system/getAppLastChange"   //检测新版本更新 :8080/tizi
 #define AppInitialize           @"/user/homepage/getLotteryInitialization"                     //app初始化信息接口
 
 #define HomepageUrl      @"/user/homepage/getIndex"                            //首页

@@ -31,19 +31,29 @@
     static AFHTTPSessionManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        
         manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
-        [manager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Accept"];
-        manager.requestSerializer.timeoutInterval = 10;
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html",@"text/javascript",nil];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        manager.requestSerializer  = [AFHTTPRequestSerializer serializer];
+        manager.requestSerializer.timeoutInterval = 20;
     });
     return manager;
 }
 
-//- (void)resetURL:(NSMutableString *)url Parameters:(NSMutableDictionary *)parameters {
-//
-//    url.string = [StringFormat(@"%@%@",COMPANYURL, url) stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//   
-//}
+- (AFHTTPSessionManager *)sharedJsonManager{
+    static AFHTTPSessionManager *manager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        manager = [[AFHTTPSessionManager alloc]initWithBaseURL:nil];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html",@"text/javascript",nil];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.requestSerializer  = [AFJSONRequestSerializer serializer];
+        manager.requestSerializer.timeoutInterval = 20;
+    });
+    return manager;
+}
 
 
 /**
@@ -98,11 +108,8 @@
                 success:(NetRequestSuccessBlock)success
                    fail:(NetRequestFailedBlock)fail
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html",@"text/javascript"@"charset=UTF-8",nil];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.requestSerializer  = [AFHTTPRequestSerializer serializer];
-    manager.requestSerializer.timeoutInterval = 20;
+
+    AFHTTPSessionManager *manager =  [self sharedManager];
     
     [manager POST:urlString parameters:[LCNetDataParsing inputParsing:parameters] progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -131,12 +138,8 @@
                 success:(NetRequestSuccessBlock)success
                    fail:(NetRequestFailedBlock)fail
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html",@"text/javascript",nil];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.requestSerializer  = [AFJSONRequestSerializer serializer];
-    manager.requestSerializer.timeoutInterval = 20;
     
+    AFHTTPSessionManager *manager =  [self sharedJsonManager];
     [manager POST:urlString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     }  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -154,27 +157,7 @@
 -(void)postDataWithUrl:(NSString *)urlString parameters:(id)parameters success:(NetRequestSuccessBlock)success fail:(NetRequestFailedBlock)fail
 {
     
-//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-//    [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
-//    manager.requestSerializer.timeoutInterval = 20;
-//    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    [manager POST:urlString parameters:parameters constructingBodyWithBlock:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        
-//        NSDictionary * dictData = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-//        success(dictData);
-//        
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"数据获取失败");
-//        NSLog(@"error111  %@",error.description);
-//    }];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html",@"text/javascript",nil];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.requestSerializer  = [AFHTTPRequestSerializer serializer];
-    manager.requestSerializer.timeoutInterval = 20;
-    
+    AFHTTPSessionManager *manager =  [self sharedManager];
     [manager POST:urlString parameters:[LCNetDataParsing inputParsing:parameters] progress:^(NSProgress * _Nonnull uploadProgress) {
         
     }  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -191,79 +174,5 @@
 
 }
 
-
--(void)getDataWithUrl:(NSString *)urlString parameters:(id)parameters success:(NetRequestSuccessBlock)success fail:(NetRequestFailedBlock)fail
-{
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
-    manager.requestSerializer.timeoutInterval = 20;
-    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [manager GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        NSDictionary * dictData = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        success(dictData);
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"数据获取失败");
-        NSLog(@"error111  %@",error.description);
-    }];
-}
-
-
--(void)postListDataWithUrl:(NSString *)urlString parameters:(id)parameters success:(NetRequestSuccessBlock)success fail:(NetRequestFailedBlock)fail
-{
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
-    manager.requestSerializer.timeoutInterval = 20;
-    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [self setValueOfKeysWithSessionManager:manager.requestSerializer];
-    [manager POST:urlString parameters:parameters constructingBodyWithBlock:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        NSDictionary * dictData = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        success(dictData);
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"数据获取失败");
-        NSLog(@"error111  %@",error.description);
-    }];
-    
-}
-
--(void)getListDataWithUrl:(NSString *)urlString parameters:(id)parameters success:(NetRequestSuccessBlock)success fail:(NetRequestFailedBlock)fail
-{
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
-    manager.requestSerializer.timeoutInterval = 20;
-    [manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [manager.requestSerializer setValue:@"application/vnd.zycp.v2+json" forHTTPHeaderField:@"Accept"];
-    [manager GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        NSDictionary * dictData = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-        success(dictData);
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"数据获取失败");
-        NSLog(@"error111  %@",error.description);
-    }];
-}
-
-//// 设置请求头
-- (void)setValueOfKeysWithSessionManager:(AFHTTPRequestSerializer *)requestSerializer {
-    
-    [requestSerializer setValue:@"application/vnd.zycp.v2+json" forHTTPHeaderField:@"Accept"];
-//    [requestSerializer setValue:@"zh-cn"forHTTPHeaderField:@"Accept-Language"];
-//    [requestSerializer setValue:@"gzip,deflate" forHTTPHeaderField:@"Accept-Encoding"];
-//    [requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-//    [requestSerializer setValue:@"yjcp/3.2.7 (iPhone; iOS 9.3.1; Scale/2.00)" forHTTPHeaderField:@"User-Agent"];
-//    [requestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
-//    [requestSerializer setValue:@"Cookie" forHTTPHeaderField:@"ASP.NET_SessionId=tmncf33d5nmbe4jexkhlrqyz"];
-}
 
 @end

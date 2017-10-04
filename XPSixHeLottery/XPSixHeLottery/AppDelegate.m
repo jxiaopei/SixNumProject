@@ -43,6 +43,10 @@
     [self setupAnimationImage];
     [LCCOllectionInfo getInfo];
 //    [self init3DTouchShortcutItems];//3D touch
+    [[YYCache cacheWithName:CacheKey] setObject:@"Yes" forKey:@"signInStatus"];
+    
+    [[BPBaseNetworkServiceTool shareServiceTool] setNetWorkService];
+    
     return YES;
 }
 
@@ -280,32 +284,30 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [self getUpdateInfor];
-    [[BPBaseNetworkServiceTool shareServiceTool] setNetWorkService];
+    
 }
 
 -(void)getUpdateInfor{
     
     [[BPNetRequest getInstance].sharedManager POST:AppUpdateUrl parameters:AppUpdatePeramters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (!responseObject || ![responseObject isKindOfClass:[NSDictionary class]]) {
-            return ;
-        }
-        
+
         NSString *str = [responseObject mj_JSONString];
         NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary * dictData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         if([dictData[@"entity"][@"downloadUrl"] isKindOfClass:[NSDictionary class]]){
         self.updateUrl=[NSString stringWithFormat:@"itms-services:///?action=download-manifest&url=%@",dictData[@"entity"][@"downloadUrl"][@"manifest"]];
         }
-        NSInteger isbool=[responseObject[@"entity"][@"versionType"] integerValue];
+        NSInteger isbool=[dictData[@"entity"][@"versionType"] integerValue];
         
         NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
         CFShow((__bridge CFTypeRef)(infoDictionary));
         NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        NSString *version = dictData[@"entity"][@"version"];
         
-        if (![appVersion isEqualToString:responseObject[@"entity"][@"version"]]) {
+        if (![appVersion isEqualToString:version]) {
             if (isbool==3) {
                 
-                [self showUpdateAlertVCWithUpdateMsg:responseObject[@"entity"][@"version"]];
+                [self showUpdateAlertVCWithUpdateMsg:dictData[@"entity"][@"version"]];
                 
             }else if (isbool==4){
                 

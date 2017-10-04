@@ -12,9 +12,9 @@
 
 @property (nonatomic, strong) NSString *data_content;
 @property (nonatomic, strong) NSString *data_type;
-@property (nonatomic, strong) NSString *news_id;//
-@property (nonatomic, strong) NSString *news_describe_id;//
-@property (nonatomic, strong) NSString *news_title;//
+@property (nonatomic, strong) NSString *news_id;
+@property (nonatomic, strong) NSString *news_describe_id;
+@property (nonatomic, strong) NSString *news_title;
 @property (nonatomic, strong) NSString *create_time;
 
 @end
