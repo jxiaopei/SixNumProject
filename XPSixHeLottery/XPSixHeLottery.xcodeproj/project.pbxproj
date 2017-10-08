@@ -34,6 +34,8 @@
 		882CC2A21F5A69A6001D2876 /* XPBIntegralTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A11F5A69A6001D2876 /* XPBIntegralTableViewCell.m */; };
 		882CC2A51F5A69EA001D2876 /* XPBIntegralDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A41F5A69EA001D2876 /* XPBIntegralDataModel.m */; };
 		882CC2A81F5A8675001D2876 /* XPBHumorPicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A71F5A8675001D2876 /* XPBHumorPicDetailViewController.m */; };
+		884B2E771F89DFA6003ABDE7 /* XPBAboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 884B2E761F89DFA6003ABDE7 /* XPBAboutUsViewController.m */; };
+		884B2E7A1F89DFEF003ABDE7 /* XPBAboutUsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 884B2E791F89DFEF003ABDE7 /* XPBAboutUsTableViewCell.m */; };
 		88520D831F6909DD005D5659 /* BPNetworkServiceInforModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88520D821F6909DD005D5659 /* BPNetworkServiceInforModel.m */; };
 		88520D861F690BD2005D5659 /* BPBaseNetworkServiceTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 88520D851F690BD2005D5659 /* BPBaseNetworkServiceTool.m */; };
 		885806981F78C0AB00E49BB2 /* XPBActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 885806971F78C0AB00E49BB2 /* XPBActionTableViewCell.m */; };
@@ -215,6 +217,10 @@
 		882CC2A41F5A69EA001D2876 /* XPBIntegralDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBIntegralDataModel.m; sourceTree = "<group>"; };
 		882CC2A61F5A8675001D2876 /* XPBHumorPicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBHumorPicDetailViewController.h; sourceTree = "<group>"; };
 		882CC2A71F5A8675001D2876 /* XPBHumorPicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBHumorPicDetailViewController.m; sourceTree = "<group>"; };
+		884B2E751F89DFA6003ABDE7 /* XPBAboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBAboutUsViewController.h; sourceTree = "<group>"; };
+		884B2E761F89DFA6003ABDE7 /* XPBAboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBAboutUsViewController.m; sourceTree = "<group>"; };
+		884B2E781F89DFEF003ABDE7 /* XPBAboutUsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBAboutUsTableViewCell.h; sourceTree = "<group>"; };
+		884B2E791F89DFEF003ABDE7 /* XPBAboutUsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBAboutUsTableViewCell.m; sourceTree = "<group>"; };
 		88520D811F6909DD005D5659 /* BPNetworkServiceInforModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPNetworkServiceInforModel.h; sourceTree = "<group>"; };
 		88520D821F6909DD005D5659 /* BPNetworkServiceInforModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPNetworkServiceInforModel.m; sourceTree = "<group>"; };
 		88520D841F690BD2005D5659 /* BPBaseNetworkServiceTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBaseNetworkServiceTool.h; sourceTree = "<group>"; };
@@ -977,6 +983,8 @@
 			children = (
 				8898A8031F4D78530062473C /* LCAboutViewController.h */,
 				8898A8041F4D78530062473C /* LCAboutViewController.m */,
+				884B2E751F89DFA6003ABDE7 /* XPBAboutUsViewController.h */,
+				884B2E761F89DFA6003ABDE7 /* XPBAboutUsViewController.m */,
 				88BC75D81F34A1C300726D56 /* XPBPersonalViewController.h */,
 				88BC75D91F34A1C300726D56 /* XPBPersonalViewController.m */,
 				8898A7FD1F4D58430062473C /* XPBCooperationListViewController.h */,
@@ -1009,6 +1017,8 @@
 				882CC2A11F5A69A6001D2876 /* XPBIntegralTableViewCell.m */,
 				88D3EA111F76857F00FD40E3 /* XPBPersonCollectionViewCell.h */,
 				88D3EA121F76857F00FD40E3 /* XPBPersonCollectionViewCell.m */,
+				884B2E781F89DFEF003ABDE7 /* XPBAboutUsTableViewCell.h */,
+				884B2E791F89DFEF003ABDE7 /* XPBAboutUsTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1256,7 +1266,7 @@
 					88BC753B1F34671900726D56 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 7W8E998SSL;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					88BC75541F34671900726D56 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -1376,6 +1386,7 @@
 				8898A7751F3AC9930062473C /* XPBMantissaTableViewCell.m in Sources */,
 				8898A80B1F4D98450062473C /* LCPartnerTableViewCell.m in Sources */,
 				8898A8211F4DA53A0062473C /* NSString+Utility.m in Sources */,
+				884B2E7A1F89DFEF003ABDE7 /* XPBAboutUsTableViewCell.m in Sources */,
 				882CC25C1F516EA1001D2876 /* XPBBBSDetailsDataModel.m in Sources */,
 				882CC2961F56B510001D2876 /* XPBSignInTableViewCell.m in Sources */,
 				8898A7CE1F4714F60062473C /* XPBLotteryTableViewCell.m in Sources */,
@@ -1404,6 +1415,7 @@
 				88F923F61F38249A00D44EDF /* XPBSixHeStatNumTableViewCell.m in Sources */,
 				8898A7A71F457F070062473C /* LCNetDataParsing.m in Sources */,
 				88BC75941F346B4200726D56 /* BPBaseViewController.m in Sources */,
+				884B2E771F89DFA6003ABDE7 /* XPBAboutUsViewController.m in Sources */,
 				882CC2591F5166C7001D2876 /* XPBBBSCommentTableViewCell.m in Sources */,
 				882CC2A81F5A8675001D2876 /* XPBHumorPicDetailViewController.m in Sources */,
 				88F923FF1F383FCD00D44EDF /* XPBSixHeStatColorTableViewCell.m in Sources */,
@@ -1643,8 +1655,8 @@
 			baseConfigurationReference = 58654F0096CCF3BCE7BB339D /* Pods-XPSixHeLottery.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 7W8E998SSL;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XPSixHeLottery/Classes/Lib/UMeng",
@@ -1660,8 +1672,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = sixNumberProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bc79e1b1-051f-42b1-ba31-e7fbbae52ffc";
-				PROVISIONING_PROFILE_SPECIFIER = XPsixNumberProjectInHouse;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -1670,8 +1682,8 @@
 			baseConfigurationReference = 9512C576E181CD679E7989EA /* Pods-XPSixHeLottery.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = 7W8E998SSL;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XPSixHeLottery/Classes/Lib/UMeng",
@@ -1687,8 +1699,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = sixNumberProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bc79e1b1-051f-42b1-ba31-e7fbbae52ffc";
-				PROVISIONING_PROFILE_SPECIFIER = XPsixNumberProjectInHouse;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

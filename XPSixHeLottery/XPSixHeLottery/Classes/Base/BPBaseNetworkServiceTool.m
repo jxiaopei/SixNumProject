@@ -49,13 +49,14 @@
                         YYCache *cache = [YYCache cacheWithName:CacheKey];
                         [cache setObject:inforModel.domain forKey:@"serviceHost"];
                         
-                        [[UIApplication sharedApplication] keyWindow].rootViewController = [BPBaseTabBarController new]; //成功则指向tabBarController 失败则保留在空白页
+//                        [[UIApplication sharedApplication] keyWindow].rootViewController = [BPBaseTabBarController new]; //成功则指向tabBarController 失败则保留在空白页
                         return ;
                     }callback:^{
                         [self.invalidUrlArr addObject:inforModel];
                         if(i == serviceInforArr.count - 1){
                             //测试域名全部失败 上传失效域名
                             [self updateInvalidURLs];
+                            [[UIApplication sharedApplication] keyWindow].rootViewController = [BPBaseViewController new];
                         }
                     }];
                 }

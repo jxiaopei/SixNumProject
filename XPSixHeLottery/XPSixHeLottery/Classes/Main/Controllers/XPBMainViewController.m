@@ -113,9 +113,10 @@
 
 -(void)setupNavigationTitleView{
     UIView *view = [UIView new];
-    view.frame = CGRectMake(0 , 0, 96, 44);
+    view.frame = CGRectMake(0 , 0, 94, 39);
     UIImageView *imageview = [ UIImageView new];
-    imageview.frame = CGRectMake(0 , 0, 96, 44);
+    imageview.frame = CGRectMake(10 + 15 , 6, 63, 26);
+    imageview.contentMode = UIViewContentModeScaleAspectFit;
     [view addSubview:imageview];
     imageview.image = [UIImage imageNamed:@"titleViewLogo"];
     self.navigationItem.titleView = view;
@@ -200,12 +201,12 @@
             if(self.newsArr.count == 0)
             {
                 _newsView.hidden = YES;
-                _bottomView.frame = CGRectMake(0, 180, SCREENWIDTH, 630);
-                _scrollview.contentSize = CGSizeMake(SCREENWIDTH, 820);
+                _bottomView.frame = CGRectMake(0, 215, SCREENWIDTH, 680);
+                _scrollview.contentSize = CGSizeMake(SCREENWIDTH, 915);
             }else{
                 _newsView.hidden = NO;
-                _bottomView.frame = CGRectMake(0, 300, SCREENWIDTH, 630);
-                _scrollview.contentSize = CGSizeMake(SCREENWIDTH, 940);
+                _bottomView.frame = CGRectMake(0, 335, SCREENWIDTH, 680);
+                _scrollview.contentSize = CGSizeMake(SCREENWIDTH, 1095);
                 [_newsTableView reloadData];
                 [self beginScrollTheNewsView];
             }
@@ -274,8 +275,19 @@
     bannerView.delegate = self;
     bannerView.dataSource = self;
     [bannerView registerClass:[BPBannerViewCell class] forCellWithReuseIdentifier:@"bannerViewCell"];
-    _mar = [[LCMarqueView alloc]initWithFrame:CGRectMake(0, 155, SCREENWIDTH, 25)];
+    _mar = [[LCMarqueView alloc]initWithFrame:CGRectMake(0, 180, SCREENWIDTH, 25)];
     [self.scrollview addSubview:_mar];
+    
+    UIView *lineView1 = [UIView new];
+    [self.scrollview addSubview:lineView1];
+    lineView1.backgroundColor = GlobalLightGreyColor;
+    [lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(0);
+        make.top.mas_equalTo(_mar.mas_bottom);
+        make.height.mas_equalTo(10);
+        make.width.mas_equalTo(SCREENWIDTH);
+    }];
+    
 }
 
 -(void)setupNewsView{
@@ -284,7 +296,7 @@
     UIView *newsView = [UIView new];
     _newsView = newsView;
     [self.scrollview addSubview:newsView];
-    newsView.frame = CGRectMake(0, 180, SCREENWIDTH, 120);
+    newsView.frame = CGRectMake(0, 215, SCREENWIDTH, 120);
     UIView *titleView = [UIView new];
     [newsView addSubview:titleView];
     [titleView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -376,7 +388,7 @@
     UIView *bottomView = [UIView new];
     [self.scrollview addSubview:bottomView];
     bottomView.backgroundColor = [UIColor whiteColor];
-    bottomView.frame = CGRectMake(0, 300, SCREENWIDTH, 630);
+    bottomView.frame = CGRectMake(0, 335, SCREENWIDTH, 670);
     _bottomView = bottomView;
     
     UIView *lotteryView = [UIView new];
@@ -503,20 +515,30 @@
 }
 
 -(void)setupCollectionView{
+    UIView *lineView = [UIView new];
+    [_bottomView addSubview:lineView];
+    lineView.frame = CGRectMake(0, 125, SCREENWIDTH, 10);
+    lineView.backgroundColor = GlobalLightGreyColor;
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.itemSize = CGSizeMake((SCREENWIDTH -2*2)/3, 85);
+    layout.itemSize = CGSizeMake((SCREENWIDTH - 4)/3, 85);
     layout.minimumLineSpacing = 2;
     layout.minimumInteritemSpacing = 2;
-    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 125, SCREENWIDTH, 190) collectionViewLayout:layout];
+    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 135, SCREENWIDTH, 190) collectionViewLayout:layout];
     [_bottomView addSubview:collectionView];
     collectionView.tag = 200;
-    collectionView.backgroundColor = GlobalLightGreyColor;
+    collectionView.backgroundColor = [UIColor whiteColor];
     _collectionView = collectionView;
     collectionView.scrollEnabled = NO;
     collectionView.delegate = self;
     collectionView.dataSource = self;
-    [collectionView setContentInset:UIEdgeInsetsMake(10,0,10,0)];
+    [collectionView setContentInset:UIEdgeInsetsMake(10, 0, 10, 0)];
     [collectionView registerClass:[XPBMainPageCollectionViewCell class] forCellWithReuseIdentifier:@"mainPageCell"];
+    
+    UIView *lineView2 = [UIView new];
+    [_bottomView addSubview:lineView2];
+    lineView2.frame = CGRectMake(0, 325, SCREENWIDTH, 10);
+    lineView2.backgroundColor = GlobalLightGreyColor;
 }
 
 -(void)setupAdvertimentsView{
@@ -525,7 +547,7 @@
     layout.minimumLineSpacing = 0;
     layout.minimumInteritemSpacing = 0;
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    UICollectionView *advertimentsView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 315, SCREENWIDTH, 100) collectionViewLayout:layout];
+    UICollectionView *advertimentsView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 335, SCREENWIDTH, 100) collectionViewLayout:layout];
     [self.bottomView addSubview:advertimentsView];
     advertimentsView.tag = 300;
     advertimentsView.backgroundColor = [UIColor whiteColor];
@@ -538,14 +560,18 @@
 
 -(void)setupInforView
 {
+    UIView *lineView = [UIView new];
+    [_bottomView addSubview:lineView];
+    lineView.frame = CGRectMake(0, 435, SCREENWIDTH, 10);
+    lineView.backgroundColor = GlobalLightGreyColor;
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.itemSize = CGSizeMake((SCREENWIDTH -2*2)/3, 85);
+    layout.itemSize = CGSizeMake((SCREENWIDTH - 4)/3, 85);
     layout.minimumLineSpacing = 0;
-    layout.minimumInteritemSpacing = 0;
-    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 415, SCREENWIDTH, 105) collectionViewLayout:layout];
+    layout.minimumInteritemSpacing = 2;
+    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 445, SCREENWIDTH, 105) collectionViewLayout:layout];
     [_bottomView addSubview:collectionView];
     collectionView.tag = 400;
-    collectionView.backgroundColor = GlobalLightGreyColor;
+    collectionView.backgroundColor = [UIColor whiteColor];
     _inforView = collectionView;
     collectionView.scrollEnabled = NO;
     collectionView.delegate = self;
@@ -553,13 +579,18 @@
     [collectionView setContentInset:UIEdgeInsetsMake(10,0,10,0)];
     [collectionView registerClass:[XPBMainPageCollectionViewCell class] forCellWithReuseIdentifier:@"inforViewCell"];
     
+    UIView *lineView2 = [UIView new];
+    [_bottomView addSubview:lineView2];
+    lineView2.frame = CGRectMake(0, 550, SCREENWIDTH, 10);
+    lineView2.backgroundColor = GlobalLightGreyColor;
+    
 }
 
 -(void)setupCooperationPartnerView{
     
     UIView *cooperationView = [UIView new];
     [self.bottomView addSubview:cooperationView];
-    cooperationView.frame = CGRectMake(0, 520, SCREENWIDTH, 100);
+    cooperationView.frame = CGRectMake(0, 560, SCREENWIDTH, 110);
     UIView *titleView = [UIView new];
     [cooperationView addSubview:titleView];
     [titleView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -625,21 +656,22 @@
     UIView *partView = [UIView new];
     [cooperationView addSubview:partView];
     partView.frame = CGRectMake(0, 38, SCREENWIDTH, 100 - 38);
-    CGFloat imageW = 60;
-    CGFloat margant = (SCREENWIDTH - 60 - 60 * 3)/2;
+    CGFloat imageW = 50;
+    CGFloat margantX = ((SCREENWIDTH - 4)/3 - imageW)/2;
+    CGFloat margant = (SCREENWIDTH - margantX *2 - 50 * 3)/2;
     NSMutableArray *labelarr = [NSMutableArray new];
     NSMutableArray *imgViewArr = [NSMutableArray new];
     for(int i = 0; i < 3; i++)
     {
         UIImageView *cooperationIcon = [UIImageView new];
         [partView addSubview:cooperationIcon];
-        cooperationIcon.frame = CGRectMake(30+(imageW + margant)*i, 0, imageW, imageW);
+        cooperationIcon.frame = CGRectMake(margantX+(imageW + margant)*i, 5, imageW, imageW);
         [cooperationIcon sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"占位图"]];
         [imgViewArr addObject:cooperationIcon];
         UILabel *cooperationLab = [UILabel new];
         [partView addSubview:cooperationLab];
         [cooperationLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(cooperationIcon.mas_bottom).mas_offset(5);
+            make.top.mas_equalTo(cooperationIcon.mas_bottom).mas_offset(8);
             make.centerX.mas_equalTo(cooperationIcon.mas_centerX);
             make.width.mas_equalTo(100);
         }];
@@ -660,6 +692,11 @@
         [btn addTarget:self action:@selector(didClickCooperationBtn:) forControlEvents:UIControlEventTouchUpInside];
         btn.tag = i;
     }
+    
+    UIView *lineView2 = [UIView new];
+    [_bottomView addSubview:lineView2];
+    lineView2.frame = CGRectMake(0, 690, SCREENWIDTH, 500);
+    lineView2.backgroundColor = GlobalLightGreyColor;
     
     self.partnerViewGetDataBlock = ^(NSMutableArray<XPBCooperationPartnerModel *> *partnerArr) {
         for(int i = 0;i<3; i++){
@@ -765,7 +802,7 @@
     if(collectionView.tag == 100){
         return CGSizeMake(SCREENWIDTH,180);
     }else if(collectionView.tag == 200 || collectionView.tag == 400){
-        return CGSizeMake((SCREENWIDTH -2*2)/3, 85);
+        return CGSizeMake((SCREENWIDTH - 4)/3, 85);
     }else{
         return CGSizeMake(SCREENWIDTH,100);
     }

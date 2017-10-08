@@ -10,7 +10,7 @@
 #import "XPBNewsTableViewCell.h"
 #import "XPBPersonCollectionViewCell.h"
 #import "XPBPersonalEixtTableViewCell.h"
-#import "LCAboutViewController.h"
+#import "XPBAboutUsViewController.h"
 #import "XPBCooperationListViewController.h"
 #import "XPBIntegralViewController.h"
 #import "XPBLoginViewController.h"
@@ -217,7 +217,7 @@
        [self.tabBarController setSelectedIndex:2];
         
     }else if(indexPath.row == 2){
-        LCAboutViewController *aboutVC = [LCAboutViewController new];
+        XPBAboutUsViewController *aboutVC = [XPBAboutUsViewController new];
         [self.navigationController pushViewController:aboutVC animated:YES];
     }
 }

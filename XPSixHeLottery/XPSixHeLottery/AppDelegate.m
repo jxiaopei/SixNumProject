@@ -31,7 +31,7 @@
     [self.window makeKeyAndVisible];
     BPBaseTabBarController *tabBarVC = [BPBaseTabBarController new];
     _tabBarVC = tabBarVC;
-    [self.window setRootViewController:[BPBaseViewController new]];
+    [self.window setRootViewController:tabBarVC];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:) name:@"UIApplicationDidEnterBackgroundNotification" object:nil];
     
     //友盟统计
@@ -119,44 +119,45 @@
 }
 
 -(void)setupAnimationImage{
-    __block UIImageView *igv = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    igv.image = [UIImage imageNamed:@"splash_2"];
-    [self.window addSubview:igv];
     
-    UIImageView *goldig = [[UIImageView alloc] initWithFrame:igv.bounds];
-    goldig.image = [UIImage imageNamed:@"splash_1"];
-    goldig.alpha = 0;
-    [igv addSubview:goldig];
-    
-    UIImageView *caishen = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    caishen.image = [UIImage imageNamed:@"caishen"];
-    [igv addSubview:caishen];
-    
-    CGFloat x = [UIScreen mainScreen].bounds.origin.x;
-    CGFloat y = [UIScreen mainScreen].bounds.origin.y;
-    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    
-    [UIView animateWithDuration:1 animations:^{
-        caishen.frame = CGRectMake(x, y+30, width, height);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:1 animations:^{
-           caishen.frame = CGRectMake(x, y, width, height);
-        } completion:^(BOOL finished) {
-            
-        }];
-    }];
-    
-    [UIView animateWithDuration:2 animations:^{
-        goldig.alpha = 1;
-    } completion:^(BOOL finished) {
-    
+//    __block UIImageView *igv = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    igv.image = [UIImage imageNamed:@"splash_2"];
+//    [self.window addSubview:igv];
+//    
+//    UIImageView *goldig = [[UIImageView alloc] initWithFrame:igv.bounds];
+//    goldig.image = [UIImage imageNamed:@"splash_1"];
+//    goldig.alpha = 0;
+//    [igv addSubview:goldig];
+//    
+//    UIImageView *caishen = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//    caishen.image = [UIImage imageNamed:@"caishen"];
+//    [igv addSubview:caishen];
+//    
+//    CGFloat x = [UIScreen mainScreen].bounds.origin.x;
+//    CGFloat y = [UIScreen mainScreen].bounds.origin.y;
+//    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+//    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+//    
+//    [UIView animateWithDuration:1 animations:^{
+//        caishen.frame = CGRectMake(x, y+30, width, height);
+//    } completion:^(BOOL finished) {
+//        [UIView animateWithDuration:1 animations:^{
+//           caishen.frame = CGRectMake(x, y, width, height);
+//        } completion:^(BOOL finished) {
+//            
+//        }];
+//    }];
+//    
+//    [UIView animateWithDuration:2 animations:^{
+//        goldig.alpha = 1;
+//    } completion:^(BOOL finished) {
+//    
         _callBack = ^{
-            [igv removeFromSuperview];
-            igv = nil;
-            NSLog(@"%@",igv);
+//            [igv removeFromSuperview];
+//            igv = nil;
+//            NSLog(@"%@",igv);
         };
-        
+    
         NSLog(@"%@",BaseUrl(OpenAPPAdvList));
         NSDictionary *dict = @{
                                @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef",
@@ -180,14 +181,14 @@
         } fail:^(NSError *error) {
             _callBack();
         }];
-    }];
+//    }];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (igv) {
-            [igv removeFromSuperview];
-            igv = nil;
-        }
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        if (igv) {
+//            [igv removeFromSuperview];
+//            igv = nil;
+//        }
+//    });
 
 }
 

@@ -24,7 +24,7 @@
         self.title.font = [UIFont systemFontOfSize:14];
         self.title.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.title];
-        self.title.frame = CGRectMake(5, 60, (SCREENWIDTH  -2*2)/3 -10, 20);
+        self.title.frame = CGRectMake(0, 60, (SCREENWIDTH -2*2)/3, 20);
     }
     
     return self;

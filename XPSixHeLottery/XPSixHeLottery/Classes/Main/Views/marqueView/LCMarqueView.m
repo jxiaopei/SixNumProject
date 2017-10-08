@@ -28,22 +28,22 @@
 
 - (void)setupSubViews {
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 25)];
-    bgView.backgroundColor = [UIColor blackColor];
-    bgView.alpha = .4;
+    bgView.backgroundColor = [UIColor whiteColor];
+//    bgView.alpha = .4;
     [self addSubview:bgView];
     
     _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH, 5, SCREENWIDTH - 25, 20)];
-    _textLabel.font = [UIFont systemFontOfSize:15];
+    _textLabel.font = [UIFont systemFontOfSize:13];
     _textLabel.numberOfLines = 1;
-    _textLabel.textColor = [UIColor whiteColor];
+    _textLabel.textColor = [UIColor blackColor];
     [self addSubview:_textLabel];
     
     UIView *coverView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-    coverView.backgroundColor = [UIColor blackColor];
-    coverView.alpha = .7;
+    coverView.backgroundColor = [UIColor whiteColor];
+//    coverView.alpha = .7;
     [self addSubview:coverView];
     
-    _hornView = [[UIImageView alloc] initWithFrame:CGRectMake(2.5, 2.5, 20, 20)];
+    _hornView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 15, 15)];
     _hornView.image = [UIImage imageNamed:@"ic_action_speaker"];
     [self addSubview:_hornView];
 }
