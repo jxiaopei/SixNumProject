@@ -9,12 +9,12 @@
 #import "BPBaseNetworkServiceTool.h"
 #import "BPNetworkServiceInforModel.h"
 #import "BPBaseTabBarController.h"
-
+#import "LCIntroView.h"
 @interface BPBaseNetworkServiceTool()
 
 //@property(nonatomic,strong)NSArray <BPNetworkServiceInforModel *>*serviceInforArr;
 @property(nonatomic,strong)NSMutableArray <BPNetworkServiceInforModel *>*invalidUrlArr;
-
+@property(nonatomic,copy)void (^callBack)();
 
 @end
 
@@ -28,6 +28,20 @@
         tool = [self new];
     });
     return tool;
+}
+
+-(void)httpDNSAction{
+    [[BPNetRequest getInstance]getJsonWithUrl:AppHttpDNS parameters:nil success:^(id responseObject) {
+        Log_ResponseObject;
+
+        NSString *ipStr = responseObject[@"currentData"];
+        if([responseObject[@"currentStatus"] intValue] == 0){
+            YYCache *cache = [YYCache cacheWithName:CacheKey];
+            [cache setObject:[NSString stringWithFormat:@"http://%@",ipStr] forKey:@"serviceHost"];
+        }
+    } fail:^(NSError *error) {
+        
+    }];
 }
 
 -(void)setNetWorkService{
@@ -49,7 +63,8 @@
                         YYCache *cache = [YYCache cacheWithName:CacheKey];
                         [cache setObject:inforModel.domain forKey:@"serviceHost"];
                         
-//                        [[UIApplication sharedApplication] keyWindow].rootViewController = [BPBaseTabBarController new]; //成功则指向tabBarController 失败则保留在空白页
+                        [[UIApplication sharedApplication] keyWindow].rootViewController = [BPBaseTabBarController new]; //成功则指向tabBarController 失败则保留在空白页
+//                        [self setupAnimationImage];
                         return ;
                     }callback:^{
                         [self.invalidUrlArr addObject:inforModel];
@@ -69,6 +84,37 @@
         NSLog(@"%@",error.description);
     }];
     
+}
+
+-(void)setupAnimationImage{
+    
+      _callBack = ^{
+
+    };
+    
+    NSLog(@"%@",BaseUrl(OpenAPPAdvList));
+    NSDictionary *dict = @{
+                           @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef",
+                           @"uri":OpenAPPAdvList,
+                           @"paramData":@{}
+                           };
+    [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(OpenAPPAdvList) parameters:dict success:^(id responseObject) {
+        if([responseObject[@"code"] isEqualToString:@"0000"])
+        {
+            if ([responseObject[@"data"] count] < 1) {
+                _callBack();
+                return ;
+            }
+            LCIntroView *introView = [[LCIntroView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            introView.images  = responseObject[@"data"];
+            [[[UIApplication sharedApplication] keyWindow].rootViewController.view addSubview:introView];
+            _callBack();
+        }else{
+            
+        }
+    } fail:^(NSError *error) {
+        _callBack();
+    }];
 }
 
 -(void)getAppBaseInfors{

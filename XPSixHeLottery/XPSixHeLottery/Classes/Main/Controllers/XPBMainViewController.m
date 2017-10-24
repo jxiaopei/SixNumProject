@@ -76,7 +76,7 @@
     [self setupNavigationTitleView];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLoginSuccessed) name:@"loginSuccessed" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLogoutSuccessed) name:@"logoutSuccessed" object:nil];
-    _titleArr = [NSMutableArray arrayWithObjects:@"直播",@"图库",@"投票",@"论坛",@"竞彩",@"活动", nil];
+    _titleArr = [NSMutableArray arrayWithObjects:@"直播",@"图库",@"投票",@"论坛",@"红包",@"活动", nil];
     _inforTitleArr = [NSMutableArray arrayWithObjects:@"免费资料",@"六合宝典",@"敬请期待", nil];
     UIScrollView *scrollView = [UIScrollView new];
     scrollView.backgroundColor = [UIColor whiteColor];
@@ -115,7 +115,7 @@
     UIView *view = [UIView new];
     view.frame = CGRectMake(0 , 0, 94, 39);
     UIImageView *imageview = [ UIImageView new];
-    imageview.frame = CGRectMake(10 + 15 , 6, 63, 26);
+    imageview.frame = CGRectMake(30 , 5, 54, 26);
     imageview.contentMode = UIViewContentModeScaleAspectFit;
     [view addSubview:imageview];
     imageview.image = [UIImage imageNamed:@"titleViewLogo"];
@@ -699,6 +699,9 @@
     lineView2.backgroundColor = GlobalLightGreyColor;
     
     self.partnerViewGetDataBlock = ^(NSMutableArray<XPBCooperationPartnerModel *> *partnerArr) {
+        if(!partnerArr.count){
+            return ;
+        }
         for(int i = 0;i<3; i++){
             UILabel *cooperationLab = labelarr[i];
             UIImageView *cooperationIcon = imgViewArr[i];
@@ -720,6 +723,10 @@
 
 -(void)didClickCooperationBtn:(UIButton *)sender
 {
+    if(!_partnerArr.count){
+        [MBProgressHUD showSuccess:@"敬请期待"];
+        return ;
+    }
     BPBaseWebViewController *cooperationVC = [BPBaseWebViewController new];
     XPBCooperationPartnerModel *partnerModel = _partnerArr [sender.tag];
     cooperationVC.urlString = [NSString stringWithFormat:@"http://%@",partnerModel.link_url];
@@ -755,8 +762,11 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(collectionView.tag == 100 ||collectionView .tag == 300){
+    if(collectionView.tag == 100 ){
         BPBannerModel *bannerModel = _bannerArr[indexPath.row];
+        if([bannerModel.banner_link_url isEqualToString:@"http://"]){
+            return;
+        }
         BPBaseWebViewController *webVC = [BPBaseWebViewController new];
         webVC.urlString = bannerModel.banner_link_url;
         webVC.title = bannerModel.banner_title;
@@ -772,6 +782,7 @@
         }else if (indexPath.item == 2){
             [MBProgressHUD showSuccess:@"敬请期待"];
         }
+    }else if(collectionView.tag == 300){
         
     }else{
       if(indexPath.item == 0){
@@ -786,10 +797,14 @@
           XPBBBSViewController *bbsVC = [XPBBBSViewController new];
           [self.navigationController pushViewController:bbsVC animated:YES];
       }else if (indexPath.item == 4){
-          BPBaseWebViewController *playLotteryVC = [BPBaseWebViewController new];
-          playLotteryVC.urlString = self.lotteryUrl ? self.lotteryUrl : @"";
-          playLotteryVC.title = @"竞彩";
-          [self.navigationController pushViewController:playLotteryVC animated:YES];
+          if([self.lotteryUrl isNotNil]){
+              BPBaseWebViewController *playLotteryVC = [BPBaseWebViewController new];
+              playLotteryVC.urlString = self.lotteryUrl ? self.lotteryUrl : @"";
+              playLotteryVC.title = @"竞彩";
+              [self.navigationController pushViewController:playLotteryVC animated:YES];
+          }else{
+              [MBProgressHUD showSuccess:@"敬请期待"];
+          }
       }else if (indexPath.item == 5){
           XPBActionViewController *actionVC = [XPBActionViewController new];
           actionVC.title = @"活动";

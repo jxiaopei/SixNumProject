@@ -14,10 +14,10 @@
 #define AppUpdateCode           @"86b305ae91ac3da4c364e5d829c87f7a"   //检测新版本更新code
 #define AppUpdatePeramters      @{@"code":AppUpdateCode}
 
-#define AppKey                  @"5981ba3cc62dca68bd0019b5"           //友盟appKey
-#define AppSecret               @" rqyibszrse2zevbi9erxwknhxztpdyx0"  //友盟app 秘钥
+#define AppKey                  @"59eada12c62dca31c600084e"           //友盟appKey
+#define AppSecret               @"cwjna0e96kxedqikclbubwbujfyc8c9r"  //友盟app 秘钥
 
-#define COMPANYPARA             @{@"app_id":@"1258070698"}            //appID
+#define COMPANYPARA             @{@"app_id":@"1299599172"}            //appID
 #define CacheKey                @"myCacheKey"
 #define UserID                  @"UserID"
 #define SCREENHEIGHT  [UIScreen mainScreen].bounds.size.height
@@ -32,8 +32,9 @@
 #define AppNetwork              @"http://119.9.107.44:9999/getDomainMapper"                    //请求动态域名
 #define AppUpdateInvalidUrl     @"http://119.9.107.44:9999/updateDomainMapper"                 //上传失效域名
 #define AppCheckHostAvailable   @"/user/homepage/checkDomainName"                              //握手
-#define AppUpdateUrl            @"https://tpfw.083075.com/system/getAppLastChange"   //检测新版本更新 :8080/tizi
+#define AppUpdateUrl            @"https://tpfw.083075.com/system/getAppLastChange"             //检测新版本更新 :8080/tizi
 #define AppInitialize           @"/user/homepage/getLotteryInitialization"                     //app初始化信息接口
+#define AppHttpDNS              @"http://47.74.19.250:9888/dns/queryDNS?uri=096859.com"        //app初始化HttpDNS
 
 #define HomepageUrl      @"/user/homepage/getIndex"                            //首页
 #define LotteryHistory   @"/user/lottery/getAppLotteryHistoryList"             //开奖历史

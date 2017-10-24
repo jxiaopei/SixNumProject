@@ -45,7 +45,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"splash_2"]];
+        self.backgroundColor = [UIColor whiteColor];
 //        _images = @[@"开启"];//, @"引导页2", @"引导页3",@"引导页4",@"开启"
         [self setupSubview];
     }

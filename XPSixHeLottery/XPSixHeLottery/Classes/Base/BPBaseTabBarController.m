@@ -61,6 +61,9 @@
     self.tabBar.backgroundColor = [UIColor whiteColor];
     self.tabBar.tintColor = [UIColor blackColor];
     self.selectedIndex = 0;
+    
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName ,nil]forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName ,nil]forState:UIControlStateSelected];
     self.indexFlag = 0;
 }
 

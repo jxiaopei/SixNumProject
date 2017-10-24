@@ -14,6 +14,7 @@
 #import "XPBCooperationListViewController.h"
 #import "XPBIntegralViewController.h"
 #import "XPBLoginViewController.h"
+#import "XPBActionViewController.h"
 
 @interface XPBPersonalViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -176,10 +177,13 @@
         }
         
     }else if (indexPath.item == 1){
-        XPBCooperationListViewController *recommendedVC = [XPBCooperationListViewController new];
-        recommendedVC.listType = RecommendedType;
-        recommendedVC.title = @"推荐";
-        [self.navigationController pushViewController:recommendedVC animated:YES];
+//        XPBCooperationListViewController *recommendedVC = [XPBCooperationListViewController new];
+//        recommendedVC.listType = RecommendedType;
+//        recommendedVC.title = @"推荐";
+//        [self.navigationController pushViewController:recommendedVC animated:YES];
+        XPBActionViewController *actionVC = [XPBActionViewController new];
+         actionVC.title = @"活动";
+        [self.navigationController pushViewController:actionVC animated:YES];
         
     }else if (indexPath.item == 2){
         XPBCooperationListViewController *cooperationVC = [XPBCooperationListViewController new];
@@ -274,7 +278,11 @@
 {
     if(indexPath.row == self.titleArr.count)
     {
-        return 110;
+        if([BPUserModel shareModel].isLogin){
+            return 110;
+        }else{
+            return 0;
+        }
     }
     return 45;
 }

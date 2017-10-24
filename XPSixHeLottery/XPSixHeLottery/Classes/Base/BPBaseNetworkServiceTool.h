@@ -16,4 +16,6 @@
 
 -(void)getAppBaseInfors;
 
+-(void)httpDNSAction;
+
 @end

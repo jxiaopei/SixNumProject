@@ -81,7 +81,11 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [Helper hideLoading];
         if (success) {
-            success(responseObject);
+            NSString *dataStr = [responseObject mj_JSONString];
+            NSData *data = [dataStr dataUsingEncoding:NSUTF8StringEncoding];
+            NSError *error;
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+            success(dict);
             
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

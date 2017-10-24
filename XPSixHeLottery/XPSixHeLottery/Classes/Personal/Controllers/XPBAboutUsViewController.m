@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = GlobalLightGreyColor;
-    _titleArr = @[@"评分支持",@"关于六合彩",@"投诉"];
+    _titleArr = @[@"评分支持",@"功能介绍",@"投诉"];
     [self setupTableView];
      self.title = @"关于我们";
     
@@ -41,7 +41,7 @@
     }];
     tipInfor2.textColor = [UIColor grayColor];
     tipInfor2.font = [UIFont systemFontOfSize:12];
-    tipInfor2.text = @"Copyright © 六合彩版权所有 Reserved";
+    tipInfor2.text = @"Copyright © 1396开奖版权所有 Reserved";
     tipInfor2.numberOfLines = 2;
     
     UILabel *tipInfor1 = [UILabel new];
@@ -62,7 +62,7 @@
     }];
     tipInfor.textColor = [UIColor grayColor];
     tipInfor.font = [UIFont systemFontOfSize:12];
-    tipInfor.text = @"六合彩所提供的娱乐产品和服务皆由澳门特别行政区";
+    tipInfor.text = @"1396开奖所提供的娱乐产品和服务皆由澳门特别行政区";
     
 }
 
@@ -114,7 +114,7 @@
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *appCurVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    versionLab.text = [NSString stringWithFormat:@"六合彩 版本:v%@",appCurVersion];//@"v1.0";
+    versionLab.text = [NSString stringWithFormat:@"1396开奖 版本:v%@",appCurVersion];//@"v1.0";
     versionLab.textColor = [UIColor grayColor];
     versionLab.textAlignment = NSTextAlignmentCenter;
     versionLab.font = [UIFont systemFontOfSize:13];

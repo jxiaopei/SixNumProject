@@ -257,7 +257,7 @@
 
 -(void)setupTimer
 {
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(countDownAction) userInfo:nil repeats:YES];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(countDownAction) userInfo:nil repeats:YES];
     self.timer = timer;
     [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSRunLoopCommonModes];
     

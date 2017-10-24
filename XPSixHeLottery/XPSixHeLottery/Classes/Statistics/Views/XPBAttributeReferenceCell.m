@@ -24,7 +24,7 @@
         
         UIButton *btn = [UIButton new];
         _btn = btn;
-        btn.frame = CGRectMake(0, 0, 25, 25);
+        btn.frame = CGRectMake(0, 0, 20, 20);
         [self addSubview:btn];
         [btn setBackgroundImage:[UIImage imageNamed:@"占位图"] forState:UIControlStateNormal];
         [btn setTitle:@"0" forState:UIControlStateNormal];
