@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSString * colour;
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSString * number;
+@property (nonatomic, strong) NSString * fiveElement;
 
 @end

@@ -20,6 +20,7 @@
 @property(nonatomic,copy) void(^lotteryGetDataBlock)(XPBMarkSixLotteryListModel *dataModel);
 @property(nonatomic,strong)NSTimer *timer;
 @property(nonatomic,assign)NSInteger seconds;
+@property(nonatomic,assign)NSInteger counts;
 @property(nonatomic,strong)UILabel *timeLabel;
 
 @property(nonatomic,strong)UIView *headerView;
@@ -32,6 +33,7 @@
     [super viewDidLoad];
     self.title = @"开奖";
     _pageNum = 1;
+    _counts = 0;
     [self setupTableView];
     [self getData];
 
@@ -140,6 +142,7 @@
         zodiaLabel.textColor = [UIColor blackColor];
         zodiaLabel.textAlignment = NSTextAlignmentCenter;
         zodiaLabel.font = [UIFont systemFontOfSize:13];
+        zodiaLabel.adjustsFontSizeToFitWidth = YES;
         zodiaLabel.text = @"龙";
         [btnArr addObject:btn];
         [labelArr addObject:zodiaLabel];
@@ -166,6 +169,7 @@
     spcZodiaLabel.textColor = [UIColor blackColor];
     spcZodiaLabel.font = [UIFont systemFontOfSize:13];
     spcZodiaLabel.textAlignment = NSTextAlignmentCenter;
+    spcZodiaLabel.adjustsFontSizeToFitWidth = YES;
     spcZodiaLabel.text = @"虎";
     
     [btnArr addObject:spcNumBtn];
@@ -247,7 +251,7 @@
             [btn setBackgroundImage:[UIImage imageNamed:dataModel.colour] forState:UIControlStateNormal];
             [btn setTitle:dataModel.number forState:UIControlStateNormal];
             UILabel *label = labelArr[i];
-            label.text = dataModel.name;
+            label.text = [NSString stringWithFormat:@"%@/%@", dataModel.name,dataModel.fiveElement];
         }
         
     };
@@ -265,7 +269,9 @@
 
 -(void) countDownAction{
     //倒计时-1
-    _seconds--;
+    if(_seconds != 0){
+       _seconds--;
+    }
     NSString *str_hour = [NSString stringWithFormat:@"%02ld",_seconds/3600];
     NSString *str_minute = [NSString stringWithFormat:@"%02ld",(_seconds%3600)/60];
     NSString *str_second = [NSString stringWithFormat:@"%02ld",_seconds%60];
@@ -273,8 +279,13 @@
     //修改倒计时标签现实内容
     self.timeLabel.text= format_time;
     //当倒计时到0时，做需要的操作，比如验证码过期不能提交
-    if(_seconds==0 ){
-        [_timer invalidate];
+    if(_seconds== 0 ){
+//        [_timer invalidate];
+        _counts++;
+        if(_counts == 8){
+            [self getData];
+            _counts = 0;
+        }
     }
 }
 

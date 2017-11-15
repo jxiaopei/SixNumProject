@@ -14,6 +14,7 @@
 
 @property(nonatomic,strong)UIImageView *imageView;
 @property(nonatomic,strong)UIButton *rightBtn;
+@property(nonatomic,strong)UIImage *placeHolder;
 
 @end
 
@@ -50,22 +51,19 @@
         {
           
             self.picDataStr = responseObject[@"data"][@"imger_dedails"][@"pic_value"];
-            UIImage *image = nil;
+      
             if([self.picDataStr isNotNil])
             {
-                NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:self.picDataStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-                UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
-                if(decodedImage != nil)
-                {
-                    image = decodedImage;
-                }
-                CGFloat imgH =  image.size.height / image.size.width *SCREENWIDTH;
-                [_imageView sizeToFit];
-                [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.left.right.mas_equalTo(0);
-                    make.height.mas_equalTo(imgH);
+                [_imageView sd_setImageWithURL:[NSURL URLWithString:self.picDataStr] placeholderImage:_placeHolder options:SDWebImageRetryFailed completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                    
+                    CGFloat imgH =  image.size.height / image.size.width *SCREENWIDTH;
+                    [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.top.left.right.mas_equalTo(0);
+                        make.height.mas_equalTo(imgH);
+                    }];
+                    _imageView.image = image;
+                    
                 }];
-                _imageView.image = image;
             }
 
             NSNumber *num = responseObject[@"data"][@"iscollect"];
@@ -161,20 +159,17 @@
     _imageView = imageView;
     _imageView.userInteractionEnabled = YES;
     [self.view addSubview:imageView];
-    [imageView sizeToFit];
-    UIImage *image = nil;
-    NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:self.picDataStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
-    if(decodedImage != nil)
-    {
-        image = decodedImage;
+    
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:self.picDataStr] placeholderImage:[UIImage imageNamed:@"占位图"] options:SDWebImageRetryFailed completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        
         CGFloat imgH =  image.size.height / image.size.width *SCREENWIDTH;
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.mas_equalTo(0);
             make.height.mas_equalTo(imgH);
         }];
         imageView.image = image;
-    }
+        _placeHolder = image;
+    }];
     
     
     //缩放手势

@@ -29,6 +29,7 @@
 #import "XPBMainPageCollectionViewCell.h"
 #import "XPBMainpageNewsTableViewCell.h"
 #import "BPBaseNetworkServiceTool.h"
+#import "XPBRedBagViewController.h"
 
 @interface XPBMainViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIScrollView *scrollview;
@@ -47,6 +48,7 @@
 //图标
 @property(nonatomic,strong)UICollectionView *collectionView;
 @property(nonatomic,strong)NSMutableArray *titleArr;
+@property(nonatomic,assign)NSUInteger isGetRedPacket;
 //中间广告
 @property(nonatomic,strong)UICollectionView *advertimentsView;
 @property(nonatomic,strong)NSMutableArray <BPBannerModel *>*advArr;
@@ -77,7 +79,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLoginSuccessed) name:@"loginSuccessed" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didLogoutSuccessed) name:@"logoutSuccessed" object:nil];
     _titleArr = [NSMutableArray arrayWithObjects:@"直播",@"图库",@"投票",@"论坛",@"红包",@"活动", nil];
-    _inforTitleArr = [NSMutableArray arrayWithObjects:@"免费资料",@"六合宝典",@"敬请期待", nil];
+    _inforTitleArr = [NSMutableArray arrayWithObjects:@"免费资料",@"高手热帖", @"六合宝典",nil];
     UIScrollView *scrollView = [UIScrollView new];
     scrollView.backgroundColor = [UIColor whiteColor];
     _scrollview = scrollView;
@@ -88,6 +90,7 @@
     }];
     MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
         [self getData];
+        [self getRedPacketState];
     }];
     _scrollview.mj_header = header;
     
@@ -108,7 +111,7 @@
 }
 
 -(void)didLoginSuccessed{
-    [_loginBtn setTitle:[BPUserModel shareModel].userName forState:UIControlStateNormal ];
+    [_loginBtn setTitle:[BPUserModel shareModel].userName forState:UIControlStateNormal];
 }
 
 -(void)setupNavigationTitleView{
@@ -137,9 +140,6 @@
 }
 
 -(void)setupLeftBtn{
-//    if(![[YYCache cacheWithName:CacheKey] objectForKey:@"signInStatus"] ){
-//        return;
-//    }
     UIButton *signInBtn = [UIButton new];
     signInBtn.frame = CGRectMake(0, 0, 40, 25);
     [signInBtn setTitle:@"签到" forState:UIControlStateNormal];
@@ -152,12 +152,15 @@
     self.navigationItem.leftBarButtonItem = leftBtnItem;
 }
 
+-(void)loginAction{
+    XPBLoginViewController *loginVC = [XPBLoginViewController new];
+    loginVC.popVC = self;
+    [self.navigationController pushViewController:loginVC animated:YES];
+}
+
 -(void)didClickLeftBtn:(UIButton *)sender{
     if(![BPUserModel shareModel].isLogin){
-        XPBLoginViewController *loginVC = [XPBLoginViewController new];
-        loginVC.popVC = self;
-        [self.navigationController pushViewController:loginVC animated:YES];
-        
+        [self loginAction];
     }else{
         XPBSignInViewController *signInVC = [XPBSignInViewController new];
         [self.navigationController pushViewController:signInVC animated:YES];
@@ -167,11 +170,51 @@
 -(void)didClickRightBtn:(UIButton *)sender{
     
     if(![BPUserModel shareModel].isLogin){
-        XPBLoginViewController *loginVC = [XPBLoginViewController new];
-        loginVC.popVC = self;
-        [self.navigationController pushViewController:loginVC animated:YES];
+        [self loginAction];
     }else{
         [self.tabBarController setSelectedIndex:3];
+    }
+}
+
+-(void)getRedPacketState{
+    if(![BPUserModel shareModel].isLogin){
+        return;
+    }
+    
+    NSLog(@"%@",BaseUrl(RedPacketState));
+    NSDictionary *dic = @{
+                          @"token":@"4d2cbce9-4338-415e-8343-7c9e67dae7ef",
+                          @"uri":RedPacketState,
+                          @"paramData":@{@"user_id":[BPUserModel shareModel].uid,
+                                         }
+                          };
+    [[BPNetRequest getInstance] postJsonWithUrl:BaseUrl(RedPacketState) parameters:dic success:^(id responseObject) {
+        if([responseObject[@"code"] isEqualToString:@"0000"]){
+//            NSString *str = responseObject[@"data"];
+            _isGetRedPacket = [responseObject[@"data"] intValue];
+            [_collectionView reloadData];
+        }else{
+            
+        }
+    } fail:^(NSError *error) {
+        
+    }];
+}
+
+-(void)adjustToScreenWithBannerArr:(NSMutableArray *)bannarArr{
+    for(int i = 0;i < bannarArr.count;i++){
+        BPBannerModel *model = bannarArr[i];
+        if(SCREENWIDTH >=375){
+            if(model.phone_size.integerValue == 1){
+                [bannarArr removeObject:model];
+                i--;
+            }
+        }else{
+            if(model.phone_size.integerValue == 2){
+                [bannarArr removeObject:model];
+                i--;
+            }
+        }
     }
 }
 
@@ -190,7 +233,10 @@
             [self.bannerArr removeAllObjects];
             [self.advArr removeAllObjects];
             self.bannerArr = [BPBannerModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"banner"]];
+            [self adjustToScreenWithBannerArr:self.bannerArr];
             self.advArr = [BPBannerModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"bannerCenter"]];
+            [self adjustToScreenWithBannerArr:self.advArr];
+            
             _mar.runString = responseObject[@"data"][@"marque"];
             [self.bannerView reloadData];
             [self.advertimentsView reloadData];
@@ -216,6 +262,8 @@
             
             self.partnerArr = [XPBCooperationPartnerModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"partner_list"]];
             self.partnerViewGetDataBlock(self.partnerArr);
+            
+           
         }
         
     } fail:^(NSError *error) {
@@ -252,6 +300,7 @@
     [super viewWillAppear:animated];
     [[BPBaseNetworkServiceTool shareServiceTool] getAppBaseInfors];
     [_mar startAnimation];
+    [self getRedPacketState];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -398,7 +447,7 @@
     UIView *verView = [UIView new];
     [lotteryView addSubview:verView];
     [verView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(20);
+        make.top.mas_equalTo(10);
         make.left.mas_equalTo(10);
         make.width.mas_equalTo(4);
         make.height.mas_equalTo(15);
@@ -438,6 +487,15 @@
     historyBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [historyBtn addTarget:self action:@selector(didClickHistoryBtn:) forControlEvents:UIControlEventTouchUpInside];
     
+    UIView *lineView = [UIView new];
+    [lotteryView addSubview:lineView];
+    lineView.backgroundColor = GlobalLightGreyColor;
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(historyBtn.mas_bottom).mas_offset(3);
+        make.height.mas_equalTo(1);
+    }];
+    
     NSMutableArray *btnArr = [NSMutableArray new];
     NSMutableArray *labelArr = [NSMutableArray new];
     
@@ -460,6 +518,7 @@
         zodiaLabel.textColor = [UIColor blackColor];
         zodiaLabel.textAlignment = NSTextAlignmentCenter;
         zodiaLabel.font = [UIFont systemFontOfSize:13];
+        zodiaLabel.adjustsFontSizeToFitWidth = YES;
         zodiaLabel.text = @"龙";
         [btnArr addObject:btn];
         [labelArr addObject:zodiaLabel];
@@ -486,6 +545,7 @@
     spcZodiaLabel.textColor = [UIColor blackColor];
     spcZodiaLabel.font = [UIFont systemFontOfSize:13];
     spcZodiaLabel.textAlignment = NSTextAlignmentCenter;
+    spcZodiaLabel.adjustsFontSizeToFitWidth = YES;
     spcZodiaLabel.text = @"龙";
     
     [btnArr addObject:spcNumBtn];
@@ -503,7 +563,7 @@
             [btn setBackgroundImage:[UIImage imageNamed:dataModel.colour] forState:UIControlStateNormal];
             [btn setTitle:dataModel.number forState:UIControlStateNormal];
             UILabel *label = labelArr[i];
-            label.text = dataModel.name;
+            label.text = [NSString stringWithFormat:@"%@/%@", dataModel.name,dataModel.fiveElement];
         }
     };
 }
@@ -777,10 +837,13 @@
             XPBFreeInforListViewController *freeInforVC =[XPBFreeInforListViewController new];
             [self.navigationController pushViewController:freeInforVC animated:YES];
         }else if (indexPath.item == 1){
+            XPBBBSViewController *bbsVC = [XPBBBSViewController new];
+            bbsVC.currentRankType = 2;
+            [self.navigationController pushViewController:bbsVC animated:YES];
+            
+        }else if (indexPath.item == 2){
             XPBStatisticsViewController *statisticsVC = [XPBStatisticsViewController new];
             [self.navigationController pushViewController:statisticsVC animated:YES];
-        }else if (indexPath.item == 2){
-            [MBProgressHUD showSuccess:@"敬请期待"];
         }
     }else if(collectionView.tag == 300){
         
@@ -795,16 +858,20 @@
           [self.navigationController pushViewController:voteVC animated:YES];
       }else if (indexPath.item == 3){
           XPBBBSViewController *bbsVC = [XPBBBSViewController new];
+          bbsVC.currentRankType = 1;
           [self.navigationController pushViewController:bbsVC animated:YES];
       }else if (indexPath.item == 4){
-          if([self.lotteryUrl isNotNil]){
-              BPBaseWebViewController *playLotteryVC = [BPBaseWebViewController new];
-              playLotteryVC.urlString = self.lotteryUrl ? self.lotteryUrl : @"";
-              playLotteryVC.title = @"竞彩";
-              [self.navigationController pushViewController:playLotteryVC animated:YES];
-          }else{
-              [MBProgressHUD showSuccess:@"敬请期待"];
+          if(![BPUserModel shareModel].isLogin){
+              [self loginAction];
+              return;
           }
+          if(_isGetRedPacket == -2){
+              [MBProgressHUD showSuccess:@"活动还未开启~"];
+              return;
+          }
+          XPBRedBagViewController *redBagVC = [XPBRedBagViewController new];
+          redBagVC.isGetRedPacket = _isGetRedPacket;
+          [self.navigationController pushViewController:redBagVC animated:YES];
       }else if (indexPath.item == 5){
           XPBActionViewController *actionVC = [XPBActionViewController new];
           actionVC.title = @"活动";
@@ -859,7 +926,11 @@
     }else{
         XPBMainPageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"mainPageCell" forIndexPath:indexPath];
         cell.backgroundColor = [UIColor whiteColor];
-        cell.iconView.image = [UIImage imageNamed:_titleArr[indexPath.row]] ;
+        if(indexPath.item == 4 && [BPUserModel shareModel].isLogin && _isGetRedPacket == 1){
+            cell.iconView.image = [UIImage imageNamed:@"红包已领取"];
+        }else{
+            cell.iconView.image = [UIImage imageNamed:_titleArr[indexPath.row]] ;
+        }
         cell.title.text = _titleArr[indexPath.row];
         return cell;
     }

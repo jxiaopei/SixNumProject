@@ -34,6 +34,11 @@
 		882CC2A21F5A69A6001D2876 /* XPBIntegralTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A11F5A69A6001D2876 /* XPBIntegralTableViewCell.m */; };
 		882CC2A51F5A69EA001D2876 /* XPBIntegralDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A41F5A69EA001D2876 /* XPBIntegralDataModel.m */; };
 		882CC2A81F5A8675001D2876 /* XPBHumorPicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 882CC2A71F5A8675001D2876 /* XPBHumorPicDetailViewController.m */; };
+		883AAD0F1FA1EAA40036B737 /* XPBRedBagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 883AAD0E1FA1EAA40036B737 /* XPBRedBagViewController.m */; };
+		883AAD121FA1EE600036B737 /* XPBWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 883AAD111FA1EE600036B737 /* XPBWalletViewController.m */; };
+		883AAD151FA216D40036B737 /* XPBWalletDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 883AAD141FA216D40036B737 /* XPBWalletDataModel.m */; };
+		883AAD181FA21C730036B737 /* XPBWalletListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 883AAD171FA21C730036B737 /* XPBWalletListTableViewCell.m */; };
+		883AAD1B1FA2FC130036B737 /* XPBTransformListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 883AAD1A1FA2FC130036B737 /* XPBTransformListModel.m */; };
 		884B2E771F89DFA6003ABDE7 /* XPBAboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 884B2E761F89DFA6003ABDE7 /* XPBAboutUsViewController.m */; };
 		884B2E7A1F89DFEF003ABDE7 /* XPBAboutUsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 884B2E791F89DFEF003ABDE7 /* XPBAboutUsTableViewCell.m */; };
 		88520D831F6909DD005D5659 /* BPNetworkServiceInforModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88520D821F6909DD005D5659 /* BPNetworkServiceInforModel.m */; };
@@ -217,6 +222,16 @@
 		882CC2A41F5A69EA001D2876 /* XPBIntegralDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBIntegralDataModel.m; sourceTree = "<group>"; };
 		882CC2A61F5A8675001D2876 /* XPBHumorPicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBHumorPicDetailViewController.h; sourceTree = "<group>"; };
 		882CC2A71F5A8675001D2876 /* XPBHumorPicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBHumorPicDetailViewController.m; sourceTree = "<group>"; };
+		883AAD0D1FA1EAA40036B737 /* XPBRedBagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBRedBagViewController.h; sourceTree = "<group>"; };
+		883AAD0E1FA1EAA40036B737 /* XPBRedBagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBRedBagViewController.m; sourceTree = "<group>"; };
+		883AAD101FA1EE600036B737 /* XPBWalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBWalletViewController.h; sourceTree = "<group>"; };
+		883AAD111FA1EE600036B737 /* XPBWalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBWalletViewController.m; sourceTree = "<group>"; };
+		883AAD131FA216D40036B737 /* XPBWalletDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBWalletDataModel.h; sourceTree = "<group>"; };
+		883AAD141FA216D40036B737 /* XPBWalletDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBWalletDataModel.m; sourceTree = "<group>"; };
+		883AAD161FA21C730036B737 /* XPBWalletListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBWalletListTableViewCell.h; sourceTree = "<group>"; };
+		883AAD171FA21C730036B737 /* XPBWalletListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBWalletListTableViewCell.m; sourceTree = "<group>"; };
+		883AAD191FA2FC130036B737 /* XPBTransformListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBTransformListModel.h; sourceTree = "<group>"; };
+		883AAD1A1FA2FC130036B737 /* XPBTransformListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBTransformListModel.m; sourceTree = "<group>"; };
 		884B2E751F89DFA6003ABDE7 /* XPBAboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBAboutUsViewController.h; sourceTree = "<group>"; };
 		884B2E761F89DFA6003ABDE7 /* XPBAboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPBAboutUsViewController.m; sourceTree = "<group>"; };
 		884B2E781F89DFEF003ABDE7 /* XPBAboutUsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPBAboutUsTableViewCell.h; sourceTree = "<group>"; };
@@ -870,6 +885,8 @@
 				882CC27C1F568A7D001D2876 /* XPBSignInViewController.m */,
 				8881FAAE1F5E8770006EA4D6 /* XPBActionViewController.h */,
 				8881FAAF1F5E8770006EA4D6 /* XPBActionViewController.m */,
+				883AAD0D1FA1EAA40036B737 /* XPBRedBagViewController.h */,
+				883AAD0E1FA1EAA40036B737 /* XPBRedBagViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -993,6 +1010,8 @@
 				8898A7FE1F4D58430062473C /* XPBCooperationListViewController.m */,
 				8898A8061F4D97090062473C /* XPBIntegralViewController.h */,
 				8898A8071F4D97090062473C /* XPBIntegralViewController.m */,
+				883AAD101FA1EE600036B737 /* XPBWalletViewController.h */,
+				883AAD111FA1EE600036B737 /* XPBWalletViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1004,6 +1023,10 @@
 				8898A80D1F4D98680062473C /* LCRecommendItem.m */,
 				882CC2A31F5A69EA001D2876 /* XPBIntegralDataModel.h */,
 				882CC2A41F5A69EA001D2876 /* XPBIntegralDataModel.m */,
+				883AAD131FA216D40036B737 /* XPBWalletDataModel.h */,
+				883AAD141FA216D40036B737 /* XPBWalletDataModel.m */,
+				883AAD191FA2FC130036B737 /* XPBTransformListModel.h */,
+				883AAD1A1FA2FC130036B737 /* XPBTransformListModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1021,6 +1044,8 @@
 				88D3EA121F76857F00FD40E3 /* XPBPersonCollectionViewCell.m */,
 				884B2E781F89DFEF003ABDE7 /* XPBAboutUsTableViewCell.h */,
 				884B2E791F89DFEF003ABDE7 /* XPBAboutUsTableViewCell.m */,
+				883AAD161FA21C730036B737 /* XPBWalletListTableViewCell.h */,
+				883AAD171FA21C730036B737 /* XPBWalletListTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1409,6 +1434,7 @@
 				88BC75931F346B4200726D56 /* BPBaseTabBarController.m in Sources */,
 				8898A7BD1F46C36B0062473C /* XPBNewsListModel.m in Sources */,
 				8898A7BA1F46BBAA0062473C /* XPBNewsListViewController.m in Sources */,
+				883AAD151FA216D40036B737 /* XPBWalletDataModel.m in Sources */,
 				8898A7811F3AF9E40062473C /* XPBNewsTableViewCell.m in Sources */,
 				8898A7C81F46D0000062473C /* NSString+InsertYMD.m in Sources */,
 				882CC27D1F568A7D001D2876 /* XPBSignInViewController.m in Sources */,
@@ -1463,6 +1489,7 @@
 				882CC2991F56C93F001D2876 /* XPBSignInCollectionViewCell.m in Sources */,
 				88BC75921F346B4200726D56 /* BPBaseNavigationController.m in Sources */,
 				88BC75B21F346B5600726D56 /* XPActivityIndicatorView.m in Sources */,
+				883AAD121FA1EE600036B737 /* XPBWalletViewController.m in Sources */,
 				88F924051F38821700D44EDF /* XPBAttributeReferenceCell.m in Sources */,
 				88BC75AD1F346B5600726D56 /* Helper.m in Sources */,
 				882CC2531F514C61001D2876 /* XPBBBSPublishViewController.m in Sources */,
@@ -1472,6 +1499,7 @@
 				88926B611F90A7BF004419F1 /* BPNetRequest.m in Sources */,
 				882CC2471F4FDF0D001D2876 /* XPBBAndWPicModel.m in Sources */,
 				88BC75BF1F346B5D00726D56 /* MBProgressHUD+Add.m in Sources */,
+				883AAD0F1FA1EAA40036B737 /* XPBRedBagViewController.m in Sources */,
 				8898A8151F4DA2BF0062473C /* XPBRegistViewController.m in Sources */,
 				8898A7FC1F4D53FA0062473C /* XPBFreeInforListViewController.m in Sources */,
 				8898A79E1F4430CD0062473C /* BPBannerModel.m in Sources */,
@@ -1487,6 +1515,8 @@
 				88E7070E1F5E955B00A7D6A1 /* XPBActionCollectionViewCell.m in Sources */,
 				88F923E81F35878F00D44EDF /* XPBStatisticsCell.m in Sources */,
 				882CC28D1F5695EB001D2876 /* MDFPageControl.m in Sources */,
+				883AAD181FA21C730036B737 /* XPBWalletListTableViewCell.m in Sources */,
+				883AAD1B1FA2FC130036B737 /* XPBTransformListModel.m in Sources */,
 				8898A7D41F4812660062473C /* XPBLotteryModel.m in Sources */,
 				8898A7FF1F4D58430062473C /* XPBCooperationListViewController.m in Sources */,
 				8898A80E1F4D98680062473C /* LCRecommendItem.m in Sources */,

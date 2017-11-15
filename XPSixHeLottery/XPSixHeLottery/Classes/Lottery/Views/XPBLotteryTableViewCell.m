@@ -65,6 +65,7 @@
             zodiaLabel.textColor = [UIColor blackColor];
             zodiaLabel.textAlignment = NSTextAlignmentCenter;
             zodiaLabel.font = [UIFont systemFontOfSize:13];
+            zodiaLabel.adjustsFontSizeToFitWidth = YES;
             zodiaLabel.text = @"龙";
             [self.btnArr addObject:btn];
             [self.labelArr addObject:zodiaLabel];
@@ -91,6 +92,7 @@
         spcZodiaLabel.textColor = [UIColor blackColor];
         spcZodiaLabel.font = [UIFont systemFontOfSize:13];
         spcZodiaLabel.textAlignment = NSTextAlignmentCenter;
+        spcZodiaLabel.adjustsFontSizeToFitWidth = YES;
         spcZodiaLabel.text = @"龙";
         [self.btnArr addObject:spcNumBtn];
         [self.labelArr addObject:spcZodiaLabel];
@@ -121,7 +123,7 @@
         [btn setBackgroundImage:[UIImage imageNamed:model.colour] forState:UIControlStateNormal];
         [btn setTitle:model.number forState:UIControlStateNormal];
         UILabel *label = _labelArr[i];
-        label.text = model.name;
+        label.text = [NSString stringWithFormat:@"%@/%@", model.name,model.fiveElement];
     }
 }
 

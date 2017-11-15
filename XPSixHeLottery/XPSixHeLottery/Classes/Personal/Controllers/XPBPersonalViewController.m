@@ -15,6 +15,7 @@
 #import "XPBIntegralViewController.h"
 #import "XPBLoginViewController.h"
 #import "XPBActionViewController.h"
+#import "XPBWalletViewController.h"
 
 @interface XPBPersonalViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -177,13 +178,8 @@
         }
         
     }else if (indexPath.item == 1){
-//        XPBCooperationListViewController *recommendedVC = [XPBCooperationListViewController new];
-//        recommendedVC.listType = RecommendedType;
-//        recommendedVC.title = @"推荐";
-//        [self.navigationController pushViewController:recommendedVC animated:YES];
-        XPBActionViewController *actionVC = [XPBActionViewController new];
-         actionVC.title = @"活动";
-        [self.navigationController pushViewController:actionVC animated:YES];
+        XPBWalletViewController *walletVC = [XPBWalletViewController new];
+        [self.navigationController pushViewController:walletVC animated:YES];
         
     }else if (indexPath.item == 2){
         XPBCooperationListViewController *cooperationVC = [XPBCooperationListViewController new];
@@ -278,11 +274,11 @@
 {
     if(indexPath.row == self.titleArr.count)
     {
-        if([BPUserModel shareModel].isLogin){
+//        if([BPUserModel shareModel].isLogin){
             return 110;
-        }else{
-            return 0;
-        }
+//        }else{
+//            return 0;
+//        }
     }
     return 45;
 }
@@ -299,7 +295,7 @@
 {
     if(_headTitleArr == nil)
     {
-        _headTitleArr = [NSMutableArray arrayWithArray:@[@"积分明细",@"推荐活动",@"合作伙伴"]];
+        _headTitleArr = [NSMutableArray arrayWithArray:@[@"积分明细",@"我的钱包",@"合作伙伴"]];
     }
     return _headTitleArr;
 }

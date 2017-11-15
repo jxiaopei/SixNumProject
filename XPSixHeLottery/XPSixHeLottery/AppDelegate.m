@@ -346,11 +346,6 @@
     
 }
 
-
-
-
-
-
 //- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
 //    
 //    //这里可以获的shortcutItem对象的唯一标识符

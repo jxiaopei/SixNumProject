@@ -40,6 +40,8 @@
 #define LotteryHistory   @"/user/lottery/getAppLotteryHistoryList"             //开奖历史
 #define OpenAPPAdvList   @"/user/homepage/queryAdvertisementList"              //引导页
 #define ActionsList      @"/app/activity/AppQueryActData"                      //活动列表
+#define RedPacketAction  @"/user/money/updateUserBalance"                      //领取红包
+#define RedPacketState   @"/user/money/queryTodayIsExistGet"                   //红包活动状态
 //签到
 #define SignInDetail     @"/user/integral/queryIntegralTasklList"              //签到任务
 #define SignInList       @"/user/integral/querySignInList"                     //签到列表
@@ -63,6 +65,10 @@
 #define IntegralDetail   @"/user/integral/queryIntegralList"                   //积分详情
 #define UserRegist       @"/user/mobile/registerApp"                           //注册
 #define UserLogin        @"/user/mobile/loginApp"                              //登录
+#define WalletInfor      @"/user/money/queryUserBalanceDetail"                 //查询钱包记录
+#define SiteList         @"/user/money/querySiteList"                          //转换平台列表
+#define Transfrom        @"/user/money/insertChangeApplication"                //转换动作
+#define MoneyHistroy     @"/user/money/queryMoneyHistory"                      //红包记录
 //论坛
 #define BBSList          @"/user/exchange/queryForumList"                      //论坛列表
 #define BBSDetail        @"/user/exchange/queryForumDetailList"                //帖子详情

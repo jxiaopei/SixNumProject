@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString * banner_title;
 @property (nonatomic, strong) NSString * banner_type;
 @property (nonatomic, strong) NSString * idField;
+@property (nonatomic, strong) NSString * phone_size;
 
 @end
 

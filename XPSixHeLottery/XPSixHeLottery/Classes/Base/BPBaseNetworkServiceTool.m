@@ -63,7 +63,7 @@
                         YYCache *cache = [YYCache cacheWithName:CacheKey];
                         [cache setObject:inforModel.domain forKey:@"serviceHost"];
                         
-                        [[UIApplication sharedApplication] keyWindow].rootViewController = [BPBaseTabBarController new]; //成功则指向tabBarController 失败则保留在空白页
+//                        [[UIApplication sharedApplication] keyWindow].rootViewController = [BPBaseTabBarController new]; //成功则指向tabBarController 失败则保留在空白页
 //                        [self setupAnimationImage];
                         return ;
                     }callback:^{

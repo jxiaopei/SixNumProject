@@ -88,13 +88,12 @@
     }
     CABasicAnimation*pulse = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     pulse.timingFunction= [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    pulse.duration = 0.08;
+    pulse.duration = 0.1;
     pulse.repeatCount= 1;
     pulse.autoreverses= YES;
     pulse.fromValue= [NSNumber numberWithFloat:0.7];
     pulse.toValue= [NSNumber numberWithFloat:1.3];
-    [[tabbarbuttonArray[index] layer]
-     addAnimation:pulse forKey:nil];
+    [[tabbarbuttonArray[index] layer]addAnimation:pulse forKey:nil];
     
     self.indexFlag = index;
     

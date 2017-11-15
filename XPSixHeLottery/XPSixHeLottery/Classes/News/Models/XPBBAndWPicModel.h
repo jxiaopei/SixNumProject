@@ -17,5 +17,6 @@
 @property (nonatomic, copy) NSString *pic_type;
 @property (nonatomic, copy) NSString *pic_name;
 @property (nonatomic, copy) NSString *pic_content;
+@property (nonatomic, copy) NSString *pic_value;
 
 @end

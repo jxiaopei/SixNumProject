@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"关于";
+    self.title = @"功能介绍";
 
     UIImageView *iconView = [UIImageView new];
     [self.view addSubview:iconView];

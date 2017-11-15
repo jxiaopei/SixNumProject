@@ -46,7 +46,7 @@
 {
     [super viewWillAppear:animated];
     [self getData];
-    [self getAttentionData];
+//    [self getAttentionData];
 }
 
 -(void)getData{
@@ -76,10 +76,10 @@
             {
                 [_picTableView.mj_header endRefreshing];
                 [_picTableView.mj_footer endRefreshing];
-                self.picDataArr = [XPBBAndWPicModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"imger_list"][@"rows"]];
+                self.picDataArr = [XPBBAndWPicModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
             }else{
                 NSMutableArray *mutableArr = [NSMutableArray array];
-                mutableArr =  [XPBBAndWPicModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"imger_list"][@"rows"]];
+                mutableArr =  [XPBBAndWPicModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
                 if(!mutableArr.count)
                 {
                     [_picTableView.mj_footer endRefreshingWithNoMoreData];
@@ -125,11 +125,11 @@
             {
                 [_attentionTableView.mj_header endRefreshing];
                 [_attentionTableView.mj_footer endRefreshing];
-                self.attenPicDataArr = [XPBBAndWPicModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"imger_list"][@"rows"]];
+                self.attenPicDataArr = [XPBBAndWPicModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
                 
             }else{
                 NSMutableArray *mutableArr = [NSMutableArray array];
-                mutableArr =  [XPBBAndWPicModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"][@"imger_list"][@"rows"]];
+                mutableArr =  [XPBBAndWPicModel mj_objectArrayWithKeyValuesArray:responseObject[@"data"]];
                 if(!mutableArr.count)
                 {
                     [_attentionTableView.mj_footer endRefreshingWithNoMoreData];
@@ -204,7 +204,7 @@
     scrollView.delegate = self;
     scrollView.pagingEnabled = YES;
     scrollView.backgroundColor = [UIColor whiteColor];
-    scrollView.contentSize = CGSizeMake(SCREENWIDTH *4, SCREENHEIGHT - 64 - 40);
+    scrollView.contentSize = CGSizeMake(SCREENWIDTH *2, SCREENHEIGHT - 64 - 40);
 }
 
 -(void)setupTitleView
@@ -315,15 +315,7 @@
     if(tableView.tag == 0){
         XPBBAndWPicModel *dataModel = _picDataArr[indexPath.row];
         XPBBAndWPicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"picNewsCell" forIndexPath:indexPath];
-        if([dataModel.pic_list isNotNil])
-        {
-            NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:dataModel.pic_list options:NSDataBase64DecodingIgnoreUnknownCharacters];
-            UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
-            if(decodedImage != nil)
-            {
-                cell.iconView.image = decodedImage;
-            }
-        }
+        [cell.iconView sd_setImageWithURL:[NSURL URLWithString:dataModel.pic_list] placeholderImage:[UIImage imageNamed:@"占位图"]];
         cell.titleLabel.text = dataModel.pic_name;
         NSString *periodStr = [dataModel.lottery_num substringFromIndex:4];
         NSString *dateStr = [dataModel.create_date insertStandardTimeFormat];
@@ -334,15 +326,7 @@
     }else{
         XPBBAndWPicModel *dataModel = _attenPicDataArr[indexPath.row];
         XPBAttentionPicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"attentionPicCell" forIndexPath:indexPath];
-        if([dataModel.pic_list isNotNil])
-        {
-            NSData *decodedImageData = [[NSData alloc]initWithBase64EncodedString:dataModel.pic_list options:NSDataBase64DecodingIgnoreUnknownCharacters];
-            UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
-            if(decodedImage != nil)
-            {
-                cell.iconView.image = decodedImage;
-            }
-        }
+        [cell.iconView sd_setImageWithURL:[NSURL URLWithString:dataModel.pic_list] placeholderImage:[UIImage imageNamed:@"占位图"]];
         cell.titleLabel.text = dataModel.pic_name;
         NSString *periodStr = [dataModel.lottery_num substringFromIndex:4];
         NSString *dateStr = [dataModel.create_date insertStandardTimeFormat];

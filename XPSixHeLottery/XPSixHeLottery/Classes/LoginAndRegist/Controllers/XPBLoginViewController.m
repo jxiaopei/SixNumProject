@@ -42,12 +42,12 @@
     {
         DTextField *userText  = (DTextField *)[self.view viewWithTag:RegisterTextTag];
         DTextField *pwdText   = (DTextField *)[self.view viewWithTag:RegisterTextTag + 1];
-        userText.text = userModel.userName;
+        userText.text = userModel.userAccount;
         NSString *password = userModel.password;
         NSData *data = [[NSData alloc] initWithBase64EncodedString:password options:NSDataBase64DecodingIgnoreUnknownCharacters];
         NSString *passwordStr =  [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         pwdText.text =  passwordStr;
-        NSLog(@"%@,%@",userModel.userName,passwordStr);
+        NSLog(@"%@,%@",userModel.userAccount,passwordStr);
 
     }
 }

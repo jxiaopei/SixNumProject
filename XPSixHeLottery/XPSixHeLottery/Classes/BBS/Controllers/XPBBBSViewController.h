@@ -10,4 +10,6 @@
 
 @interface XPBBBSViewController : BPBaseViewController
 
+@property(nonatomic,assign)NSInteger currentRankType;
+
 @end

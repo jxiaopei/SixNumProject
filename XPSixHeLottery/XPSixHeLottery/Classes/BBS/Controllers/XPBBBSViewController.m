@@ -18,7 +18,7 @@
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,assign)NSInteger pageNum;
 @property(nonatomic,strong)NSMutableArray <XPBBBSListDataModel *>*bbsDataArr;
-@property(nonatomic,assign)NSInteger currentRankType;
+
 @property(nonatomic,strong)UIButton *selectedBtn;
 @property(nonatomic,strong)UIView *underLineView;
 
@@ -33,7 +33,7 @@
     [self setupTitleView];
     [self setupRightBtn];
     _pageNum = 1;
-    _currentRankType = 1;
+//    _currentRankType = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -142,14 +142,14 @@
         titleBtn.titleLabel.font = [UIFont systemFontOfSize:17];
         titleBtn.tag = 1000 + i;
         [titleBtn addTarget:self action:@selector(didClickTitleBtn:) forControlEvents:UIControlEventTouchUpInside];
-        if(i == 0){
+        if(i == _currentRankType - 1){
             titleBtn.selected = YES;
             _selectedBtn = titleBtn;
             
             UIView *underLineView = [UIView new];
             [titleView addSubview:underLineView];
             _underLineView = underLineView;
-            underLineView.frame = CGRectMake(SCREENWIDTH/6 - 25, 40, 50, 3);
+            underLineView.frame = CGRectMake(SCREENWIDTH/6 + SCREENWIDTH/3*(titleBtn.tag -1000)- 25, 40, 50, 3);
             underLineView.backgroundColor = GlobalOrangeColor;
         }
     }
