@@ -25,6 +25,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"我的积分";
+    [self customBackBtn];
     [self setupTableView];
     [self getData];
 }

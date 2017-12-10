@@ -6,8 +6,8 @@
 //  Copyright © 2017年 eirc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BPBaseViewController.h"
 
-@interface XPBAddPhoneNumViewController : UIViewController
+@interface XPBAddPhoneNumViewController : BPBaseViewController
 
 @end

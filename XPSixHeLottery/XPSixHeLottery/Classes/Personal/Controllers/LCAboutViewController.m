@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"功能介绍";
-
+    [self customBackBtn];
     UIImageView *iconView = [UIImageView new];
     [self.view addSubview:iconView];
     [iconView mas_makeConstraints:^(MASConstraintMaker *make) {

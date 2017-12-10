@@ -28,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"开奖历史";
+    [self customBackBtn];
     _selectedIndex = 0;
     _pageNum = 1;
     

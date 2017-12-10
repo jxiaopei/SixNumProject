@@ -40,6 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的钱包";
+    [self customBackBtn];
     _pageNum = 1;
     [self setupScrollView];
     [self setupTitleView];

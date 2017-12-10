@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"绑定手机";
+    [self customBackBtn];
     [self setFoot];
     [self.view addSubview:self.tableView];
 }

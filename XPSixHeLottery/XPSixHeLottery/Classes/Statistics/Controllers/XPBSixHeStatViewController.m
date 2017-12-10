@@ -35,6 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"六合统计";
+    [self customBackBtn];
     UITableView *scrollView = [UITableView new];
     [self.view addSubview:scrollView];
     scrollView.tableFooterView = [UIView new];

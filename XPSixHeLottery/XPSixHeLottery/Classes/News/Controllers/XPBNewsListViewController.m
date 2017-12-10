@@ -23,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self customBackBtn];
     _pageNum = 1;
     self.title = @"新闻列表";
     [self setupNewsTableView];

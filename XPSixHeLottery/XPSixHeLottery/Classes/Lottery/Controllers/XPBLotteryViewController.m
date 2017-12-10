@@ -278,7 +278,7 @@
     NSString *format_time = [NSString stringWithFormat:@"%@:%@:%@",str_hour,str_minute,str_second];
     //修改倒计时标签现实内容
     self.timeLabel.text= format_time;
-    //当倒计时到0时，做需要的操作，比如验证码过期不能提交
+   
     if(_seconds== 0 ){
 //        [_timer invalidate];
         _counts++;

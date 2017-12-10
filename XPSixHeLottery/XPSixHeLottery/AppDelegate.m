@@ -15,11 +15,6 @@
 
 @interface AppDelegate ()
 
-@property(nonatomic,copy)void (^callBack)();
-
-@property(nonatomic,copy)NSString *updateUrl;
-@property(nonatomic,strong)BPBaseTabBarController *tabBarVC;
-
 @end
 
 @implementation AppDelegate
@@ -29,27 +24,41 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     BPBaseTabBarController *tabBarVC = [BPBaseTabBarController new];
-    _tabBarVC = tabBarVC;
-    [self.window setRootViewController:tabBarVC];
+//    _tabBarVC = tabBarVC;
+    [self.window setRootViewController:[BPBaseViewController new]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:) name:@"UIApplicationDidEnterBackgroundNotification" object:nil];
     
     //友盟统计
     [self UMMobstatistics];
-    
     //友盟推送
     [self addUMessage:launchOptions];
-    
-//    [self setupAnimationImage];
     [LCCOllectionInfo getInfo];
-//    [self init3DTouchShortcutItems];//3D touch
+
     [[YYCache cacheWithName:CacheKey] setObject:@"Yes" forKey:@"signInStatus"];
     
-    [[BPBaseNetworkServiceTool shareServiceTool] setNetWorkService];
-    
-//    [[BPBaseNetworkServiceTool shareServiceTool] httpDNSAction];
+    [[BPBaseNetworkServiceTool shareServiceTool] httpDNSActionWithCompleteBlock:^{
+        [self.window setRootViewController:tabBarVC];
+        [[BPBaseNetworkServiceTool shareServiceTool] getUpdateInfor];
+    } failureBlock:^{
+        [self.window setRootViewController:[BPBaseViewController new]];
+        [self exitAction];
+        [[BPBaseNetworkServiceTool shareServiceTool] getUpdateInfor];
+    }];
     
     return YES;
 }
+
+-(void)exitAction{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"网络错误,请重新打开app"  preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        exit(0);
+    }];
+    
+    [alert addAction:confirmAction];
+    
+    [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+}
+
 
 - (void)addUMessage:(NSDictionary *)launchOptions {
     
@@ -285,143 +294,10 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [self getUpdateInfor];
+    [[BPBaseNetworkServiceTool shareServiceTool] getUpdateInfor];
     
 }
 
--(void)getUpdateInfor{
-    
-    [[BPNetRequest getInstance].sharedManager POST:AppUpdateUrl parameters:AppUpdatePeramters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-
-        NSString *str = [responseObject mj_JSONString];
-        NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary * dictData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        if([dictData[@"entity"][@"downloadUrl"] isKindOfClass:[NSDictionary class]]){
-        self.updateUrl=[NSString stringWithFormat:@"itms-services:///?action=download-manifest&url=%@",dictData[@"entity"][@"downloadUrl"][@"manifest"]];
-        }
-        NSInteger isbool=[dictData[@"entity"][@"versionType"] integerValue];
-        
-        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-        CFShow((__bridge CFTypeRef)(infoDictionary));
-        NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-        NSString *version = dictData[@"entity"][@"version"];
-        
-        if (![appVersion isEqualToString:version]) {
-            if (isbool==3) {
-                
-                [self showUpdateAlertVCWithUpdateMsg:dictData[@"entity"][@"version"]];
-                
-            }else if (isbool==4){
-                
-                [self forcedUpdate];
-            }
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-    }];
-    
-}
-
--(void)forcedUpdate{
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"有重要新版本更新" message:@"为了给您更好的体验/n请更新到最新版本" preferredStyle:UIAlertControllerStyleAlert];
-    [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
-    
-    [NSThread sleepForTimeInterval:3.0];
-    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:self.updateUrl]];
-}
-
--(void)showUpdateAlertVCWithUpdateMsg:(NSString *)message{
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"有新版本更新" message:message preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"去更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:self.updateUrl]];
-
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"放弃更新" style:UIAlertActionStyleCancel handler:nil];
-    
-    [alert addAction:confirmAction];
-    [alert addAction:cancelAction];
-    [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
-    
-}
-
-//- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-//    
-//    //这里可以获的shortcutItem对象的唯一标识符
-//    //不管APP在后台还是进程被杀死，只要通过主屏快捷操作进来的，都会调用这个方法
-//    NSLog(@"name:%@\ntype:%@", shortcutItem.localizedTitle, shortcutItem.type);
-//    NSString *shortcutType = shortcutItem.type;
-//    if([shortcutType isEqualToString:@"Search"]){
-//        [_tabBarVC setSelectedIndex:1];
-//        [UIApplication sharedApplication].keyWindow.rootViewController = [XPBLotteryViewController new];
-//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"没错!这就是3D Touch" message:@"惊不惊喜,意不意外?" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"惊喜" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:self.updateUrl]];
-//            
-//        }];
-//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"意外" style:UIAlertActionStyleCancel handler:nil];
-//        
-//        [alert addAction:confirmAction];
-//        [alert addAction:cancelAction];
-//        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
-//    }
-//    
-//    
-//}
-
-//- (void)init3DTouchShortcutItems {
-//    
-////    if ([UIApplication sharedApplication].shortcutItems.count >= 4)
-////    {
-////       return;
-////    }
-//    
-//    
-//    NSMutableArray *arrShortcutItem = (NSMutableArray *)[UIApplication sharedApplication].shortcutItems;
-//    
-//    
-//    UIApplicationShortcutItem *shoreItem1 = [[UIApplicationShortcutItem alloc] initWithType:@"Search" localizedTitle:@"被" localizedSubtitle:nil icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeMessage] userInfo:nil];
-//    [arrShortcutItem addObject:shoreItem1];
-//    
-//    
-//    
-//
-//    
-//    [UIApplication sharedApplication].shortcutItems = arrShortcutItem;
-//    
-//    NSLog(@"%lu", [UIApplication sharedApplication].shortcutItems.count);
-//}
-
-
-- (UIViewController *)getCurrentVC
-{
-    UIViewController *result = nil;
-    
-    UIWindow * window = [[UIApplication sharedApplication] keyWindow];
-    if (window.windowLevel != UIWindowLevelNormal)
-    {
-        NSArray *windows = [[UIApplication sharedApplication] windows];
-        for(UIWindow * tmpWin in windows)
-        {
-            if (tmpWin.windowLevel == UIWindowLevelNormal)
-            {
-                window = tmpWin;
-                break;
-            }
-        }
-    }
-    
-    UIView *frontView = [[window subviews] objectAtIndex:0];
-    id nextResponder = [frontView nextResponder];
-    
-    if ([nextResponder isKindOfClass:[UIViewController class]])
-        result = nextResponder;
-    else
-        result = window.rootViewController;
-    
-    return result;
-}
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.

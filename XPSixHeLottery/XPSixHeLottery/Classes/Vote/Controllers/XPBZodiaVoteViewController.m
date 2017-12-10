@@ -30,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"生肖投票";
+    [self customBackBtn];
     _voteZodiaArr = [NSMutableArray arrayWithObjects:@"鼠",@"牛",@"虎",@"兔",@"龙",@"蛇",@"马",@"羊",@"猴",@"鸡",@"狗",@"猪", nil];
     [self setupUI];
     [self setupBarChart];

@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self customBackBtn];
     _tipArr = @[@"特码两面分析图",@"正码总分历史图",@"特码历史图"];
     _urlArr = @[StatisSpeSOD,StatisNorTotal,StatisNumber];
     

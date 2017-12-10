@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"登录";
+    [self customBackBtn];
     [self setFoot];
     [self.view addSubview:self.tableView];
     

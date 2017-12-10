@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self customBackBtn];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"图库";
     [self setupTableView];

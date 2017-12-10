@@ -10,4 +10,6 @@
 
 @interface BPBaseViewController : UIViewController
 
+- (void)customBackBtn;
+
 @end

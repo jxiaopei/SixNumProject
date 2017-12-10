@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"波色投票";
+    [self customBackBtn];
     [self setupUI];
     [self setupBarChart];
     

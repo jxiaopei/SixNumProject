@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"注册";
+    [self customBackBtn];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setFoot];
     [self.view addSubview:self.tableView];

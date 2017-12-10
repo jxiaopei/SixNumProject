@@ -34,6 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self customBackBtn];
     _tipArr = @[@[@"特码历史热图(出现的次数)",@"特码历史冷图(遗漏的次数)"],@[@"正码历史热图(出现的次数)",@"正码历史冷图(遗漏的次数)"]];
     _urlArr = @[StatisSpeHis,StatisNorHis];
     

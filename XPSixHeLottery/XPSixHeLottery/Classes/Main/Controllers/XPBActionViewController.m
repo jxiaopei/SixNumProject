@@ -25,6 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self customBackBtn];
     _pageNum = 1;
     [self setupTableView];
     [self getData];

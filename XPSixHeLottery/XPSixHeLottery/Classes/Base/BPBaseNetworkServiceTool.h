@@ -12,10 +12,12 @@
 
 +(BPBaseNetworkServiceTool *)shareServiceTool;
 
--(void)setNetWorkService;
+//-(void)setNetWorkService;
 
 -(void)getAppBaseInfors;
 
--(void)httpDNSAction;
+-(void)httpDNSActionWithCompleteBlock:(void(^)())completeBlock failureBlock:(void(^)())failureBlock;
+
+-(void)getUpdateInfor;
 
 @end

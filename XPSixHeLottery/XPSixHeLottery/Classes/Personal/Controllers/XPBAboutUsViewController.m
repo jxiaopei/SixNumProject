@@ -26,7 +26,7 @@
     _titleArr = @[@"评分支持",@"功能介绍",@"投诉"];
     [self setupTableView];
      self.title = @"关于我们";
-    
+    [self customBackBtn];
     [self setupUI];
     
 }

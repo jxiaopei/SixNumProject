@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"免费资料详情";
+    [self customBackBtn];
     self.view.backgroundColor = GlobalLightGreyColor;
     [self setupScrollView];
     [self getData];

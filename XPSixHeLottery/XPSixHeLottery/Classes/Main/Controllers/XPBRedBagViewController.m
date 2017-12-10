@@ -18,6 +18,7 @@
     [super viewDidLoad];
     
     self.title = @"每日红包";
+    [self customBackBtn];
     
     UIImageView *imageView = [UIImageView new];
     [self.view addSubview:imageView];

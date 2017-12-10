@@ -8,13 +8,14 @@
 
 #import "BPBaseNetworkServiceTool.h"
 #import "BPNetworkServiceInforModel.h"
-#import "BPBaseTabBarController.h"
+//#import "BPBaseTabBarController.h"
 #import "LCIntroView.h"
 @interface BPBaseNetworkServiceTool()
 
 //@property(nonatomic,strong)NSArray <BPNetworkServiceInforModel *>*serviceInforArr;
 @property(nonatomic,strong)NSMutableArray <BPNetworkServiceInforModel *>*invalidUrlArr;
-@property(nonatomic,copy)void (^callBack)();
+@property(nonatomic,copy)NSString *updateUrl;
+//@property(nonatomic,copy)void (^callBack)();
 
 @end
 
@@ -30,21 +31,40 @@
     return tool;
 }
 
--(void)httpDNSAction{
+-(void)httpDNSActionWithCompleteBlock:(void(^)())completeBlock failureBlock:(void(^)())failureBlock{
     [[BPNetRequest getInstance]getJsonWithUrl:AppHttpDNS parameters:nil success:^(id responseObject) {
         Log_ResponseObject;
-
         NSString *ipStr = responseObject[@"currentData"];
         if([responseObject[@"currentStatus"] intValue] == 0){
-            YYCache *cache = [YYCache cacheWithName:CacheKey];
-            [cache setObject:[NSString stringWithFormat:@"http://%@",ipStr] forKey:@"serviceHost"];
+            if([ipStr isNotNil]){
+                YYCache *cache = [YYCache cacheWithName:CacheKey];
+                [cache setObject:[NSString stringWithFormat:@"http://%@:8088",ipStr] forKey:@"serviceHost"];
+                completeBlock();
+            }else{
+                [self setNetWorkServiceWithCompleteBlock:^{
+                    completeBlock();
+                } failureBlock:^{
+                    failureBlock();
+                }];
+            }
+            
+        }else{
+            [self setNetWorkServiceWithCompleteBlock:^{
+                completeBlock();
+            } failureBlock:^{
+                failureBlock();
+            }];
         }
     } fail:^(NSError *error) {
-        
+        [self setNetWorkServiceWithCompleteBlock:^{
+            completeBlock();
+        } failureBlock:^{
+            failureBlock();
+        }];
     }];
 }
 
--(void)setNetWorkService{
+-(void)setNetWorkServiceWithCompleteBlock:(void(^)())completeBlock failureBlock:(void(^)())failureBlock{
     
     NSDictionary *paramers = @{@"paramData":@{@"code":@"lhc"},
                                @"uri":@"/getDomainMapper",
@@ -62,8 +82,7 @@
                         [self updateInvalidURLs];
                         YYCache *cache = [YYCache cacheWithName:CacheKey];
                         [cache setObject:inforModel.domain forKey:@"serviceHost"];
-                        
-//                        [[UIApplication sharedApplication] keyWindow].rootViewController = [BPBaseTabBarController new]; //成功则指向tabBarController 失败则保留在空白页
+                        completeBlock();
 //                        [self setupAnimationImage];
                         return ;
                     }callback:^{
@@ -71,26 +90,23 @@
                         if(i == serviceInforArr.count - 1){
                             //测试域名全部失败 上传失效域名
                             [self updateInvalidURLs];
-                            [[UIApplication sharedApplication] keyWindow].rootViewController = [BPBaseViewController new];
+                            failureBlock();
                         }
                     }];
                 }
             }
         }else{
-        
+          failureBlock();
         }
         
     } fail:^(NSError *error) {
         NSLog(@"%@",error.description);
+        failureBlock();
     }];
     
 }
 
 -(void)setupAnimationImage{
-    
-      _callBack = ^{
-
-    };
     
     NSLog(@"%@",BaseUrl(OpenAPPAdvList));
     NSDictionary *dict = @{
@@ -102,18 +118,18 @@
         if([responseObject[@"code"] isEqualToString:@"0000"])
         {
             if ([responseObject[@"data"] count] < 1) {
-                _callBack();
+        
                 return ;
             }
             LCIntroView *introView = [[LCIntroView alloc] initWithFrame:[UIScreen mainScreen].bounds];
             introView.images  = responseObject[@"data"];
             [[[UIApplication sharedApplication] keyWindow].rootViewController.view addSubview:introView];
-            _callBack();
+        
         }else{
             
         }
     } fail:^(NSError *error) {
-        _callBack();
+        
     }];
 }
 
@@ -236,6 +252,64 @@
 //        callback();
     }];
    
+}
+
+-(void)getUpdateInfor{
+    
+    [[BPNetRequest getInstance].sharedManager POST:AppUpdateUrl parameters:AppUpdatePeramters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSString *str = [responseObject mj_JSONString];
+        NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary * dictData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        if([dictData[@"entity"][@"downloadUrl"] isKindOfClass:[NSDictionary class]]){
+            self.updateUrl=[NSString stringWithFormat:@"itms-services:///?action=download-manifest&url=%@",dictData[@"entity"][@"downloadUrl"][@"manifest"]];
+        }
+        NSInteger isbool=[dictData[@"entity"][@"versionType"] integerValue];
+        
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        CFShow((__bridge CFTypeRef)(infoDictionary));
+        NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        NSString *version = dictData[@"entity"][@"version"];
+        
+        if (![appVersion isEqualToString:version]) {
+            if (isbool==3) {
+                
+                [self showUpdateAlertVCWithUpdateMsg:dictData[@"entity"][@"version"]];
+                
+            }else if (isbool==4){
+                
+                [self forcedUpdate];
+            }
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+    
+}
+
+-(void)forcedUpdate{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"有重要新版本更新" message:@"为了给您更好的体验/n请更新到最新版本" preferredStyle:UIAlertControllerStyleAlert];
+    [[self getCurrentVC] presentViewController:alert animated:YES completion:nil];
+    
+    [NSThread sleepForTimeInterval:3.0];
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:self.updateUrl]];
+}
+
+-(void)showUpdateAlertVCWithUpdateMsg:(NSString *)message{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"有新版本更新" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"去更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:self.updateUrl]];
+        
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"放弃更新" style:UIAlertActionStyleCancel handler:nil];
+    
+    [alert addAction:confirmAction];
+    [alert addAction:cancelAction];
+    [[self getCurrentVC] presentViewController:alert animated:YES completion:nil];
+    
 }
 
 

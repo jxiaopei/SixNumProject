@@ -25,6 +25,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"投票";
+    [self customBackBtn];
     [self setupTableView];
     
 }

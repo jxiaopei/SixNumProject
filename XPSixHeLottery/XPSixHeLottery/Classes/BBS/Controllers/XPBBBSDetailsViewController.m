@@ -31,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"热帖详情";
+    [self customBackBtn];
     self.view.backgroundColor = GlobalLightGreyColor;
     
     //注册通知,监听键盘弹出事件

@@ -29,6 +29,7 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.title = @"六合宝典";
+    [self customBackBtn];
     self.view.backgroundColor = GlobalLightGreyColor;
     [self setupCollectionView];
     

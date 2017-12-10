@@ -34,6 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self customBackBtn];
     _pageNum = 1;
     _attenPageNum = 1;
     [self setupTitleView];

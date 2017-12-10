@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"发表新帖";
+    [self customBackBtn];
     [self setupUI];
 }
 

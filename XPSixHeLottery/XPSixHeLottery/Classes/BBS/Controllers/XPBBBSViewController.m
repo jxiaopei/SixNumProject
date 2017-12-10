@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"论坛";
+    [self customBackBtn];
     [self setupTableView];
     [self setupTitleView];
     [self setupRightBtn];

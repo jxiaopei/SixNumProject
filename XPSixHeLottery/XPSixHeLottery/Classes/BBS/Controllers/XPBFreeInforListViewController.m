@@ -24,6 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"免费资料";
+    [self customBackBtn];
     [self setupTableView];
     _pageNum = 1;
     

@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _pageNum = 1;
-
+    [self customBackBtn];
     [self setupTitleView];
     [self setupTableView];
     [self getData];

@@ -40,6 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"属性参考";
+    [self customBackBtn];
     [self setupTitleView];
     [self setupScrollView];
     [self setupTableView];

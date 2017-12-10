@@ -16,9 +16,8 @@ typedef NS_ENUM(NSInteger,StatisticType){
     StatisNorColorType,           //波色正码
     StatisSpeMantissType,         //特码尾数
     StatisNorMantissType,         //正码尾数
-//    StatisNumPiecewiseType,       //号码波段
     
-};//    StatisNorSumType,             //正码总分     StatisDoubleOrSingleType,     //特码两面
+};
 
 @interface XPBStatisticsBarChartViewController : BPBaseViewController
 

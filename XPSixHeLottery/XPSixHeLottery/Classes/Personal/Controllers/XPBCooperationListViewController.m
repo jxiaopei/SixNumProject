@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
+    [self customBackBtn];
     [self getData];
 }
 

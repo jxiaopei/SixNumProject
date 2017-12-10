@@ -25,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"新闻详情";
+    [self customBackBtn];
     [self setupUI];
 }
 

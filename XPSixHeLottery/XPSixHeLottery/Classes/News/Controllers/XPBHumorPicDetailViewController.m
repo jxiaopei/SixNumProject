@@ -23,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self customBackBtn];
     _isAttention = NO;
     [self setupRightBtn];
     [self setupUI];
