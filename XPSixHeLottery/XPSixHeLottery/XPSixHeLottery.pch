@@ -14,7 +14,7 @@
 #import "Masonry.h"
 #import "SVProgressHUD.h"
 #import "UIColor+Hex.h"
-#import "UMMobClick/MobClick.h"
+//#import "UMMobClick/MobClick.h"
 #import "UMessage.h"
 #import "Helper.h"
 #import "BPNetRequest.h"

@@ -20,6 +20,20 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+//    NSDictionary *dict = @{
+//                           @"code_id" : @"160cdab4842f449a7b79c93920ff06a1",
+//                           };
+//    [[BPNetRequest getInstance] getJsonWithUrl:@"http://47.89.36.37:8088/config/generator-code" parameters:dict success:^(id responseObject) {
+//
+//        NSLog(@"%@",[responseObject mj_JSONString]);
+//
+//    } fail:^(NSError *error) {
+//
+//        NSLog(@"%@",error.description);
+// }];
+    
+    
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -29,21 +43,21 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:) name:@"UIApplicationDidEnterBackgroundNotification" object:nil];
     
     //友盟统计
-    [self UMMobstatistics];
+//    [self UMMobstatistics];
     //友盟推送
-    [self addUMessage:launchOptions];
+//    [self addUMessage:launchOptions];
     [LCCOllectionInfo getInfo];
 
     [[YYCache cacheWithName:CacheKey] setObject:@"Yes" forKey:@"signInStatus"];
     
-    [[BPBaseNetworkServiceTool shareServiceTool] httpDNSActionWithCompleteBlock:^{
+//    [[BPBaseNetworkServiceTool shareServiceTool] httpDNSActionWithCompleteBlock:^{
         [self.window setRootViewController:tabBarVC];
         [[BPBaseNetworkServiceTool shareServiceTool] getUpdateInfor];
-    } failureBlock:^{
-        [self.window setRootViewController:[BPBaseViewController new]];
-        [self exitAction];
-        [[BPBaseNetworkServiceTool shareServiceTool] getUpdateInfor];
-    }];
+//    } failureBlock:^{
+//        [self.window setRootViewController:[BPBaseViewController new]];
+//        [self exitAction];
+//        [[BPBaseNetworkServiceTool shareServiceTool] getUpdateInfor];
+//    }];
     
     return YES;
 }
@@ -60,73 +74,73 @@
 }
 
 
-- (void)addUMessage:(NSDictionary *)launchOptions {
-    
-    //初始化
-    [UMessage startWithAppkey:AppKey launchOptions:launchOptions];
-    //注册通知
-    [UMessage registerForRemoteNotifications];
-    NSString *verson = [UIDevice currentDevice].systemVersion;
-    
-    if(verson.doubleValue < 10.0)//通知在10.0之后做了调整
-    {
-        UIMutableUserNotificationAction *openAction = [UIMutableUserNotificationAction new];
-        openAction.identifier = @"openId";
-        openAction.title = @"打开应用";
-        openAction.activationMode = UIUserNotificationActivationModeForeground;
-        UIMutableUserNotificationAction *cancelAction = [UIMutableUserNotificationAction new];
-        cancelAction.identifier = @"cancelId";
-        cancelAction.title = @"忽略";
-        cancelAction.activationMode = UIUserNotificationActivationModeBackground;
-        cancelAction.authenticationRequired = YES; //解锁才能交互
-        cancelAction.destructive = YES;
-        UIMutableUserNotificationCategory *notificationCategory = [UIMutableUserNotificationCategory new];
-        notificationCategory.identifier = @"notificationCategory";
-        [notificationCategory setActions:@[openAction,cancelAction] forContext:UIUserNotificationActionContextDefault];
-        NSSet *category = [NSSet setWithObjects:notificationCategory,nil];
-        [UMessage registerForRemoteNotifications:category];
-    }else{
-        
-        //iOS10必须加下面这段代码。
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        //设置代理
-        center.delegate=(id)self;
-        //授权
-        UNAuthorizationOptions types10=UNAuthorizationOptionBadge|UNAuthorizationOptionAlert|UNAuthorizationOptionSound;
-        [center requestAuthorizationWithOptions:types10 completionHandler:^(BOOL granted, NSError * _Nullable error) {
-            if (granted) {
-                //点击允许
-                
-            } else {
-                //点击不允许
-            }
-        }];
-        
-        //为通知添加按钮
-        UNNotificationAction *openAct10 = [UNNotificationAction actionWithIdentifier:@"openAct10" title:@"打开应用" options:UNNotificationActionOptionForeground];
-        UNNotificationAction *cancelAct10 = [UNNotificationAction actionWithIdentifier:@"cancelAct10" title:@"忽略" options:UNNotificationActionOptionForeground];
-        //UNNotificationCategoryOptionNone
-        //UNNotificationCategoryOptionCustomDismissAction  清除通知被触发会走通知的代理方法
-        //UNNotificationCategoryOptionAllowInCarPlay       适用于行车模式
-        
-        UNNotificationCategory *notificationCategory10 = [UNNotificationCategory categoryWithIdentifier:@"notificationCategory10" actions:@[openAct10,cancelAct10]   intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
-        NSSet *category10 = [NSSet setWithObjects:notificationCategory10, nil];
-        [center setNotificationCategories:category10];
-        
-    }
-    
-}
+//- (void)addUMessage:(NSDictionary *)launchOptions {
+//
+//    //初始化
+//    [UMessage startWithAppkey:AppKey launchOptions:launchOptions];
+//    //注册通知
+//    [UMessage registerForRemoteNotifications];
+//    NSString *verson = [UIDevice currentDevice].systemVersion;
+//
+//    if(verson.doubleValue < 10.0)//通知在10.0之后做了调整
+//    {
+//        UIMutableUserNotificationAction *openAction = [UIMutableUserNotificationAction new];
+//        openAction.identifier = @"openId";
+//        openAction.title = @"打开应用";
+//        openAction.activationMode = UIUserNotificationActivationModeForeground;
+//        UIMutableUserNotificationAction *cancelAction = [UIMutableUserNotificationAction new];
+//        cancelAction.identifier = @"cancelId";
+//        cancelAction.title = @"忽略";
+//        cancelAction.activationMode = UIUserNotificationActivationModeBackground;
+//        cancelAction.authenticationRequired = YES; //解锁才能交互
+//        cancelAction.destructive = YES;
+//        UIMutableUserNotificationCategory *notificationCategory = [UIMutableUserNotificationCategory new];
+//        notificationCategory.identifier = @"notificationCategory";
+//        [notificationCategory setActions:@[openAction,cancelAction] forContext:UIUserNotificationActionContextDefault];
+//        NSSet *category = [NSSet setWithObjects:notificationCategory,nil];
+//        [UMessage registerForRemoteNotifications:category];
+//    }else{
+//
+//        //iOS10必须加下面这段代码。
+//        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+//        //设置代理
+//        center.delegate=(id)self;
+//        //授权
+//        UNAuthorizationOptions types10=UNAuthorizationOptionBadge|UNAuthorizationOptionAlert|UNAuthorizationOptionSound;
+//        [center requestAuthorizationWithOptions:types10 completionHandler:^(BOOL granted, NSError * _Nullable error) {
+//            if (granted) {
+//                //点击允许
+//
+//            } else {
+//                //点击不允许
+//            }
+//        }];
+//
+//        //为通知添加按钮
+//        UNNotificationAction *openAct10 = [UNNotificationAction actionWithIdentifier:@"openAct10" title:@"打开应用" options:UNNotificationActionOptionForeground];
+//        UNNotificationAction *cancelAct10 = [UNNotificationAction actionWithIdentifier:@"cancelAct10" title:@"忽略" options:UNNotificationActionOptionForeground];
+//        //UNNotificationCategoryOptionNone
+//        //UNNotificationCategoryOptionCustomDismissAction  清除通知被触发会走通知的代理方法
+//        //UNNotificationCategoryOptionAllowInCarPlay       适用于行车模式
+//
+//        UNNotificationCategory *notificationCategory10 = [UNNotificationCategory categoryWithIdentifier:@"notificationCategory10" actions:@[openAct10,cancelAct10]   intentIdentifiers:@[] options:UNNotificationCategoryOptionCustomDismissAction];
+//        NSSet *category10 = [NSSet setWithObjects:notificationCategory10, nil];
+//        [center setNotificationCategories:category10];
+//
+//    }
+//
+//}
 
--(void)UMMobstatistics
-{
-    [MobClick setLogEnabled:YES];
-    
-    UMConfigInstance.appKey = AppKey;
-    
-    UMConfigInstance.channelId = @"App Store";
-    
-    [MobClick startWithConfigure:UMConfigInstance];
-}
+//-(void)UMMobstatistics
+//{
+//    [MobClick setLogEnabled:YES];
+//
+//    UMConfigInstance.appKey = AppKey;
+//
+//    UMConfigInstance.channelId = @"App Store";
+//
+//    [MobClick startWithConfigure:UMConfigInstance];
+//}
 
 -(void)setupAnimationImage{
     
@@ -219,61 +233,61 @@
 
 
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    //关闭友盟自带的弹出框
-    [UMessage setAutoAlert:NO];
-    [UMessage didReceiveRemoteNotification:userInfo];
-    
-    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
-    {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:userInfo[@"aps"][@"alert"][@"title"] message:userInfo[@"aps"][@"alert"][@"body"]  preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        
-        [alert addAction:confirmAction];
-        
-        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
-        
-    }
-    
-    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",userInfo] forKey:@"UMPuserInfoNotification"];
-    
-}
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+//{
+//    //关闭友盟自带的弹出框
+//    [UMessage setAutoAlert:NO];
+//    [UMessage didReceiveRemoteNotification:userInfo];
+//
+//    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
+//    {
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:userInfo[@"aps"][@"alert"][@"title"] message:userInfo[@"aps"][@"alert"][@"body"]  preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//
+//        }];
+//
+//        [alert addAction:confirmAction];
+//
+//        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+//
+//    }
+//
+//    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",userInfo] forKey:@"UMPuserInfoNotification"];
+//
+//}
 
-//iOS10新增：处理前台收到通知的代理方法
--(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
-    NSDictionary * userInfo = notification.request.content.userInfo;
-    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-        [UMessage setAutoAlert:NO];
-        //应用处于前台时的远程推送接受
-        //必须加这句代码
-        [UMessage didReceiveRemoteNotification:userInfo];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",userInfo] forKey:@"UMPuserInfoNotification"];
-        
-    }else{
-        //应用处于前台时的本地推送接受
-    }
-    completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
-}
+////iOS10新增：处理前台收到通知的代理方法
+//-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+//    NSDictionary * userInfo = notification.request.content.userInfo;
+//    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+//        [UMessage setAutoAlert:NO];
+//        //应用处于前台时的远程推送接受
+//        //必须加这句代码
+//        [UMessage didReceiveRemoteNotification:userInfo];
+//
+//        [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",userInfo] forKey:@"UMPuserInfoNotification"];
+//
+//    }else{
+//        //应用处于前台时的本地推送接受
+//    }
+//    completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
+//}
 
-//iOS10新增：处理后台点击通知的代理方法
--(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
-    NSDictionary * userInfo = response.notification.request.content.userInfo;
-    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-        //应用处于后台时的远程推送接受
-        //必须加这句代码
-        [UMessage didReceiveRemoteNotification:userInfo];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",userInfo] forKey:@"UMPuserInfoNotification"];
-        
-    }else{
-        //应用处于后台时的本地推送接受
-    }
-    
-}
+////iOS10新增：处理后台点击通知的代理方法
+//-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
+//    NSDictionary * userInfo = response.notification.request.content.userInfo;
+//    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+//        //应用处于后台时的远程推送接受
+//        //必须加这句代码
+//        [UMessage didReceiveRemoteNotification:userInfo];
+//
+//        [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",userInfo] forKey:@"UMPuserInfoNotification"];
+//
+//    }else{
+//        //应用处于后台时的本地推送接受
+//    }
+//
+//}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

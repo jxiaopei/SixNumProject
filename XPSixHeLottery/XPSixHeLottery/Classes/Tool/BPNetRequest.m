@@ -47,7 +47,7 @@
     dispatch_once(&onceToken, ^{
         
         manager = [[AFHTTPSessionManager alloc]initWithBaseURL:nil];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html",@"text/javascript",nil];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/html",@"text/javascript",nil];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.requestSerializer  = [AFJSONRequestSerializer serializer];
         manager.requestSerializer.timeoutInterval = 20;
